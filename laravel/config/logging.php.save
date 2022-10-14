@@ -38,7 +38,7 @@ return [
     /*
     |--------------------------------------------------------------------------
     | Log Channels
-    |--------------------------------------------------------------------------
+'file', 'errorlog'    |--------------------------------------------------------------------------
     |
     | Here you may configure the log channels for your application. Out of
     | the box, Laravel uses the Monolog PHP logging library. This gives
@@ -53,11 +53,11 @@ return [
     'channels' => [
         'stack' => [
             'driver' => 'stack',
-            'channels' => ['file', 'errorlog'],
+            'channels' => ['single'],
             'ignore_exceptions' => false,
         ],
 
-        'file' => [
+        'single' => [
             'driver' => 'single',
             'path' => storage_path('logs/laravel.log'),
             'level' => env('LOG_LEVEL', 'debug'),
