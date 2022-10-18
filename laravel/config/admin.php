@@ -1,7 +1,7 @@
 <?php
 
 return [
-   'name'      => env('ADMIN_NAME', 'admin'),
-   'email'     => env('ADMIN_EMAIL', 'admin@localhost'),
-   'password'  => env('ADMIN_PASSWORD', 'admin1234'),
+   'name'      => env('ADMIN_NAME', '2daw03'),
+   'email'     => env('ADMIN_EMAIL', '2daw.equip03@fp.insjoaquimmir.cat'),
+   'password'  => env('ADMIN_PASSWORD', 'Pr0j3ct3!'),
 ];

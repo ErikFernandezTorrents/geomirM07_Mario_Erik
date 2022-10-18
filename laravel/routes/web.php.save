@@ -12,6 +12,7 @@ use App\Http\Controllers\MailController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+$request->user()->sendEmailVerificationNotification();
 
 Route::get('mail/test', [MailController::class, 'test']);
 
