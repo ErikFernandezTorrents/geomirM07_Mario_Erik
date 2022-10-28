@@ -17,12 +17,12 @@ class EnsureUserHasRole
     */
    public function handle(Request $request, Closure $next, $role)
    {
-       if (! in_array($user->hasRole($role),$roles)) {
-           $url = $request->url();
-           return redirect('home')
-               ->with('error', "Access denied to {$url}");
-       }
- 
-       return $next($request);
+        if ($request->user()->role_id != $role) {
+            $url = $request->url();
+            return redirect('home')
+                ->with('error', "Access denied to {$url}");
+        }
+
+        return $next($request);
    }
 }
