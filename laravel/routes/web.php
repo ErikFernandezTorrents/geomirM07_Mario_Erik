@@ -4,9 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MailController;
 use Illuminate\Http\Request;
 use App\Http\Controllers\FileController;
-
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\PlacesController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -42,10 +42,8 @@ Route::get('/', function (Request $request) {
  });
  Route::resource('files', FileController::class);
 
-
-
-
-
  Route::resource('files', FileController::class)
 ->middleware(['auth', 'role.any:2,3']);
 Route::resource('post', PostController::class);
+Route::resource('places', PlacesController::class);
+
