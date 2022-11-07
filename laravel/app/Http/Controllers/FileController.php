@@ -179,6 +179,6 @@ class FileController extends Controller
         } else {       
             return redirect()->route("files.index")
                 ->with('success', 'Fitxer eliminat correctament!');
-        }
+        }      
     }
 }

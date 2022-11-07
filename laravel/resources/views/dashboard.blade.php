@@ -17,5 +17,11 @@
     @section('content')
    <h2>{{ __('Resources') }}</h2>
    <a href="{{ url('/files') }}">{{ __('Files') }}</a>
+
+
+
+
+   
+   <a href="{{ url('/post') }}">{{ __('Post') }}</a>
     @endsection
 </x-app-layout>
