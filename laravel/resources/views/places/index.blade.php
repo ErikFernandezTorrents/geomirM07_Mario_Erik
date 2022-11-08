@@ -21,7 +21,7 @@
                            </tr>
                        </thead>
                        <tbody>
-                           @foreach ($places as $place)
+                           @foreach ($place as $place)
                            <tr>
                            <td><a href="{{ route('places.show',$place) }}">{{ $place->id }}</a></td>
                                <td>{{ $place->name }}</td>
@@ -36,6 +36,7 @@
                        </tbody>
                    </table>
                    <a class="btn btn-primary" href="{{ route('places.create') }}" role="button">Add new place</a>
+                   <a class="btn btn-primary" href="{{ url('/dashboard') }}" role="button">Home</a> 
                </div>
            </div>
        </div>

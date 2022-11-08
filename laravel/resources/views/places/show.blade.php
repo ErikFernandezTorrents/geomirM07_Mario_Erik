@@ -20,7 +20,7 @@
                        <tbody>
                            <tr>
                                <td scope="col">ID</td>
-                               <td>{{ $places->id }}</td>
+                               <td>{{ $place->id }}</td>
                             </tr>
                             <tr>
                                 <td scope="col">Author:</td>
@@ -28,44 +28,41 @@
                            </tr>
                             <tr>
                                <td scope="col">Created</td>
-                               <td>{{ $places->file_id }}</td>
+                               <td>{{ $place->file_id }}</td>
                            </tr>
                             <tr>
-                               <td scope="col">User</td>
-                               <td>{{ $places->user }}</td>
-                            </tr>
-                            <tr>
                                <td scope="col">Name</td>
-                               <td>{{ $places->name }}</td>
+                               <td>{{ $place->name }}</td>
                             </tr>
                             <tr>
                                <td scope="col">Description</td>
-                               <td>{{ $places->description }}</td>
+                               <td>{{ $place->description }}</td>
                             </tr>
                             <tr>
                                <td scope="col">Latitude</td>
-                               <td>{{ $places->latitude }}</td>
+                               <td>{{ $place->latitude }}</td>
                             </tr>
                             <tr>
                                <td scope="col">Longitude</td>
-                               <td>{{ $places->longitude }}</td>
+                               <td>{{ $place->longitude }}</td>
                             </tr>
                             <tr>
                                <td scope="col">Created</td>
-                               <td>{{ $places->created_at }}</td>
+                               <td>{{ $place->created_at }}</td>
                            </tr>
                            <tr>
                                <td scope="col">Updated</td>
-                               <td>{{ $places->updated_at }}</td>
+                               <td>{{ $place->updated_at }}</td>
                            </tr>
                            <tr>
                                 <td colspan="2" aling="center"><img class="img-fluid" src="{{ asset("storage/{$file->filepath}") }}" /></td>
                            </tr>
                        </tbody>
                        <tr>
-                            <td><a class="btn btn-primary" href="{{ route('places.edit',$places) }}" role="button">Editar</a></td>
+                            <td><a class="btn btn-primary" href="{{ route('places.edit',$place) }}" role="button">Editar</a></td>
+                            <td><a class="btn btn-primary" href="{{ route('places.index') }}" role="button">Index</a></td>
                             <td>
-                                <form method="post" action="{{ route('places.destroy',$places) }}" >
+                                <form method="post" action="{{ route('places.destroy',$place) }}" >
                                     @csrf     
                                     @method('DELETE')
                                             

@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Log;
-use App\Http\Controllers\PlacesController;
+use App\Http\Controllers\PlaceController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -40,10 +40,13 @@ Route::get('/', function (Request $request) {
     $request->session()->flash('info', $message);
     return view('welcome');
  });
- Route::resource('files', FileController::class);
 
- Route::resource('files', FileController::class)
-->middleware(['auth', 'role.any:2,3']);
-Route::resource('post', PostController::class);
-Route::resource('places', PlacesController::class);
+Route::resource('files', FileController::class)
+    ->middleware(['auth', 'role.any:1,2,3']);
+    
+Route::resource('posts', PostController::class)
+    ->middleware(['auth', 'role:2']);
+
+Route::resource('places', PlaceController::class)
+    ->middleware(['auth', 'role:2']);
 

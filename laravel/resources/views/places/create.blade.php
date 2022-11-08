@@ -7,7 +7,7 @@
             <div class="card">
                 <div class="card-header">{{ __(' Add new place') }}</div>
                 <div class="card-body">
-                    <form method="post" action="{{ route('places.store') }}" enctype="multipart/form-data">
+                    <form method="post" action="{{ route('place.store') }}" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
                             <label for="upload">Name:</label>

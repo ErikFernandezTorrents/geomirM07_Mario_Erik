@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Places;
+use App\Models\Place;
 use Illuminate\Http\Request;
 use App\Models\File;
 use App\Models\User;
 
-class PlacesController extends Controller
+class PlaceController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +17,7 @@ class PlacesController extends Controller
     public function index()
     {
         return view("places.index", [
-            "places" => Places::all()
+            "place" => Place::all()
         ]);
  
     }
@@ -83,7 +83,7 @@ class PlacesController extends Controller
 
             
             // Desar dades a BD
-            $places = Places::create([
+            $place = Place::create([
                 'name' => $name,
                 'description' => $description,
                 'latitude' => $latitude,
@@ -92,7 +92,7 @@ class PlacesController extends Controller
                 'author_id'=>$request->user()->id,
             
         ]);
-        return redirect()->route('places.show', $places)
+        return redirect()->route('places.show', $place)
         ->with('success', 'Place successfully saved');
         } else {
             \Log::debug("Local storage FAILS");
@@ -109,16 +109,16 @@ class PlacesController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Places  $places
+     * @param  \App\Models\Place  $place
      * @return \Illuminate\Http\Response
      */
-    public function show(Places $place)
+    public function show(Place $place)
     {
         $user=User::find($place->author_id);
         $file = File::find($place->file_id);
-        //if (\Storage::disk('public')->exists($places->filepath)) {
+        //if (\Storage::disk('public')->exists($place->filepath)) {
             return view("places.show", [
-                "places" => $place,
+                "place" => $place,
                 "file" => $file,
                 "user" => $user,
             ]);
@@ -132,14 +132,14 @@ class PlacesController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Places  $places
+     * @param  \App\Models\Place  $place
      * @return \Illuminate\Http\Response
      */
-    public function edit(Places $place)
+    public function edit(Place $place)
     {
         $file = File::find($place->file_id);
         return view("places.edit", [
-            "places" => $place,
+            "place" => $place,
             "file" => $file,
         ]);
     }
@@ -148,10 +148,10 @@ class PlacesController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Places  $places
+     * @param  \App\Models\Place  $place
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Places $places)
+    public function update(Request $request, Place $place)
     {
         $validatedData = $request->validate([
             'upload' => 'required|mimes:gif,jpeg,jpg,png|max:1024'
@@ -164,7 +164,8 @@ class PlacesController extends Controller
                 'longitude' => 'required'
             ]);
 
-        $file=File::find($places->file_id);
+        $file=File::find($place->file_id);
+        \Log::debug("ID file:" . $place->files_id);
 
         // Obtenir dades del fitxer
         
@@ -191,7 +192,7 @@ class PlacesController extends Controller
 
         if (\Storage::disk('public')->exists($filePath)) {
             if(!$control){
-            \Storage::disk('public')->delete($file->filepath);
+            \Storage::disk('public')->delete($filePath);
             \Log::debug("Local storage OK");
             $fullPath = \Storage::disk('public')->path($filePath);
             \Log::debug("File saved at {$fullPath}");
@@ -201,15 +202,15 @@ class PlacesController extends Controller
             $file -> filePath = $filePath;
             $file -> fileSize = $fileSize;
             $file->save();
-            $places->name = $request->input('name');
-            $places->description = $request->input('description');
-            $places->latitude = $request->input('latitude');
-            $places->longitude = $request->input('longitude');
-            $places->save();
+            $place->name = $request->input('name');
+            $place->description = $request->input('description');
+            $place->latitude = $request->input('latitude');
+            $place->longitude = $request->input('longitude');
+            $place->save();
             \Log::debug("DB storage OK");
 
             // Patró PRG amb missatge d'èxit
-            return redirect()->route('places.show', $places)
+            return redirect()->route('places.show', $place)
                 ->with('success', 'Place successfully saved');
         } else {
             \Log::debug("Local storage FAILS");
@@ -223,10 +224,10 @@ class PlacesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Places  $places
+     * @param  \App\Models\Place  $place
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Places $place)
+    public function destroy(Place $place)
     {
         $file=File::find($place->file_id);
 
@@ -243,20 +244,20 @@ class PlacesController extends Controller
         return redirect()->route('places.show', $place)
         ->with('error', 'Error place alredy exist');
         } else {
-        \Log::debug("place Delete");
+        \Log::debug("places Delete");
         // Patró PRG amb missatge d'error
         return redirect()->route("places.index")
-        ->with('succes', 'place Deleted');
+        ->with('succes', 'places Deleted');
         }
         // $file = File::find($place->file_id);
 
         // if (\Storage::disk('public')->exists($file->filepath)) {
         //     File::destroy($file->id);
-        //     Places::destroy($place->id);
-        //     return redirect()->route('places.show', $place)
+        //     place::destroy($place->id);
+        //     return redirect()->route('place.show', $place)
         //         ->with('error', 'ERROR el Lloc encara existeix al disc');
         // } else {       
-        //     return redirect()->route("places.index")
+        //     return redirect()->route("place.index")
         //         ->with('success', 'LLoc eliminat correctament!');
         // }
     }

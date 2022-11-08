@@ -30,6 +30,7 @@
                        </tbody>
                    </table>
                    <a class="btn btn-primary" href="{{ route('files.create') }}" role="button">Add new file</a>
+                   <a class="btn btn-primary" href="{{ url('/dashboard') }}" role="button">Home</a>
                </div>
            </div>
        </div>

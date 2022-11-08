@@ -18,9 +18,9 @@
    <h2>{{ __('Resources') }}</h2>
    <a href="{{ url('/files') }}">{{ __('Files') }}</a>
    
-   <a href="{{ url('/post') }}">{{ __('Post') }}</a>
+   <a href="{{ url('/posts') }}">{{ __('Post') }}</a>
 
-   <a href="{{ url('/places') }}">{{ __('Places') }}</a>
+   <a href="{{ url('/places') }}">{{ __('Place') }}</a>
 
     @endsection
 

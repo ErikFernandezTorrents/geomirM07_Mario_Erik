@@ -16,8 +16,9 @@ return new class extends Migration
         Schema::create('places', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('descripcion');
-            $table->integer('file_id');
+            $table->string('description');
+            $table->unsignedBigInteger('file_id');
+            $table->foreign('file_id')->references('id')->on('files');
             $table->string('latitude');
             $table->string('longitude');
             // $table->integer('category_id')->nullable;

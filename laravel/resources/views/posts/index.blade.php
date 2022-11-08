@@ -18,9 +18,9 @@
                            </tr>
                        </thead>
                        <tbody>
-                           @foreach ($post as $post)
+                           @foreach ($posts as $post)
                            <tr>
-                           <td><a href="{{ route('post.show',$post) }}">{{ $post->id }}</a></td>
+                           <td><a href="{{ route('posts.show',$post) }}">{{ $post->id }}</a></td>
                                <td>{{ $post->body }}</td>
                                <td>{{ $post->latitude }}</td>
                                <td>{{ $post->longitud }}</td>
@@ -29,7 +29,8 @@
                            @endforeach
                        </tbody>
                    </table>
-                   <a class="btn btn-primary" href="{{ route('post.create') }}" role="button">Add new post</a>
+                   <a class="btn btn-primary" href="{{ route('posts.create') }}" role="button">Add new post</a>
+                   <a class="btn btn-primary" href="{{ url('/dashboard') }}" role="button">Home</a>
                </div>
            </div>
        </div>
