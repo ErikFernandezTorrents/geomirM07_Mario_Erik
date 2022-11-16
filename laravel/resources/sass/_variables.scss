@@ -1,7 +1,14 @@
+
 // Body
-$body-bg: #f8fafc;
+$body-bg: #e6e5db;
 
 // Typography
 $font-family-sans-serif: 'Nunito', sans-serif;
 $font-size-base: 0.9rem;
 $line-height-base: 1.6;
+
+$primary: #694abb;
+
+.card-header {
+    text-align: center;
+}

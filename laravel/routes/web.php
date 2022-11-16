@@ -7,6 +7,7 @@ use App\Http\Controllers\FileController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\PlaceController;
+use App\Http\Controllers\HomeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -39,14 +40,15 @@ Route::get('/', function (Request $request) {
     Log::info($message);
     $request->session()->flash('info', $message);
     return view('welcome');
- });
+});
 
 Route::resource('files', FileController::class)
-    ->middleware(['auth', 'role.any:1,2,3']);
+    ->middleware(['auth', 'permission:files']);
     
 Route::resource('posts', PostController::class)
-    ->middleware(['auth', 'role:2']);
+    ->middleware(['auth', 'permission:places']);
 
 Route::resource('places', PlaceController::class)
-    ->middleware(['auth', 'role:2']);
+    ->middleware(['auth', 'permission:posts']);
 
+Route::get('/language/{locale}', [App\Http\Controllers\HomeController::class, 'language']);

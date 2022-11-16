@@ -30,6 +30,31 @@ class PlaceCrudController extends CrudController
         CRUD::setRoute(config('backpack.base.route_prefix') . '/place');
         CRUD::setEntityNameStrings('place', 'places');
         $this->crud->denyAccess(['create', 'delete','update']);
+        if (backpack_user()->hasPermissionTo('places.list','web')) {
+            CRUD::allowAccess('list');
+        }else{
+            CRUD::denyAccess('list');
+        }
+        if (backpack_user()->hasPermissionTo('places.create','web')) {
+            CRUD::allowAccess('create');
+        }else{
+            CRUD::denyAccess('create');
+        }
+        if (backpack_user()->hasPermissionTo('places.update','web')) {
+            CRUD::allowAccess('update');
+        }else{
+            CRUD::denyAccess('update');
+        }
+        if (backpack_user()->hasPermissionTo('places.read','web')) {
+            CRUD::allowAccess('read');
+        }else{
+            CRUD::denyAccess('read');
+        }
+        if (backpack_user()->hasPermissionTo('places.delete','web')) {
+            CRUD::allowAccess('delete');
+        }else{
+            CRUD::denyAccess('delete');
+        }
     }
 
     /**
@@ -49,11 +74,6 @@ class PlaceCrudController extends CrudController
         CRUD::column('visibility_id');
         CRUD::column('author_id');
 
-        /**
-         * Columns can be defined using the fluent syntax or array syntax:
-         * - CRUD::column('price')->type('number');
-         * - CRUD::addColumn(['name' => 'price', 'type' => 'number']); 
-         */
     }
 
     /**
@@ -76,7 +96,7 @@ class PlaceCrudController extends CrudController
         CRUD::field('author_id');
 
         /**
-         * Fields can be defined using the fluent syntax or array syntax:
+         * Fields hasPermissionTo be defined using the fluent syntax or array syntax:
          * - CRUD::field('price')->type('number');
          * - CRUD::addField(['name' => 'price', 'type' => 'number'])); 
          */

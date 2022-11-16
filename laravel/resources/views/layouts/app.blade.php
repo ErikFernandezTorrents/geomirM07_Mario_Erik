@@ -35,6 +35,8 @@
                     </ul>
 
                     <!-- Right Side Of Navbar -->
+                    @include('partials.language-switcher')
+
                     <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->
                         @guest
@@ -74,6 +76,7 @@
         </nav>
 
         <main class="py-4">
+            @include('partials.flash')
             @yield('content')
         </main>
     </div>
