@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Requests\PlaceRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use Illuminate\Support\Facades\Log;
 
 /**
  * Class PlaceCrudController
@@ -30,27 +31,28 @@ class PlaceCrudController extends CrudController
         CRUD::setRoute(config('backpack.base.route_prefix') . '/place');
         CRUD::setEntityNameStrings('place', 'places');
         $this->crud->denyAccess(['create', 'delete','update']);
-        if (backpack_user()->hasPermissionTo('places.list','web')) {
+        if (backpack_user()->hasPermissionTo('places.list')) {
             CRUD::allowAccess('list');
         }else{
             CRUD::denyAccess('list');
         }
-        if (backpack_user()->hasPermissionTo('places.create','web')) {
+
+        if (backpack_user()->hasPermissionTo('places.create')) {
             CRUD::allowAccess('create');
         }else{
             CRUD::denyAccess('create');
         }
-        if (backpack_user()->hasPermissionTo('places.update','web')) {
+        if (backpack_user()->hasPermissionTo('places.update')) {
             CRUD::allowAccess('update');
         }else{
             CRUD::denyAccess('update');
         }
-        if (backpack_user()->hasPermissionTo('places.read','web')) {
+        if (backpack_user()->hasPermissionTo('places.read')) {
             CRUD::allowAccess('read');
         }else{
             CRUD::denyAccess('read');
         }
-        if (backpack_user()->hasPermissionTo('places.delete','web')) {
+        if (backpack_user()->hasPermissionTo('places.delete')) {
             CRUD::allowAccess('delete');
         }else{
             CRUD::denyAccess('delete');

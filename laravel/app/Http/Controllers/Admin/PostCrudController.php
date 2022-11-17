@@ -30,27 +30,27 @@ class PostCrudController extends CrudController
         CRUD::setRoute(config('backpack.base.route_prefix') . '/post');
         CRUD::setEntityNameStrings('post', 'posts');
         $this->crud->denyAccess(['create', 'delete','update']);
-        if (!backpack_user()->hasPermissionTo('posts.list','web')) {
+        if (!backpack_user()->hasPermissionTo('posts.list')) {
             CRUD::allowAccess('list');
         }else{
             CRUD::denyAccess('list');
         }
-        if (backpack_user()->hasPermissionTo('posts.create','web')) {
+        if (backpack_user()->hasPermissionTo('posts.create')) {
             CRUD::allowAccess('create');
         }else{
             CRUD::denyAccess('create');
         }
-        if (backpack_user()->hasPermissionTo('posts.update','web')) {
+        if (backpack_user()->hasPermissionTo('posts.update')) {
             CRUD::allowAccess('update');
         }else{
             CRUD::denyAccess('update');
         }
-        if (backpack_user()->hasPermissionTo('posts.read','web')) {
+        if (backpack_user()->hasPermissionTo('posts.read')) {
             CRUD::allowAccess('read');
         }else{
             CRUD::denyAccess('read');
         }
-        if (backpack_user()->hasPermissionTo('posts.delete','web')) {
+        if (backpack_user()->hasPermissionTo('posts.delete')) {
             CRUD::allowAccess('delete');
         }else{
             CRUD::denyAccess('delete');

@@ -27,27 +27,27 @@ class UserCrudController extends PM_UserCrudController
     public function setup()
     {
         parent::setup();
-        if (backpack_user()->hasPermissionTo('users.list','web')) {
+        if (backpack_user()->hasPermissionTo('users.list')) {
             CRUD::allowAccess('list');
         }else{
             CRUD::denyAccess('list');
         }
-        if (backpack_user()->hasPermissionTo('users.create','web')) {
+        if (backpack_user()->hasPermissionTo('users.create')) {
             CRUD::allowAccess('create');
         }else{
             CRUD::denyAccess('create');
         }
-        if (backpack_user()->hasPermissionTo('users.update','web')) {
+        if (backpack_user()->hasPermissionTo('users.update')) {
             CRUD::allowAccess('update');
         }else{
             CRUD::denyAccess('update');
         }
-        if (backpack_user()->hasPermissionTo('users.read','web')) {
+        if (backpack_user()->hasPermissionTo('users.read')) {
             CRUD::allowAccess('read');
         }else{
             CRUD::denyAccess('read');
         }
-        if (backpack_user()->hasPermissionTo('users.delete','web')) {
+        if (backpack_user()->hasPermissionTo('users.delete')) {
             CRUD::allowAccess('delete');
         }else{
             CRUD::denyAccess('delete');

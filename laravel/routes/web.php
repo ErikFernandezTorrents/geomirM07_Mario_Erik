@@ -8,6 +8,7 @@ use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\PlaceController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LanguageController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -51,4 +52,4 @@ Route::resource('posts', PostController::class)
 Route::resource('places', PlaceController::class)
     ->middleware(['auth', 'permission:posts']);
 
-Route::get('/language/{locale}', [App\Http\Controllers\HomeController::class, 'language']);
+Route::get('/language/{locale}', [App\Http\Controllers\LanguageController::class, 'language']);

@@ -6,6 +6,9 @@ use Closure;
 use Illuminate\Http\Request;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\App;
+
 class Localization
 {
     public function handle(Request $request, Closure $next)
