@@ -12,3 +12,23 @@ $primary: #694abb;
 .card-header {
     text-align: center;
 }
+.bodyWelcome{
+    background-image: url("../images/City.jpg");
+    height: 100%;
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+#app{
+    background-image: url("../images/City.jpg");
+}
+.navbar-brand{
+    font-family:Arial, Helvetica, sans-serif ;
+    font-size: 21px;
+    font-style:bold;
+}
+.logo{
+    float: left;
+    width: 14%;
+}
