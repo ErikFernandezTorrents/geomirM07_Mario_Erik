@@ -9,7 +9,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>Geo-Mir</title>
-    <link rel='icon' href="../images/logo_geomir.ico"></link>
+    <link rel='icon' href="../../images/"></link>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -18,11 +18,11 @@
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
-<body>
+<body class="bodyApp">
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-light backgroundNav  shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}"><img class="logo"src="../images/logo_geomir.png"></img></a>
+                <a class="navbar-brand" href="{{ url('/dashboard') }}"><img class="logo"src="../images/logo_geomir.png"></img></a>
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -40,15 +40,9 @@
                     <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->
                         @guest
-                            @if (Route::has('login'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                </li>
-                            @endif
-
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a class="navLink" href="{{ route('register') }}">{{ __('Register') }}</a>
                                 </li>
                             @endif
                         @else
@@ -74,9 +68,7 @@
                 </div>
             </div>
         </nav>
-
         <main class="py-4">
-            @include('partials.flash')
             @yield('content')
         </main>
     </div>

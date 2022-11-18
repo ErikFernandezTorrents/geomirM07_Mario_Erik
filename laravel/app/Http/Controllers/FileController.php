@@ -68,12 +68,12 @@ class FileController extends Controller
             ]);
             \Log::debug("DB storage OK");
             // Patró PRG amb missatge d'èxit
-            return redirect()->route('places.show', $file)
+            return redirect()->route('files.show', $file)
                 ->with('success', 'Place successfully saved');
         } else {
             \Log::debug("Local storage FAILS");
             // Patró PRG amb missatge d'error
-            return redirect()->route("places.create")
+            return redirect()->route("files.create")
                 ->with('error', 'ERROR uploading place');
         }
 

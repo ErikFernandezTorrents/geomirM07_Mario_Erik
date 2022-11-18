@@ -88,8 +88,6 @@ return [
         'es' => 'Castellano',
         'en' => 'English',
     ],
-    'fallback_locale' => 'en', 
-
     /*
     |--------------------------------------------------------------------------
     | Application Fallback Locale

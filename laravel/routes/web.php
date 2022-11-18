@@ -40,7 +40,7 @@ Route::get('/', function (Request $request) {
     $message = 'Loading welcome page';
     Log::info($message);
     $request->session()->flash('info', $message);
-    return view('welcome');
+    return view('auth/login');
 });
 
 Route::resource('files', FileController::class)
@@ -52,4 +52,4 @@ Route::resource('posts', PostController::class)
 Route::resource('places', PlaceController::class)
     ->middleware(['auth', 'permission:posts']);
 
-Route::get('/language/{locale}', [App\Http\Controllers\LanguageController::class, 'language']);
+Route::get('/language/{locale}', [LanguageController::class, 'language']);
