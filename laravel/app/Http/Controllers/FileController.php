@@ -69,12 +69,12 @@ class FileController extends Controller
             \Log::debug("DB storage OK");
             // Patró PRG amb missatge d'èxit
             return redirect()->route('files.show', $file)
-                ->with('success', 'Place successfully saved');
+                ->with('success', __('File successfully saved'));
         } else {
             \Log::debug("Local storage FAILS");
             // Patró PRG amb missatge d'error
             return redirect()->route("files.create")
-                ->with('error', 'ERROR uploading place');
+                ->with('error', __('ERROR uploading place'));
         }
 
     }
@@ -152,12 +152,12 @@ class FileController extends Controller
             \Log::debug("DB storage OK");
             // Patró PRG amb missatge d'èxit
             return redirect()->route('files.show', $file)
-                ->with('success', 'File successfully saved');
+                ->with('success', __('File successfully saved'));
         } else {
             \Log::debug("Local storage FAILS");
             // Patró PRG amb missatge d'error
             return redirect()->route("files.edit")
-                ->with('error', 'ERROR uploading file');
+                ->with('error', __('ERROR uploading file'));
         }
     }
 
@@ -175,10 +175,10 @@ class FileController extends Controller
         if (\Storage::disk('public')->exists($file->filepath)) {
             
             return redirect()->route('files.show', $file)
-                ->with('error', 'ERROR el fitxer encara existeix al disc');
+                ->with('error', __('ERROR the file already exists'));
         } else {       
             return redirect()->route("files.index")
-                ->with('success', 'Fitxer eliminat correctament!');
+                ->with('success', __('File successfully deleted'));
         }      
     }
 }

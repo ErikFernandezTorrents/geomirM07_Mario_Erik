@@ -11,3 +11,6 @@
    @endforeach
    </ul>       
 </div>
+<script>
+   const currentLocale = {{ Js::from($currentLocale) }};
+</script>

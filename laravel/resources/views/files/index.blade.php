@@ -10,7 +10,7 @@
                    <table class="table">
                        <thead>
                            <tr>
-                               <td scope="col">ID</td>
+                               <td scope="col">__('fields.file_id')</td>
                                <td scope="col">Filepath</td>
                                <td scope="col">Filesize</td>
                                <td scope="col">Created</td>

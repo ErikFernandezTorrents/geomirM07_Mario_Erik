@@ -1,4 +1,4 @@
-@include('flash')
+
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
@@ -72,6 +72,7 @@
             <a href="{{ url('/places') }}">{{ __('Place') }}</a>
         </nav>
         <main id="main">
+            @include('flash')
             @yield('content')
         </main>
     </div>

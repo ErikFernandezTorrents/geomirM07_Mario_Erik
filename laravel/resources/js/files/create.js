@@ -1,5 +1,5 @@
 // Load our customized validationjs library
-import Validator from '../validatorjs'
+import Validator from '../validators'
  
 // Submit form ONLY when validation is OK
 const form = document.getElementById("create")
@@ -25,7 +25,8 @@ form.addEventListener("submit", function( event ) {
        console.log(errors)
        // Show error messages
        for(let inputName in errors) {
-           // ...
+           var error = document.querySelector('#alert');
+           error.innerHTML= "Error, no has introduit un fitxer";
        }
        // Avoid submit
        event.preventDefault()

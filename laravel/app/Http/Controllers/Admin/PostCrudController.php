@@ -90,11 +90,11 @@ class PostCrudController extends CrudController
     {
         CRUD::setValidation(PostRequest::class);
 
-        CRUD::field('body');
-        CRUD::field('file_id');
-        CRUD::field('latitude');
-        CRUD::field('longitude');
-        CRUD::field('author_id');
+        CRUD::field('body')->label(__('fields.body'));
+        CRUD::field('file_id')->label(__('fields.file_id'));
+        CRUD::field('latitude')->label(__('fields.latitude'));
+        CRUD::field('longitude')->label(__('fields.longitude'));
+        CRUD::field('author_id')->label(__('fields.author_id'));
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:
