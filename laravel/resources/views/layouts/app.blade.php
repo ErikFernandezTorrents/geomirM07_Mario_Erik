@@ -37,12 +37,12 @@
                     <!-- Right Side Of Navbar -->
                     
                     @include('partials.language-switcher')
-                    <ul class="navbar-nav ms-auto">
+                    <ul class="navbar-nav ms-auto"  data-animation="center">
                         <!-- Authentication Links -->
                         @guest
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="navLink" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a class="navLink fontRegister" href="{{ route('register') }}">{{ __('Register') }}</a>
                                 </li>
                             @endif
                         @else
@@ -67,8 +67,11 @@
                     </ul>
                 </div>
             </div>
+            <a href="{{ url('/files') }}">{{ __('Files') }}</a>
+            <a href="{{ url('/posts') }}">{{ __('Post') }}</a>
+            <a href="{{ url('/places') }}">{{ __('Place') }}</a>
         </nav>
-        <main class="py-4">
+        <main id="main">
             @yield('content')
         </main>
     </div>
