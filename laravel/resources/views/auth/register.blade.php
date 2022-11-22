@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-<div id="containerLogin">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="divLogin card">
+<div class="containerLogin">
+    <div class="rowLogin justify-content-center">
+        <div class="col">
+            <div class="divLogin ">
 
                 <div class="login">
                     <form method="POST" action="{{ route('register') }}">
@@ -61,7 +61,7 @@
                         </div>
 
                         <div class="row mb-0">
-                            <div class="col-md-6 offset-md-4">
+                            <div class="col-md-6 marginRegister">
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Register') }}
                                 </button>

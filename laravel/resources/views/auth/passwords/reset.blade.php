@@ -1,19 +1,19 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Reset Password') }}</div>
+<div class="containerLogin">
+    <div class="rowLogin justify-content-center">
+        <div class="loginContainer">
+            <div class="divLogin">
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('password.update') }}">
+                <div class="login">
+                    <form id="form" method="POST" action="{{ route('password.update') }}">
                         @csrf
 
                         <input type="hidden" name="token" value="{{ $token }}">
 
                         <div class="row mb-3">
+                            <div class="loginHeader">{{ __('Reset Password') }}</div>
                             <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
 
                             <div class="col-md-6">

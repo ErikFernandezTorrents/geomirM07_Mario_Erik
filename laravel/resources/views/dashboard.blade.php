@@ -14,14 +14,4 @@
             </div>
         </div>
     </div>
-    @section('content')
-   <h2>{{ __('Resources') }}</h2>
-   <a href="{{ url('/files') }}">{{ __('Files') }}</a>
-   
-   <a href="{{ url('/posts') }}">{{ __('Post') }}</a>
-
-   <a href="{{ url('/places') }}">{{ __('Place') }}</a>
-
-    @endsection
-
 </x-app-layout>

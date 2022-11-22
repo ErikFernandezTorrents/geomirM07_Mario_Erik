@@ -1,4 +1,4 @@
-
+@include('flash')
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
@@ -20,8 +20,8 @@
 </head>
 <body class="bodyApp">
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light backgroundNav  shadow-sm">
-            <div class="container">
+        <nav class="navbar navbar-expand-md  backgroundNav">
+            <div class="containerNav">
                 <a class="navbar-brand" href="{{ url('/dashboard') }}"><img class="logo"src="../images/logo_geomir.png"></img></a>
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -30,10 +30,20 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
-
-                    </ul>
-
+                            <div id="botoneraContainer">
+                                <ul class="botonera" data-animation="center">
+                                    <li class="ms-auto botons">
+                                        <a class="navLink" href="{{ url('/files') }}">{{ __('Files') }}</a>
+                                    </li>
+                                    <li class=" ms-auto botons">
+                                        <a class="navLink" href="{{ url('/posts') }}">{{ __('Post') }}</a>
+                                    </li>
+                                    <li class="ms-auto botons">
+                                        <a class="navLink" href="{{ url('/places') }}">{{ __('Place') }}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        
                     <!-- Right Side Of Navbar -->
                     
                     @include('partials.language-switcher')
@@ -67,12 +77,8 @@
                     </ul>
                 </div>
             </div>
-            <a href="{{ url('/files') }}">{{ __('Files') }}</a>
-            <a href="{{ url('/posts') }}">{{ __('Post') }}</a>
-            <a href="{{ url('/places') }}">{{ __('Place') }}</a>
         </nav>
         <main id="main">
-            @include('flash')
             @yield('content')
         </main>
     </div>
