@@ -9,4 +9,8 @@ return [
     'visibility_id' => 'Id Visibilidad',
     'author_id' => 'Id autor',
     'body' => 'Cuerpo',
+    'Filepath' => 'Ruta arxiu',
+    'Filesize' => 'Mida arxiu',
+    'Created' => 'Creat',
+    'Uploated' => 'Editat',
  ];

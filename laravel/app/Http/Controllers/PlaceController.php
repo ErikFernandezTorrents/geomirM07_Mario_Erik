@@ -89,7 +89,7 @@ class PlaceController extends Controller
                 'latitude' => $latitude,
                 'longitude' => $longitude,
                 'file_id' => $file->id,
-                'author_id'=>$request->user()->id,
+                'author_id'=>auth()->user()->id,
             
         ]);
         return redirect()->route('places.show', $place)
@@ -137,11 +137,16 @@ class PlaceController extends Controller
      */
     public function edit(Place $place)
     {
-        $file = File::find($place->file_id);
-        return view("places.edit", [
-            "place" => $place,
-            "file" => $file,
-        ]);
+        if ( auth()->user()->id == $place->author_id){ 
+            return view("places.edit", [
+                "place" => $place,
+                "file" => $place->file,
+            ]);
+        }
+        else{
+            return redirect()->back()
+                ->with('error',__('You are not the author of the place'));
+        }
     }
 
     /**
@@ -229,36 +234,32 @@ class PlaceController extends Controller
      */
     public function destroy(Place $place)
     {
-        $file=File::find($place->file_id);
+        if ( auth()->user()->id == $place->author_id){ 
+            $file=File::find($place->file_id);
 
-        \Storage::disk('public')->delete($place->id);
-        $place->delete();
+            \Storage::disk('public')->delete($place->id);
+            $place->delete();
 
 
-        \Storage::disk('public')->delete($file->filepath);
-        $file->delete();
+            \Storage::disk('public')->delete($file->filepath);
+            $file->delete();
 
-        if (\Storage::disk('public')->exists($place->id)) {
-        \Log::debug("Local storage OK");
+            if (\Storage::disk('public')->exists($place->id)) {
+            \Log::debug("Local storage OK");
 
-        return redirect()->route('places.show', $place)
-        ->with('error', 'Error place alredy exist');
-        } else {
-        \Log::debug("places Delete");
-        // Patró PRG amb missatge d'error
-        return redirect()->route("places.index")
-        ->with('succes', 'places Deleted');
+            return redirect()->route('places.show', $place)
+            ->with('error', 'Error place alredy exist');
+            } else {
+            \Log::debug("places Delete");
+            // Patró PRG amb missatge d'error
+            return redirect()->route("places.index")
+            ->with('succes', 'places Deleted');
+            }
+        
         }
-        // $file = File::find($place->file_id);
-
-        // if (\Storage::disk('public')->exists($file->filepath)) {
-        //     File::destroy($file->id);
-        //     place::destroy($place->id);
-        //     return redirect()->route('place.show', $place)
-        //         ->with('error', 'ERROR el Lloc encara existeix al disc');
-        // } else {       
-        //     return redirect()->route("place.index")
-        //         ->with('success', 'LLoc eliminat correctament!');
-        // }
+        else{
+            return redirect()->back()
+                ->with('error',__('You are not the author of the place'));
+        }
     }
 }

@@ -10,11 +10,11 @@
                    <table class="table">
                        <thead>
                            <tr>
-                               <td scope="col">__('fields.file_id')</td>
-                               <td scope="col">Filepath</td>
-                               <td scope="col">Filesize</td>
-                               <td scope="col">Created</td>
-                               <td scope="col">Updated</td>
+                               <td scope="col">{{__('fields.file_id')}}</td>
+                               <td scope="col">{{__('fields.Filepath')}}</td>
+                               <td scope="col">{{__('fields.Filesize')}}</td>
+                               <td scope="col">{{__('fields.Created')}}</td>
+                               <td scope="col">{{__('fields.Uploated')}}</td>
                            </tr>
                        </thead>
                        <tbody>

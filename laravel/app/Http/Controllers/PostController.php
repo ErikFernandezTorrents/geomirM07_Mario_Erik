@@ -116,7 +116,7 @@ class PostController extends Controller
             'post' => $post,
             'file' => $file,
             'user' => $user
-        ]);  
+        ]);
     }
 
     /**
@@ -127,11 +127,16 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        $file=File::find("$post->file_id");
-        return view("posts.edit", [
-            'post' => $post,
-            'file' => $file,   
-        ]);
+        if ( auth()->user()->id == $post->author_id){ 
+            return view("posts.edit", [
+                'post' => $post,
+                'file' => $post->file,   
+            ]);
+        }
+        else{
+            return redirect()->back()
+                ->with('error',__('You are not the author of the post'));
+        }
     }
 
     /**

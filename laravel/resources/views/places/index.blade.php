@@ -10,14 +10,14 @@
                    <table class="table">
                        <thead>
                            <tr>
-                               <td scope="col">ID</td>
-                               <td scope="col">Name</td>
-                               <td scope="col">Description</td>
-                               <td scope="col">File id</td>
-                               <td scope="col">Latitude</td>
-                               <td scope="col">Longitude</td>
-                               <td scope="col">Crated</td>
-                               <td scope="col">Updated</td>
+                               <td scope="col">{{__('fields.file_id')}}</td>
+                               <td scope="col">{{__('fields.name')}}</td>
+                               <td scope="col">{{__('fields.description')}}</td>
+                               <td scope="col">{{__('fields.file_id')}}</td>
+                               <td scope="col">{{__('fields.latitude')}}</td>
+                               <td scope="col">{{__('fields.longitude')}}</td>
+                               <td scope="col">{{__('fields.created')}}</td>
+                               <td scope="col">{{__('fields.uploated')}}</td>
                            </tr>
                        </thead>
                        <tbody>
