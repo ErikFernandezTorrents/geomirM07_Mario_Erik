@@ -55,6 +55,10 @@
                                <td>{{ $place->updated_at }}</td>
                            </tr>
                            <tr>
+                               <td scope="col">Visibiliry</td>
+                               <td>{{ $place->visibility_id }}</td>
+                           </tr>
+                           <tr>
                                 <td colspan="2" aling="center"><img class="img-fluid" src="{{ asset("storage/{$file->filepath}") }}" /></td>
                            </tr>
                        </tbody>

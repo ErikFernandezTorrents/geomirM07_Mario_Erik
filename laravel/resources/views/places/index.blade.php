@@ -18,6 +18,7 @@
                                <td scope="col">{{__('fields.longitude')}}</td>
                                <td scope="col">{{__('fields.created')}}</td>
                                <td scope="col">{{__('fields.uploated')}}</td>
+                               <td scope="col">{{__('Visibiliry')}}</td>
                            </tr>
                        </thead>
                        <tbody>
@@ -31,6 +32,7 @@
                                <td>{{ $place->longitude }}</td>
                                <td>{{ $place->created_at }}</td>
                                <td>{{ $place->updated_at }}</td>
+                               <td>{{ $place->visibility_id }}</td>
                            </tr>
                            @endforeach
                        </tbody>

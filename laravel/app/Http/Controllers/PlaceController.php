@@ -49,13 +49,19 @@ class PlaceController extends Controller
             'name' => 'required',
             'description' => 'required',
             'latitude' => 'required',
-            'longitude' => 'required'
+            'longitude' => 'required',
+            'visibility_id' => 'required',
         ]);
     
         // Obtenir dades del fitxer
         $upload = $request->file('upload');
         $fileName = $upload->getClientOriginalName();
         $fileSize = $upload->getSize();
+        $description = $request->get('description');
+        $latitude = $request->get('latitude');
+        $longitude = $request->get('longitude');
+        //$category_id = $request->get('category_id');
+        $visibility_id = $request->get('visibility_id');
         \Log::debug("Storing file '{$fileName}' ($fileSize)...");
 
         // Pujar fitxer al disc dur
@@ -90,6 +96,8 @@ class PlaceController extends Controller
                 'latitude' => $latitude,
                 'longitude' => $longitude,
                 'file_id' => $file->id,
+                //'category_id' => $category_id,
+                'visibility_id' => $visibility_id,
                 'author_id'=>auth()->user()->id,
             
         ]);
@@ -138,7 +146,9 @@ class PlaceController extends Controller
      */
     public function edit(Place $place)
     {
-        if ( auth()->user()->id == $place->author_id){ 
+        \Log::debug(auth()->user()->role_id);
+    
+        if ( auth()->user()->id == $place->author_id || auth()->user()->role_id == 12){ 
             return view("places.edit", [
                 "place" => $place,
                 "file" => $place->file,

@@ -18,6 +18,16 @@
                             <input type="text" class="form-control" name="latitude"/>
                             <label for="upload">Longitude:</label>
                             <input type="text" class="form-control" name="longitude"/>
+                            <tr>
+                                <td>
+                                    <label for="visibility_id">Visibility</label>
+                                    <select name="visibility_id" class="form-control">
+                                        <option value="1">public</option>
+                                        <option value="2">contacts</option>   
+                                        <option value="3">private</option> 
+                                    </select>                                           
+                                </td>
+                            </tr>
                             <label for="upload">File:</label>
                             <input type="file" class="form-control" name="upload"/>
                         </div>
