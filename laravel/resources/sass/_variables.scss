@@ -159,6 +159,22 @@ $primary: #694abb;
     font-size: 17px;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
+#burguer{
+    height: 3vh;
+}
+
+.css-menu{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight:bold ;
+}
+.dropdown-item:hover{
+    background-color: #684abb61;
+    color: white;
+    font-weight: bold;
+}
+#navbarDropdown{
+    margin-left: 2vh;
+}
 // Botons Place File Post:
 #botoneraContainer{
     width: 65%;

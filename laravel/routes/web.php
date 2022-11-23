@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\PlaceController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LanguageController;
+use App\Http\Controllers\VisibilityController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -47,9 +48,12 @@ Route::resource('files', FileController::class)
     ->middleware(['auth', 'permission:files']);
     
 Route::resource('posts', PostController::class)
-    ->middleware(['auth', 'permission:places']);
+    ->middleware(['auth', 'permission:posts']);
 
 Route::resource('places', PlaceController::class)
-    ->middleware(['auth', 'permission:posts']);
+    ->middleware(['auth', 'permission:places']);
+    
+Route::resource('visibilities', VisibilityController::class)
+    ->middleware(['auth', 'permission:visibilities']);
 
 Route::get('/language/{locale}', [LanguageController::class, 'language']);

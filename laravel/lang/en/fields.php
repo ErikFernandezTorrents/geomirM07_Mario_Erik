@@ -1,0 +1,23 @@
+<?php
+return [
+    'name' => 'Name',
+    'description' => 'Description',
+    'latitude' => 'Latitude',
+    'longitude' => 'Longitude',
+    'file_id' => 'File id',
+    'category_id' => 'Category id',
+    'visibility_id' => 'Visibility id',
+    'author_id' => 'Autor id',
+    'body' => 'Body',
+    'filepath' => 'Filepath',
+    'filesize' => 'Filesize',
+    'created' => 'Created',
+    'uploated' => 'Uploated',
+    'files' => 'Files',
+    'posts' => 'Posts',
+    'places' => 'Places',
+    'followers' => 'followers',
+    'profile' => 'profile',
+    'configuration' => 'configuration',
+    'Register' => 'Register',
+ ];
