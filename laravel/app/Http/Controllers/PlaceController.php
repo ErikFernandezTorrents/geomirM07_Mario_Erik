@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\File;
 use App\Models\User;
 use App\Models\Visibility;
+use App\Models\Favourites;
 
 class PlaceController extends Controller
 {
@@ -152,7 +153,7 @@ class PlaceController extends Controller
     {
         \Log::debug(auth()->user()->role_id);
     
-        if ( auth()->user()->id == $place->author_id || auth()->user()->role_id == 12){ 
+        if ( auth()->user()->id == $place->author_id ){ 
             return view("places.edit", [
                 "place" => $place,
                 "file" => $place->file,
@@ -280,5 +281,25 @@ class PlaceController extends Controller
             return redirect()->back()
                 ->with('error',__('You are not the author of the place'));
         }
+    }
+    public function favourites(Place $place){
+        $user=User::find($place->author_id);
+
+        // Desar favourites a la BD
+        $favourites = Favourites::create([
+            'place_id' => $place->id,
+            'user_id'=>$user->id,
+        
+        ]);
+
+        return redirect()->back();
+
+    }
+    public function unfavourite (Favourites $favourites)
+    {
+            $favourites->delete();
+
+            return redirect()->back();
+        
     }
 }

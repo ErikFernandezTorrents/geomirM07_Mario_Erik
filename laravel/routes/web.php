@@ -57,3 +57,5 @@ Route::resource('visibilities', VisibilityController::class)
     ->middleware(['auth', 'permission:visibilities']);
 
 Route::get('/language/{locale}', [LanguageController::class, 'language']);
+
+Route::post('/places/{place}/favourites', [App\Http\Controllers\PlaceController::class, 'favourites'])->name('places.favourites');

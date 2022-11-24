@@ -125,7 +125,7 @@
                 </div>
             </div>
         </nav>
-        <main id="main">
+        <main>
             @yield('content')
         </main>
     </div>
