@@ -192,3 +192,30 @@ $primary: #694abb;
 // Language switcher:
 
 // Place and Post View: 
+.card{
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+    
+}
+.cardDescription{
+    display: flex;
+    flex-wrap: inherit;
+    background-color:#694abb;
+    height: 7vh;
+    width: 60vh;
+}
+.addPlace{
+    margin-top: 2vh;
+}
+.noborder{
+    border-bottom: 0px;
+}
+#placeShow{
+    text-decoration: none;
+}
+.container{
+    height: 100%;
+}
+.container2{
+    height: 100%;
+}

@@ -6,6 +6,7 @@ use App\Models\Place;
 use Illuminate\Http\Request;
 use App\Models\File;
 use App\Models\User;
+use App\Models\Visibility;
 
 class PlaceController extends Controller
 {
@@ -18,7 +19,8 @@ class PlaceController extends Controller
     {
         return view("places.index", [
             "place" => Place::all(),
-            //"file" => $place->file
+            //"visibilities" => Visibility::all(),
+            
         ]);
  
     }
@@ -30,7 +32,9 @@ class PlaceController extends Controller
      */
     public function create()
     {
-        return view("places.create");
+        return view("places.create", [
+            "visibilities" => Visibility::all(),
+        ]);
     }
 
     /**
@@ -152,6 +156,7 @@ class PlaceController extends Controller
             return view("places.edit", [
                 "place" => $place,
                 "file" => $place->file,
+                "visibilities" => Visibility::all(),
             ]);
         }
         else{
@@ -177,7 +182,9 @@ class PlaceController extends Controller
                 'name' => 'required',
                 'description' => 'required',
                 'latitude' => 'required',
-                'longitude' => 'required'
+                'longitude' => 'required',
+                'visibility_id' => 'required',
+
             ]);
 
         $file=File::find($place->file_id);
@@ -222,6 +229,7 @@ class PlaceController extends Controller
             $place->description = $request->input('description');
             $place->latitude = $request->input('latitude');
             $place->longitude = $request->input('longitude');
+            $place->visibility_id = $request->input('visibility_id');
             $place->save();
             \Log::debug("DB storage OK");
 

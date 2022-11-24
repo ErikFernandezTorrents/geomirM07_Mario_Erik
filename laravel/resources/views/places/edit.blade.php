@@ -23,9 +23,18 @@
                             <input type="txt" class="form-control" name="latitude" value='{{ $place->latitude }}' />
                             <label for="longitude">Longitude:</label>
                             <input type="txt" class="form-control" name="longitude" value='{{ $place->longitude }}'/>
+                            <div> 
+                                <label for="visibility_id">Visibility</label>
+                                <select name="visibility_id" class="form-control">
+                                @foreach( $visibilities as $visibility)
+                                    <option value="{{__($visibility->id)}}">{{__($visibility->name)}}</option>
+                                @endforeach    
+                                </select>                   
+                            </div>
+                            <p></p>
+                            <button type="submit" class="btn btn-primary">Edit</button>
                         </div>
-                        <p></p>
-                        <button type="submit" class="btn btn-primary">Edit</button>
+                        
                         </form>
                        </thead>
                        
