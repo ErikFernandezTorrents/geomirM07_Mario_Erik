@@ -295,11 +295,15 @@ class PlaceController extends Controller
         return redirect()->back();
 
     }
-    public function unfavourite (Favourites $favourites)
+    public function unfavourite (Place $place)
     {
-            $favourites->delete();
+        $fav = Favorite::where([
+            ['user_id', '=', auth()->user()->id],
+            ['place_id', '=', $place->id]
+        ]);$fav->first();
 
-            return redirect()->back();
-        
+        $fav->delete();
+
+        return redirect()->back();
     }
 }

@@ -18,25 +18,13 @@
                            </tr>
                        </thead> -->
                        <tbody>
-                           <tr>
-                               <td scope="col">ID</td>
-                               <td>{{ $place->id }}</td>
-                            </tr>
                             <tr>
                                 <td scope="col">Author:</td>
                                 <td>{{ $user->name }}</td> 
                            </tr>
                             <tr>
-                               <td scope="col">Created</td>
-                               <td>{{ $place->file_id }}</td>
-                           </tr>
-                            <tr>
                                <td scope="col">Name</td>
                                <td>{{ $place->name }}</td>
-                            </tr>
-                            <tr>
-                               <td scope="col">Description</td>
-                               <td>{{ $place->description }}</td>
                             </tr>
                             <tr>
                                <td scope="col">Latitude</td>
@@ -49,14 +37,6 @@
                             <tr>
                                <td scope="col">Created</td>
                                <td>{{ $place->created_at }}</td>
-                           </tr>
-                           <tr>
-                               <td scope="col">Updated</td>
-                               <td>{{ $place->updated_at }}</td>
-                           </tr>
-                           <tr>
-                               <td scope="col">Visibiliry</td>
-                               <td>{{ $place->visibility_id }}</td>
                            </tr>
                            <tr>
                                 <td colspan="2" aling="center"><img class="img-fluid" src="{{ asset("storage/{$file->filepath}") }}" /></td>
@@ -73,6 +53,13 @@
                                     <button class="btn btn-primary">Elimina</button>
                                 </form>
                             </td>
+                            <td class="noborder">
+                                <form method="post" action="{{ route('places.favourites',$place) }}" >
+                                    @csrf 
+                                    <button class="btn btn-primary" ><img id="cor"src ="../../images/corazon.png"></button>
+                                </form>
+                            </td>
+                                            
                         </tr>
                    </table>
                    

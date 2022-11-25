@@ -28,14 +28,6 @@
                                             <tr >
                                                 <td class="noborder">{{ $place->created_at }}</td> 
                                             </tr>
-                                            <tr>
-                                                <td class="noborder">
-                                                    <form method="post" action="{{ route('places.favourites',$place) }}" >
-                                                        @csrf 
-                                                        <a href="https://icons8.com/icon/5TRav1-SpMcu/corazón-de-fuego"></a>
-                                                    </form>
-                                                </td>
-                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>
