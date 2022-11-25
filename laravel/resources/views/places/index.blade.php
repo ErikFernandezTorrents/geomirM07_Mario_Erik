@@ -1,5 +1,5 @@
 @extends('layouts.app')
- 
+
 @section('content')
     <div class="addPlace">
         <a class="btn btn-primary" href="{{ route('places.create') }}" role="button">Add new place</a>
@@ -15,14 +15,12 @@
                                     <table class="table">
                                         <thead>
                                             <tr>
-                                                <td class="noborder">@Erik</td>
-                                                <td class="noborder">{{__('fields.description')}}</td>
+                                                <td class="noborder">{{ $place->author->name}}</td>
                                             </tr>
                                         </thead>
                                         <tbody>      
                                             <tr>
-                                                <td class="noborder"><img class="logo" src="../images/logo_geomir.png"></img></td>
-                                                <td class="noborder">{{ $place->description }}</td>
+                                                <td class="noborder" aling="center"><img id="placeIMG" src="{{ asset("storage/{$place->file->filepath}") }}" /></td>
                                             </tr>
                                             <tr>
                                                 <td class="noborder">{{__('fields.created')}}</td>
@@ -34,7 +32,7 @@
                                                 <td class="noborder">
                                                     <form method="post" action="{{ route('places.favourites',$place) }}" >
                                                         @csrf 
-                                                        <button class="btn btn-primary">Favourite</button>
+                                                        <a href="https://icons8.com/icon/5TRav1-SpMcu/corazón-de-fuego"></a>
                                                     </form>
                                                 </td>
                                             </tr>
@@ -48,7 +46,7 @@
                             <div class="card-body">
                                 <table class="table">
                                     <thead>
-                                        <tr>
+                                        <tr id="descriptionHeader">
                                             <td class="noborder">{{__('fields.description')}}</td>
                                         </tr>
                                     </thead>
@@ -60,7 +58,7 @@
                                 </table>
                             </div>
                         </div>
-                    </div> 
+                    </div>  
             </div>
         </div>
     @endforeach

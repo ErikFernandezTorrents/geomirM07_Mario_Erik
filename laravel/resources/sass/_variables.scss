@@ -8,10 +8,9 @@ $font-size-base: 0.9rem;
 $line-height-base: 1.6;
 
 $primary: #694abb;
+
 // main general .
-#main{
-    height: 100%;
-}
+
 // Formulari Login :
 .card-header {
     text-align: center;
@@ -195,14 +194,23 @@ $primary: #694abb;
 .card{
     margin-top: 2vh;
     margin-bottom: 2vh;
+    width: 55%;
+    float: left;
+    height: 50% !important;
+    margin-right: 5%;
+    background-color:#694abb !important;
     
 }
 .cardDescription{
     display: flex;
     flex-wrap: inherit;
-    background-color:#694abb;
-    height: 7vh;
-    width: 60vh;
+    background-color: #e6e5db;
+    height: 50% ;
+    width: 40%;
+    position: relative;
+    float: left;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
 }
 .addPlace{
     margin-top: 2%;
@@ -217,4 +225,12 @@ $primary: #694abb;
 
 .container2{
     height: 100%;
+}
+#placeIMG{
+    width: 12vw;
+}
+#descriptionHeader{
+    background-color: #694abb;
+    color: #ffffff;
+    font-weight: bold;
 }

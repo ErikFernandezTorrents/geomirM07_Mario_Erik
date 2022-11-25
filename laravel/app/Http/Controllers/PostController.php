@@ -216,25 +216,31 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        $file=File::find($post->file_id);
-        
-        \Storage::disk('public')->delete($post->id);
-        $post->delete();
-
-
-        \Storage::disk('public')->delete($file->filepath);
-        $file->delete();
-
-         if (\Storage::disk('public')->exists($post->id)) {
-            \Log::debug("Local storage OK");
+        if ( auth()->user()->id == $post->author_id){ 
+            $file=File::find($post->file_id);
             
-            return redirect()->route('posts.show', $post)
-                ->with('error', 'Error post alredy exist');
-        } else {
-            \Log::debug("Post Delete");
-            // Patró PRG amb missatge d'error
-            return redirect()->route("posts.index")
-                ->with('succes', 'Post Deleted');
+            \Storage::disk('public')->delete($post->id);
+            $post->delete();
+
+
+            \Storage::disk('public')->delete($file->filepath);
+            $file->delete();
+
+            if (\Storage::disk('public')->exists($post->id)) {
+                \Log::debug("Local storage OK");
+                
+                return redirect()->route('posts.show', $post)
+                    ->with('error', 'Error post alredy exist');
+            } else {
+                \Log::debug("Post Delete");
+                // Patró PRG amb missatge d'error
+                return redirect()->route("posts.index")
+                    ->with('succes', 'Post Deleted');
+            }
+        }
+        else{
+            return redirect()->back()
+                ->with('error',__('You are not the author of the post'));
         }
     }
 }
