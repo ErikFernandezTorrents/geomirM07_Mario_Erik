@@ -144,7 +144,7 @@ class PlaceController extends Controller
 
         $is_favourite = false;
         try {
-            if (Favourites::where('user_id', '=', auth()->user()->id)->where('place_id','=', $place->id)->exists()) {
+            if (Favourites::where('user_id', '=', $user->id)->where('place_id','=', $place->id)->exists()) {
                 $is_favourite = true;
             }
         } catch (Exception $e) {
