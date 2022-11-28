@@ -130,17 +130,21 @@ class PlaceController extends Controller
     {
         $user=User::find($place->author_id);
         $file = File::find($place->file_id);
-        //if (\Storage::disk('public')->exists($place->filepath)) {
-            return view("places.show", [
-                "place" => $place,
-                "file" => $file,
-                "user" => $user,
-            ]);
-        //}
-        //else{
-            //return redirect()->route("files.index")
-            //    ->with('error', 'ERROR the file does not exist on the hard drive');
-        //}
+
+        $is_favourite = false;
+        try {
+            if (Favourites::where('user_id', '=', auth()->user()->id)->where('place_id','=', $place->id)->exists()) {
+                $is_favourite = true;
+            }
+        } catch (Exception $e) {
+            $is_favourite = false;
+        }
+        return view("places.show", [
+            "place" => $place,
+            "file" => $file,
+            "user" => $user,
+            'is_favourite' => $is_favourite,
+        ]);
     }
 
     /**
@@ -297,13 +301,18 @@ class PlaceController extends Controller
     }
     public function unfavourite (Place $place)
     {
-        $fav = Favorite::where([
-            ['user_id', '=', auth()->user()->id],
+
+        // Eliminar favourites de la BD
+        $user=User::find($place->author_id);
+        $fav = Favourites::where([
+            ['user_id', '=', $user->id],
             ['place_id', '=', $place->id]
-        ]);$fav->first();
+        ]);
+        $fav->first();
 
         $fav->delete();
 
         return redirect()->back();
     }
+
 }

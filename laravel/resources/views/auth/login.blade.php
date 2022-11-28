@@ -8,6 +8,7 @@
                     <div class="login">
                         <form id="form" method="POST" action="{{ route('login') }}">
                             @csrf
+                            
                             <div class="mb-3">
                                 <div class="loginHeader">{{ __('Login') }}</div>
                                 <div class="divInput">

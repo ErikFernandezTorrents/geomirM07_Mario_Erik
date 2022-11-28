@@ -4,7 +4,7 @@
 <div class="container">
    <div class="row justify-content-center">
        <div class="col-md-8">
-           <div class="card">
+           <div class="cardForms">
                <div class="card-header">{{ $place->name }}</div>
                <div class="card-body">
                <table class="table">
@@ -32,7 +32,7 @@
                                 </select>                   
                             </div>
                             <p></p>
-                            <button type="submit" class="btn btn-primary">Edit</button>
+                            <button type="submit" class="btn btn-secondary">Edit</button>
                         </div>
                         
                         </form>

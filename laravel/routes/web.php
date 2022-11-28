@@ -58,4 +58,5 @@ Route::resource('visibilities', VisibilityController::class)
 
 Route::get('/language/{locale}', [LanguageController::class, 'language']);
 
-Route::post('/places/{place}/favourites', [App\Http\Controllers\PlaceController::class, 'favourites'])->name('places.favourites');
+Route::post('/places/{place}/favourites', [PlaceController::class, 'favourites'])->name('places.favourites');
+Route::delete('/places/{place}/favourites', [PlaceController::class, 'unfavourite'])->name('places.unfavourite');

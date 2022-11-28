@@ -10,22 +10,17 @@
             <div> 
                     <a id="placeShow" href="{{ route('places.show',$place) }}">
                         <div class="card">
-                            <div class="card-header">{{ __('fields.places') }} de @Erik</div>
-                                <div class="card-body">
+                            <div class="card-header"><p>{{ $place->author->name}}</p></div>
+                                <div class="body-card">
                                     <table class="table">
-                                        <thead>
+                                        <tbody id="tbodyIndex">      
                                             <tr>
-                                                <td class="noborder">{{ $place->author->name}}</td>
+                                                <td class="noborder"><img id="placeIMG" src="{{ asset("storage/{$place->file->filepath}") }}" /></td>
                                             </tr>
-                                        </thead>
-                                        <tbody>      
-                                            <tr>
-                                                <td class="noborder" aling="center"><img id="placeIMG" src="{{ asset("storage/{$place->file->filepath}") }}" /></td>
-                                            </tr>
-                                            <tr>
+                                            <tr class="trCreated">
                                                 <td class="noborder">{{__('fields.created')}}</td>
                                             </tr>
-                                            <tr >
+                                            <tr class="trCreated">
                                                 <td class="noborder">{{ $place->created_at }}</td> 
                                             </tr>
                                         </tbody>

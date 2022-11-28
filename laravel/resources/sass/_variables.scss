@@ -9,11 +9,21 @@ $line-height-base: 1.6;
 
 $primary: #694abb;
 
-// main general .
+// Background dashboard:
 
+// background apartats pagina: 
+.container{
+    background-color: #e6e5db;
+}
 // Formulari Login :
 .card-header {
     text-align: center;
+}
+.card-header p {
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 18px;
 }
 .containerLogin{
     height: 100%;
@@ -227,13 +237,40 @@ $primary: #694abb;
     height: 100%;
 }
 #placeIMG{
-    width: 12vw;
+    width: 100%;
+    height: 50%;
 }
 #descriptionHeader{
     background-color: #694abb;
     color: #ffffff;
     font-weight: bold;
 }
-#cor{
-    height: 4vw;
+.body-card{
+    align-items: center;
+    padding-left: 2%;
+    padding-right: 2%;
+    height: 100%;
+}
+.trCreated{
+    background-color: #e6e5db;
+    text-align: center;
+}
+#tbodyIndex{
+    align-content: center;
+}
+// formularis Place :
+.cardForms{
+    background-color: #694abb;
+    margin-top: 2%;
+    padding: 5%;
+    color: #e6e5db;
+}
+.table{
+    background-color: #e6e5db;
+}
+.cor{
+    width: 60%;
+}
+.btn-focus{
+    background-color: #e6e5db !important;
 }
