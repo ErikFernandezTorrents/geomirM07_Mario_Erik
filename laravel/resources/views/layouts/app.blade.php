@@ -22,28 +22,31 @@
     <div id="app">
         <nav class="navbar navbar-expand-md  backgroundNav">
             <div class="containerNav">
-                <a class="navbar-brand" href="{{ url('/dashboard') }}"><img class="logo"src="../images/logo_geomir.png"></img></a>
+                <a class="navbar-brand" href="{{ url('/dashboard') }}"><img class="logo" src="../images/logo_geomir.png"></img></a>
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
+                @guest
+                    @if (Route::has('register'))
+                    @endif
+                    @else
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <!-- Left Side Of Navbar -->
                             <div id="botoneraContainer">
                                 <ul class="botonera" data-animation="center">
                                     <li class="ms-auto botons">
-                                        <a class="navLink" href="{{ url('/files') }}">{{ __('Files') }}</a>
+                                        <a class="navLink" href="{{ url('/files') }}">{{ __('fields.files') }}</a>
                                     </li>
                                     <li class=" ms-auto botons">
-                                        <a class="navLink" href="{{ url('/posts') }}">{{ __('Post') }}</a>
+                                        <a class="navLink" href="{{ url('/posts') }}">{{ __('fields.posts') }}</a>
                                     </li>
                                     <li class="ms-auto botons">
-                                        <a class="navLink" href="{{ url('/places') }}">{{ __('Place') }}</a>
+                                        <a class="navLink" href="{{ url('/places') }}">{{ __('fields.places') }}</a>
                                     </li>
                                 </ul>
                             </div>
-                        
+                @endguest
                     <!-- Right Side Of Navbar -->
                     
                     @include('partials.language-switcher')
@@ -52,7 +55,12 @@
                         @guest
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="navLink fontRegister" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a class="navLink fontRegister" href="{{ route('register') }}">{{ __('fields.Register') }}</a>
+                                </li>
+                            @endif
+                            @if (Route::has('login'))
+                                <li class="nav-item">
+                                    <a class="navLink fontRegister" href="{{ route('login') }}">{{ __('Login') }}</a>
                                 </li>
                             @endif
                         @else
@@ -73,12 +81,33 @@
                                     </form>
                                 </div>
                             </li>
+                            <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="https://icons8.com/icon/52946/menú-xbox" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    <img id="burguer" src ="../../images/menu.png" >
+                                </a>
+
+                                <div class="dropdown-menu css-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('dashboard') }}">
+                                        {{ __('fields.followers') }}
+                                    </a>
+                                    <a class="dropdown-item" href="{{ route('dashboard') }}">
+                                        {{ __('fields.profile') }}
+                                    </a>
+
+                                    <form id="seguidors-form" action="{{ route('dashboard') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+                                    <form id="perfil-form" action="{{ route('dashboard') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+                                </div>
+                            </li>
                         @endguest
                     </ul>
                 </div>
             </div>
         </nav>
-        <main id="main">
+        <main>
             @yield('content')
         </main>
     </div>

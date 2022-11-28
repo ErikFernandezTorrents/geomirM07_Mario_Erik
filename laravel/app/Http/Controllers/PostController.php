@@ -143,6 +143,9 @@ class PostController extends Controller
             "file" => $file,
             "user" => $user,
             'is_like' => $is_like,
+            'post' => $post,
+            'file' => $file,
+            'user' => $user
         ]);
     }
 
@@ -270,14 +273,35 @@ class PostController extends Controller
                 return redirect()->back()
                     ->with('error',__('You are not the author of the post'));
             }
+        if ( auth()->user()->id == $post->author_id){ 
+            $file=File::find($post->file_id);
+            
+            \Storage::disk('public')->delete($post->id);
+            $post->delete();
+
+
+            \Storage::disk('public')->delete($file->filepath);
+            $file->delete();
+
+            if (\Storage::disk('public')->exists($post->id)) {
+                \Log::debug("Local storage OK");
+                
+                return redirect()->route('posts.show', $post)
+                    ->with('error', 'Error post alredy exist');
+            } else {
+                \Log::debug("Post Delete");
+                // Patró PRG amb missatge d'error
+                return redirect()->route("posts.index")
+                    ->with('succes', 'Post Deleted');
+            }
         }
         else{
             return redirect()->back()
-                ->with('error',__('You are not the author of the place'));
+                ->with('error',__('You are not the author of the post'));
         }
     }
 
-    public function likes(post $post){
+    public function likes(Post $post){
         $user=User::find($post->author_id);
 
         // Desar likes a la BD

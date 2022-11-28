@@ -10,11 +10,11 @@
                    <table class="table">
                        <thead>
                            <tr>
-                               <td scope="col">__('fields.file_id')</td>
-                               <td scope="col">Filepath</td>
-                               <td scope="col">Filesize</td>
-                               <td scope="col">Created</td>
-                               <td scope="col">Updated</td>
+                               <td scope="col">{{__('fields.file_id')}}</td>
+                               <td scope="col">{{__('fields.Filepath')}}</td>
+                               <td scope="col">{{__('fields.Filesize')}}</td>
+                               <td scope="col">{{__('fields.Created')}}</td>
+                               <td scope="col">{{__('fields.Uploated')}}</td>
                            </tr>
                        </thead>
                        <tbody>
@@ -29,8 +29,8 @@
                            @endforeach
                        </tbody>
                    </table>
-                   <a class="btn btn-primary" href="{{ route('files.create') }}" role="button">Add new file</a>
-                   <a class="btn btn-primary" href="{{ url('/dashboard') }}" role="button">Home</a>
+                   <a class="btn btn-secondary" href="{{ route('files.create') }}" role="button">Add new file</a>
+                   <a class="btn btn-secondary" href="{{ url('/dashboard') }}" role="button">Home</a>
                </div>
            </div>
        </div>

@@ -53,12 +53,17 @@ class User extends Authenticatable
 
     public function posts()
     {
-       return $this->hasMany(Post::class);
+       return $this->hasMany(Post::class,'author_id');
     }
     public function places()
     {
-        return $this->hasMany(Place::class);
+        return $this->hasMany(Place::class,'author_id');
     }
+    public function favorites()
+    {
+       return $this->belongsToMany(Place::class, 'favorites');
+    } 
+
 
     public function likes()
     {

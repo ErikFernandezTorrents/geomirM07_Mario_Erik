@@ -9,6 +9,7 @@ use App\Http\Controllers\PlaceController;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LanguageController;
+use App\Http\Controllers\VisibilityController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -44,7 +45,7 @@ Route::get('/', function (Request $request) {
 });
 
 Route::resource('files', FileController::class)
-    ->middleware(['auth', 'permission:files']);
+    ->middleware(['auth']);
     
 Route::resource('places', PlaceController::class)
     ->middleware(['auth', 'permission:places']);
@@ -56,3 +57,9 @@ Route::get('/language/{locale}', [LanguageController::class, 'language']);
 
 Route::post('/posts/{post}/likes', [PostController::class, 'likes'])->name('posts.likes');
 Route::delete('/posts/{post}/likes', [PostController::class, 'unlike'])->name('posts.unlike');
+    
+Route::resource('visibilities', VisibilityController::class)
+    ->middleware(['auth', 'permission:visibilities']);
+
+Route::post('/places/{place}/favourites', [PlaceController::class, 'favourites'])->name('places.favourites');
+Route::delete('/places/{place}/favourites', [PlaceController::class, 'unfavourite'])->name('places.unfavourite');
