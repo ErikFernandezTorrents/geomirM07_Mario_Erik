@@ -14,4 +14,7 @@
             </div>
         </div>
     </div>
+    @section('content')
+    <div ><img id="mapa" src="../../images/mapa.png"></div>
+    @endsection
 </x-app-layout>

@@ -44,13 +44,13 @@
                                 @if($is_favourite == false)
                                     <form method="post" action="{{ route('places.favourites',$place) }}" >
                                         @csrf 
-                                        <button class=" btn btn-primary"><img class="cor"src ="../../images/corazon2.png"></button>
+                                        <button class=" btn btn-primary"><img class="cor"src ="../../images/estrella2.png"></button>
                                     </form>
                                 @else
                                     <form method="post" action="{{ route('places.unfavourite',$place) }}" >
                                         @csrf 
                                         @method('DELETE')
-                                        <button class="btn-focus btn btn-primary"><img class="cor"src ="../../images/corazon.png"></button>
+                                        <button class="btn-focus btn btn-primary"><img class="cor"src ="../../images/estrella.png"></button>
                                     </form>
                                 @endif
                             </td>                 

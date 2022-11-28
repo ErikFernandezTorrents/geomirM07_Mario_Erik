@@ -9,37 +9,38 @@
                 <div class="card-body">
                     <form method="post" action="{{ route('places.store') }}" enctype="multipart/form-data">
                         @csrf
+                        @vite('resources/js/places/create.js')
                         <div class="form-group">
                             <tr>
-                                <td>
+                                <td id="name">
                                     <label for="upload">Name:</label>
                                     <input type="text" class="form-control" name="name"/>
                                     <div class="error alert alert-danger alert-dismissible fade"></div>
                                 </td>
                             </tr>
                             <tr>
-                                <td>
+                                <td id="description">
                                     <label for="upload">Description:</label>
                                     <input type="text" class="form-control" name="description"/>
                                     <div class="error alert alert-danger alert-dismissible fade"></div>
                                 </td>
                             </tr>
                             <tr>
-                                <td>
+                                <td id="latitude">
                                     <label for="upload">Latitude:</label>
                                     <input type="text" class="form-control" name="latitude"/>
                                     <div class="error alert alert-danger alert-dismissible fade"></div>
                                 </td>
                             </tr>
                             <tr>
-                                <td>
+                                <td id="longitude">
                                     <label for="upload">Longitude:</label>
                                     <input type="text" class="form-control" name="longitude"/>
                                     <div class="error alert alert-danger alert-dismissible fade"></div>
                                 </td>
                             </tr>
                             <tr>
-                                <td>
+                                <td id="visibility_idvi">
                                     <label for="visibility_id">Visibility</label>
                                     <select name="visibility_id" class="form-control">
                                     @foreach( $visibilities as $visibility)

@@ -45,13 +45,13 @@ Route::get('/', function (Request $request) {
 });
 
 Route::resource('files', FileController::class)
-    ->middleware(['auth', 'permission:files']);
+    ->middleware(['auth']);
     
 Route::resource('posts', PostController::class)
-    ->middleware(['auth', 'permission:posts']);
+    ->middleware(['auth']);
 
 Route::resource('places', PlaceController::class)
-    ->middleware(['auth', 'permission:places']);
+    ->middleware(['auth']);
     
 Route::resource('visibilities', VisibilityController::class)
     ->middleware(['auth', 'permission:visibilities']);

@@ -4,7 +4,7 @@
 <div class="container">
    <div class="row justify-content-center">
        <div class="col-md-8">
-           <div class="card">
+           <div class="cardForms">
                <div class="card-header">{{ __('Files') }}</div>
                <div class="card-body">
                    <table class="table">
@@ -29,8 +29,8 @@
                            @endforeach
                        </tbody>
                    </table>
-                   <a class="btn btn-primary" href="{{ route('files.create') }}" role="button">Add new file</a>
-                   <a class="btn btn-primary" href="{{ url('/dashboard') }}" role="button">Home</a>
+                   <a class="btn btn-secondary" href="{{ route('files.create') }}" role="button">Add new file</a>
+                   <a class="btn btn-secondary" href="{{ url('/dashboard') }}" role="button">Home</a>
                </div>
            </div>
        </div>

@@ -12,6 +12,15 @@ class FileController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('permission:files.list')->only('index');
+        $this->middleware('permission:files.create')->only(['create','store']);
+        $this->middleware('permission:files.read')->only('show');
+        $this->middleware('permission:files.update')->only(['edit','update']);
+        $this->middleware('permission:files.delete')->only('destroy');
+    }
+
     public function index()
     {
         return view("files.index", [
