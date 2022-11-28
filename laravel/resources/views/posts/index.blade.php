@@ -1,39 +1,53 @@
 @extends('layouts.app')
- 
+
 @section('content')
-<div class="container">
-   <div class="row justify-content-center">
-       <div class="col-md-8">
-           <div class="card">
-               <div class="card-header">{{ __('Post') }}</div>
-               <div class="card-body">
-                   <table class="table">
-                       <thead>
-                           <tr>
-                               <td scope="col">ID</td>
-                               <td scope="col">Body</td>
-                               <td scope="col">Latitude</td>
-                               <td scope="col">Longitude</td>
-                               <td scope="col">Created at</td>
-                           </tr>
-                       </thead>
-                       <tbody>
-                           @foreach ($posts as $post)
-                           <tr>
-                           <td><a href="{{ route('posts.show',$post) }}">{{ $post->id }}</a></td>
-                               <td>{{ $post->body }}</td>
-                               <td>{{ $post->latitude }}</td>
-                               <td>{{ $post->longitud }}</td>
-                               <td>{{ $post->created_at }}</td>
-                           </tr>
-                           @endforeach
-                       </tbody>
-                   </table>
-                   <a class="btn btn-primary" href="{{ route('posts.create') }}" role="button">Add new post</a>
-                   <a class="btn btn-primary" href="{{ url('/dashboard') }}" role="button">Home</a>
-               </div>
-           </div>
-       </div>
-   </div>
-</div>
+    <div class="addPost">
+        <a class="btn btn-primary" href="{{ route('posts.create') }}" role="button">Add new post</a>
+        <a class="btn btn-primary" href="{{ url('/dashboard') }}" role="button">Home</a> 
+    </div>
+    @foreach ($posts as $post)
+        <div class="container">
+            <div> 
+                    <a id="postshow" href="{{ route('posts.show',$post) }}">
+                        <div class="card">
+                            <div class="card-header"><p class="blanco">{{ $post->author->name}}</p></div>
+                                <div class="card-body">
+                                    <table class="table">
+                                
+                                        <tbody class="Centrar">
+                                            <tr>
+                                                <td class="noborder" aling="center"><img id="postIMG" src="{{ asset("storage/{$post->file->filepath}") }}" /></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="noborder">{{__('fields.created')}}</td>
+                                            </tr>
+                                            <tr >
+                                                <td class="noborder">{{ $post->created_at }}</td> 
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </a> 
+                        <div class="cardDescription">
+                            <div class="card-body">
+                                <table class="table">
+                                    <thead>
+                                        <tr id="descriptionHeader">
+                                            <td class="noborder" >{{__('fields.body')}}</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>      
+                                        <tr>
+                                            <td class="noborder">{{ $post->body }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>  
+            </div>
+        </div>
+    @endforeach
 @endsection

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('file_id');
             $table->string('latitude');
             $table->string('longitude');
-            //$table->integer('visibility_id');
+            $table->integer('visibility_id')->references('id')->on('visibilities');
             $table->unsignedBigInteger('author_id');
             $table->timestamp('created_at');
             $table->timestamp('updated_at');

@@ -14,7 +14,7 @@ class Post extends Model
         'file_id',
         'latitude',
         'longitude',
-        //'visibility_id',
+        'visibility_id',
         'author_id',
         'created_at',
         'updated_at'
@@ -33,6 +33,11 @@ class Post extends Model
     public function author()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function liked()
+    {
+    return $this->belongsToMany(User::class, 'likes');
     }
 
 

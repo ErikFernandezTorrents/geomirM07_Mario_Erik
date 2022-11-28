@@ -4,10 +4,10 @@
 <div class="container">
    <div class="row justify-content-center">
        <div class="col-md-8">
-           <div class="card">
+           <div class="cardForms">
                <div class="card-header">{{ $post->id}}</div>
                <div class="card-body">
-               <table class="table">
+               <table class="table centrar">
                        <thead>
                        <form method="post" action="{{ route('posts.update', $post) }}" enctype="multipart/form-data">
                         @csrf

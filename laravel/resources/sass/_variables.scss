@@ -1,4 +1,3 @@
-
 // Body
 $body-bg: #e6e5db;
 
@@ -8,10 +7,9 @@ $font-size-base: 0.9rem;
 $line-height-base: 1.6;
 
 $primary: #694abb;
+
 // main general .
-#main{
-    height: 100%;
-}
+
 // Formulari Login :
 .card-header {
     text-align: center;
@@ -42,9 +40,9 @@ $primary: #694abb;
 .login{
     background-color: hsla(55, 18%, 88%, 0.678) ;
     width: 70%;
-    height: 100%;
     margin-left: 20%;
     margin-right: 20%;
+    padding: 2%;
 }
 #form{
     align-content: center;
@@ -97,13 +95,12 @@ $primary: #694abb;
 
 .navbar-brand{
     font-family:Arial, Helvetica, sans-serif ;
-    font-size: 21px;
     width: 15%;
 }
 .logo{
     margin-left: 0%;
-    width: 20%;
-    height: 20%;
+    width: 7vh;
+    height: 7vh;
 }
 .backgroundNav{
     background-color: #694abb;
@@ -112,7 +109,7 @@ $primary: #694abb;
     color: #e6e5db;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-weight:bold;
-    font-size: 20px;
+    font-size: 1.4vh;
     text-decoration: none;
     margin:auto;
 
@@ -160,6 +157,22 @@ $primary: #694abb;
     font-size: 17px;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
+#burguer{
+    height: 3vh;
+}
+
+.css-menu{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight:bold ;
+}
+.dropdown-item:hover{
+    background-color: #684abb61;
+    color: white;
+    font-weight: bold;
+}
+#navbarDropdown{
+    margin-left: 2vh;
+}
 // Botons Place File Post:
 #botoneraContainer{
     width: 65%;
@@ -177,3 +190,70 @@ $primary: #694abb;
 // Language switcher:
 
 // Place and Post View: 
+.card{
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+    width: 55%;
+    float: left;
+    height: 50% !important;
+    margin-right: 5%;
+    background-color:#694abb !important;
+    
+}
+.cardDescription{
+    display: flex;
+    flex-wrap: inherit;
+    background-color: #e6e5db;
+    height: 50% ;
+    width: 40%;
+    position: relative;
+    float: left;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+}
+.addpost{
+    margin-top: 2%;
+    margin-left: 2%;
+}
+.noborder{
+    border-bottom: 0px;
+}
+#postShow{
+    text-decoration: none;
+}
+
+.container2{
+    height: 100%;
+}
+#postIMG{
+    width: 50%;
+}
+#descriptionHeader{
+    background-color: #694abb;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.blanco{
+    color: white;
+}
+
+.Centrar{
+    align-items: center;
+    text-align: center;
+}
+.cardForms{
+    background-color: #694abb;
+    margin-top: 2%;
+    padding: 5%;
+    color: #e6e5db;
+}
+.table{
+    background-color: #e6e5db;
+}
+.cor{
+    width: 60%;
+}
+.btn-focus{
+    background-color: #e6e5db !important;
+}

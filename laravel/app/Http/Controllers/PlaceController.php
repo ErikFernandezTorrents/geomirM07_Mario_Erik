@@ -6,6 +6,8 @@ use App\Models\Place;
 use Illuminate\Http\Request;
 use App\Models\File;
 use App\Models\User;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class PlaceController extends Controller
 {
@@ -55,7 +57,7 @@ class PlaceController extends Controller
         $upload = $request->file('upload');
         $fileName = $upload->getClientOriginalName();
         $fileSize = $upload->getSize();
-        \Log::debug("Storing file '{$fileName}' ($fileSize)...");
+        Log::debug("Storing file '{$fileName}' ($fileSize)...");
 
         // Pujar fitxer al disc dur
         $uploadName = time() . '_' . $fileName;
@@ -65,10 +67,10 @@ class PlaceController extends Controller
             'public'        // Disk
         );
     
-        if (\Storage::disk('public')->exists($filePath)) {
-            \Log::debug("Local storage OK");
-            $fullPath = \Storage::disk('public')->path($filePath);
-            \Log::debug("File saved at {$fullPath}");
+        if (Storage::disk('public')->exists($filePath)) {
+            Log::debug("Local storage OK");
+            $fullPath = Storage::disk('public')->path($filePath);
+            Log::debug("File saved at {$fullPath}");
             // Desar dades a BD
             $file = File::create([
                 'filepath' => $filePath,
@@ -76,7 +78,7 @@ class PlaceController extends Controller
             ]);
             // Obtenir dades de place
             $name = $request->get('name');
-            \Log::debug($name);
+            Log::debug($name);
             $description = $request->get('description');
             $latitude = $request->get('latitude');
             $longitude = $request->get('longitude');
@@ -95,7 +97,7 @@ class PlaceController extends Controller
         return redirect()->route('places.show', $place)
         ->with('success', 'Place successfully saved');
         } else {
-            \Log::debug("Local storage FAILS");
+            Log::debug("Local storage FAILS");
             // Patró PRG amb missatge d'error
             return redirect()->route("places.update")
                 ->with('error', 'ERROR uploading file');
@@ -116,7 +118,7 @@ class PlaceController extends Controller
     {
         $user=User::find($place->author_id);
         $file = File::find($place->file_id);
-        //if (\Storage::disk('public')->exists($place->filepath)) {
+        //if (Storage::disk('public')->exists($place->filepath)) {
             return view("places.show", [
                 "place" => $place,
                 "file" => $file,
@@ -165,7 +167,7 @@ class PlaceController extends Controller
             ]);
 
         $file=File::find($place->file_id);
-        \Log::debug("ID file:" . $place->files_id);
+        Log::debug("ID file:" . $place->files_id);
 
         // Obtenir dades del fitxer
         
@@ -175,7 +177,7 @@ class PlaceController extends Controller
             $fileName = $upload->getClientOriginalName();
             $fileSize = $upload->getSize();
 
-            \Log::debug("Storing file '{$fileName}' ($fileSize)...");
+            Log::debug("Storing file '{$fileName}' ($fileSize)...");
 
             // Pujar fitxer al disc dur
             $uploadName = time() . '_' . $fileName;
@@ -190,12 +192,12 @@ class PlaceController extends Controller
             $control = true;
         }
 
-        if (\Storage::disk('public')->exists($filePath)) {
+        if (Storage::disk('public')->exists($filePath)) {
             if(!$control){
-            \Storage::disk('public')->delete($filePath);
-            \Log::debug("Local storage OK");
-            $fullPath = \Storage::disk('public')->path($filePath);
-            \Log::debug("File saved at {$fullPath}");
+            Storage::disk('public')->delete($filePath);
+            Log::debug("Local storage OK");
+            $fullPath = Storage::disk('public')->path($filePath);
+            Log::debug("File saved at {$fullPath}");
             }
 
             // Desar dades a BD
@@ -207,13 +209,13 @@ class PlaceController extends Controller
             $place->latitude = $request->input('latitude');
             $place->longitude = $request->input('longitude');
             $place->save();
-            \Log::debug("DB storage OK");
+            Log::debug("DB storage OK");
 
             // Patró PRG amb missatge d'èxit
             return redirect()->route('places.show', $place)
                 ->with('success', 'Place successfully saved');
         } else {
-            \Log::debug("Local storage FAILS");
+            Log::debug("Local storage FAILS");
             // Patró PRG amb missatge d'error
             return redirect()->route("places.update")
                 ->with('error', 'ERROR uploading file');
@@ -231,27 +233,27 @@ class PlaceController extends Controller
     {
         $file=File::find($place->file_id);
 
-        \Storage::disk('public')->delete($place->id);
+        Storage::disk('public')->delete($place->id);
         $place->delete();
 
 
-        \Storage::disk('public')->delete($file->filepath);
+        Storage::disk('public')->delete($file->filepath);
         $file->delete();
 
-        if (\Storage::disk('public')->exists($place->id)) {
-        \Log::debug("Local storage OK");
+        if (Storage::disk('public')->exists($place->id)) {
+        Log::debug("Local storage OK");
 
         return redirect()->route('places.show', $place)
         ->with('error', 'Error place alredy exist');
         } else {
-        \Log::debug("places Delete");
+        Log::debug("places Delete");
         // Patró PRG amb missatge d'error
         return redirect()->route("places.index")
         ->with('succes', 'places Deleted');
         }
         // $file = File::find($place->file_id);
 
-        // if (\Storage::disk('public')->exists($file->filepath)) {
+        // if (Storage::disk('public')->exists($file->filepath)) {
         //     File::destroy($file->id);
         //     place::destroy($place->id);
         //     return redirect()->route('place.show', $place)

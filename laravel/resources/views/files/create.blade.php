@@ -6,7 +6,7 @@
  <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
+            <div class="cardForms">
                 <div class="card-header">{{ __(' Ad new file') }}</div>
                 <div class="card-body">
                     <form id = "create" method="post" action="{{ route('files.store') }}" enctype="multipart/form-data">

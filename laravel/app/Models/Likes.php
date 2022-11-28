@@ -5,17 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Visibility extends Model
+class Likes extends Model
 {
+    public $timestamps=false;
     use \Backpack\CRUD\app\Models\Traits\CrudTrait;
     use HasFactory;
-
-    public $guard_name = 'web';
-
     protected $fillable = [
-        'public',
-        'contacts',
-        'private',
+        'user_id',
+        'post_id',
+        
     ];
-    
 }

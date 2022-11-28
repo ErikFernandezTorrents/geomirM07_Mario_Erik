@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Models\File;
 use App\Models\User;
+use App\Models\Visibility;
 use Illuminate\Http\Request;
+use App\Models\Likes;
 
 
 class PostController extends Controller
@@ -15,10 +17,20 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct()
+    {
+    $this->middleware('permission:posts.list')->only('index');
+    $this->middleware('permission:posts.create')->only(['create','store']);
+    $this->middleware('permission:posts.read')->only('show');
+    $this->middleware('permission:posts.update')->only(['edit','update']);
+    $this->middleware('permission:posts.delete')->only('destroy');
+    }
+
     public function index()
     {
         return view("posts.index", [
-            "posts" => post::all()
+            "posts" => Post::all()
         ]);
  
     }
@@ -30,7 +42,9 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view("posts.create");
+        return view("posts.create", [
+            "visibilities"=> Visibility::all(),
+        ]);
     }
 
     /**
@@ -50,7 +64,8 @@ class PostController extends Controller
         $validatedData = $request->validate([
             'body' => 'required',
             'latitude' => 'required',
-            'longitude' => 'required'
+            'longitude' => 'required',
+            'visibility_id' => 'required',
         ]);
    
         // Obtenir dades del fitxer
@@ -62,6 +77,7 @@ class PostController extends Controller
         $body = $request->get('body');
         $latitude = $request->get('latitude');
         $longitude = $request->get('longitude');
+        $visibility_id = $request->get('visibility_id');
 
         // Pujar fitxer al disc dur
         $uploadName = time() . '_' . $fileName;
@@ -87,7 +103,8 @@ class PostController extends Controller
             'body' => $body,
             'latitude' => $latitude,
             'longitude' => $longitude,
-            'file_id' => $file->id,
+            'visibility_id' => $visibility_id,
+            'file_id' => $file->id,   
             'author_id'=>auth()->user()->id,
         ]);
         \Log::debug("DB storage OK");
@@ -110,13 +127,23 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        $file=File::find($post->file_id);
         $user=User::find($post->author_id);
+        $file = File::find($post->file_id);
+
+        $is_like = false;
+        try {
+            if (Likes::where('user_id', '=', auth()->user()->id)->where('post_id','=', $post->id)->exists()) {
+                $is_like = true;
+            }
+        } catch (Exception $e) {
+            $is_like = false;
+        }
         return view("posts.show", [
-            'post' => $post,
-            'file' => $file,
-            'user' => $user
-        ]);  
+            "post" => $post,
+            "file" => $file,
+            "user" => $user,
+            'is_like' => $is_like,
+        ]);
     }
 
     /**
@@ -127,11 +154,16 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        $file=File::find("$post->file_id");
-        return view("posts.edit", [
-            'post' => $post,
-            'file' => $file,   
-        ]);
+        if ( auth()->user()->id == $post->author_id){ 
+            return view("posts.edit", [
+                'post' => $post,
+                'file' => $post->file,   
+            ]);
+        }
+        else{
+            return redirect()->back()
+                ->with('error',__('You are not the author of the post'));
+        }
     }
 
     /**
@@ -211,25 +243,65 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        $file=File::find($post->file_id);
-        
-        \Storage::disk('public')->delete($post->id);
-        $post->delete();
+        if ( auth()->user()->id == $post->author_id){
+            if ( auth()->user()->id == $post->author_id){ 
+                $file=File::find($post->file_id);
+                
+                \Storage::disk('public')->delete($post->id);
+                $post->delete();
 
 
-        \Storage::disk('public')->delete($file->filepath);
-        $file->delete();
+                \Storage::disk('public')->delete($file->filepath);
+                $file->delete();
 
-         if (\Storage::disk('public')->exists($post->id)) {
-            \Log::debug("Local storage OK");
-            
-            return redirect()->route('posts.show', $post)
-                ->with('error', 'Error post alredy exist');
-        } else {
-            \Log::debug("Post Delete");
-            // Patró PRG amb missatge d'error
-            return redirect()->route("posts.index")
-                ->with('succes', 'Post Deleted');
+                if (\Storage::disk('public')->exists($post->id)) {
+                    \Log::debug("Local storage OK");
+                    
+                    return redirect()->route('posts.show', $post)
+                        ->with('error', 'Error post alredy exist');
+                } else {
+                    \Log::debug("Post Delete");
+                    // Patró PRG amb missatge d'error
+                    return redirect()->route("posts.index")
+                        ->with('succes', 'Post Deleted');
+                }
+            }
+            else{
+                return redirect()->back()
+                    ->with('error',__('You are not the author of the post'));
+            }
         }
+        else{
+            return redirect()->back()
+                ->with('error',__('You are not the author of the place'));
+        }
+    }
+
+    public function likes(post $post){
+        $user=User::find($post->author_id);
+
+        // Desar likes a la BD
+        $likes = Likes::create([
+            'post_id' => $post->id,
+            'user_id'=>$user->id,
+        
+        ]);
+
+        return redirect()->back();
+
+    }
+    public function unlike (Post $post)
+    {
+        // Eliminar favourites de la BD
+        $user=User::find($post->author_id);
+        $like = Likes::where([
+            ['user_id', '=', $user->id],
+            ['post_id', '=', $post->id]
+        ]);
+        $like->first();
+
+        $like->delete();
+
+        return redirect()->back();
     }
 }

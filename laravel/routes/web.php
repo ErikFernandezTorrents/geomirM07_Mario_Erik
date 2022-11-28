@@ -5,8 +5,8 @@ use App\Http\Controllers\MailController;
 use Illuminate\Http\Request;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\PostController;
-use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\PlaceController;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LanguageController;
 /*
@@ -46,10 +46,13 @@ Route::get('/', function (Request $request) {
 Route::resource('files', FileController::class)
     ->middleware(['auth', 'permission:files']);
     
-Route::resource('posts', PostController::class)
+Route::resource('places', PlaceController::class)
     ->middleware(['auth', 'permission:places']);
 
-Route::resource('places', PlaceController::class)
+Route::resource('posts', postController::class)
     ->middleware(['auth', 'permission:posts']);
 
 Route::get('/language/{locale}', [LanguageController::class, 'language']);
+
+Route::post('/posts/{post}/likes', [PostController::class, 'likes'])->name('posts.likes');
+Route::delete('/posts/{post}/likes', [PostController::class, 'unlike'])->name('posts.unlike');

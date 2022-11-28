@@ -4,7 +4,7 @@
 <div class="container">
    <div class="row justify-content-center">
        <div class="col-md-8">
-           <div class="card">
+           <div class="cardForms">
                <div class="card-header">{{ __('Info file: ') }}{{ $file->id }}</div>
                <div class="card-body">
                    <table class="table">

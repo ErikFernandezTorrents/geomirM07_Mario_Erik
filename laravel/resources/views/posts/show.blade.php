@@ -4,8 +4,8 @@
 <div class="container">
    <div class="row justify-content-center">
        <div class="col-md-8">
-           <div class="card">
-               <div class="card-header">{{ $post->id}}</div>
+           <div class="cardForms">
+               <div class="card-header"><p class="blanco">{{ $user->name }}</p></div>
                <div class="card-body">
                    <table class="table">
                        <tbody>
@@ -16,7 +16,7 @@
                            </tr>
                           
                            <tr>
-                                <td scope="col">Latitude</td>
+                                <td scope="col" >Latitude</td>
                                 <td>{{ $post->latitude }}</td> 
                            </tr>
                            <tr>
@@ -24,31 +24,39 @@
                                 <td>{{ $post->longitude }}</td> 
                            </tr>
                            <tr>
-                                <td scope="col">Author:</td>
-                                <td>{{ $user->name }}</td> 
-                           </tr>
-                           <tr>
-                                <td scope="col">File id:</td>
-                                <td>{{ $post->file_id }}</td> 
+                               <td scope="col">Created</td>
+                               <td>{{ $post->created_at }}</td>
                            </tr>
                            <tr>
                                 <td scope="col">img</td>
                                 <td aling="center"> <img class="img-fluid" src="{{ asset("storage/{$file->filepath}") }}" /></td> 
                            </tr>
-                           <tr>
-                               <td>
-                                   <form method="post" action="" enctype="multipart/form-data">
-                                       @method('DELETE')
-                                       @csrf
-                                       <button type="submit" class="btn btn-primary">Delete</button>
-                                       <a class="btn btn-primary" href="{{ route('posts.edit',$post) }}" role="button">Upadte</a>
-                                       <a class="btn btn-primary" href="{{ url('/post') }}" role="button">Index</a> 
+                           <tr >
+                                <td><a class="btn btn-primary noborder" href="{{ route('posts.edit',$post) }}" role="button">Editar</a></td>
+                                <td><a class="btn btn-primary noborder" href="{{ url('/posts') }}" role="button">Index</a></td>
+                                <td class="noborder">
+                                    <form method="post" action="{{ route('posts.destroy',$post) }}" >
+                                        @csrf     
+                                        @method('DELETE')
+                                            
+                                        <button class="btn btn-primary">Elimina</button>
                                     </form>
-                                    
                                 </td>
-                           </tr>
-                          
-
+                                <td class="noborder">
+                                    @if($is_like == false)
+                                        <form method="post" action="{{ route('posts.likes',$post) }}" >
+                                            @csrf 
+                                            <button class=" btn btn-primary"><img class="cor"src ="../../images/corazon2.png"></button>
+                                        </form>
+                                    @else
+                                        <form method="post" action="{{ route('posts.unlike',$post) }}" >
+                                            @csrf 
+                                            @method('DELETE')
+                                            <button class="btn-focus btn btn-primary"><img class="cor"src ="../../images/corazon.png"></button>
+                                        </form>
+                                    @endif
+                                </td>  
+                            </tr>
                        </tbody>
                    </table>
                    
