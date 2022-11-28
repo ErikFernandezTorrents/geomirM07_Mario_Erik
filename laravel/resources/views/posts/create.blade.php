@@ -1,4 +1,3 @@
-
 @extends('layouts.app')
  
  @section('content')
@@ -14,7 +13,7 @@
                             <tr>
                                 <td id="body">
                                     <label for="upload">Body:</label>
-                                    <input type="text" class="form-control" name="name"/>
+                                    <input type="text" class="form-control" name="body"/>
                                     <div class="error alert alert-danger alert-dismissible fade"></div>
                                 </td>
                             </tr>

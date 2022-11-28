@@ -141,17 +141,6 @@ class PlaceController extends Controller
     {
         $user=User::find($place->author_id);
         $file = File::find($place->file_id);
-        //if (Storage::disk('public')->exists($place->filepath)) {
-            return view("places.show", [
-                "place" => $place,
-                "file" => $file,
-                "user" => $user,
-            ]);
-        //}
-        //else{
-            //return redirect()->route("files.index")
-            //    ->with('error', 'ERROR the file does not exist on the hard drive');
-        //}
 
         $is_favourite = false;
         try {

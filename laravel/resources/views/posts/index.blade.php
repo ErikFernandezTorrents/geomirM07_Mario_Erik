@@ -5,6 +5,7 @@
         <a class="btn btn-primary" href="{{ route('posts.create') }}" role="button">Add new post</a>
         <a class="btn btn-primary" href="{{ url('/dashboard') }}" role="button">Home</a> 
     </div>
+    @csrf
     @foreach ($posts as $post)
         <div class="container">
             <div> 

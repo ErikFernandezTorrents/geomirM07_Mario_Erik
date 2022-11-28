@@ -55,8 +55,8 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        // Validar fitxer
-       $validatedData = $request->validate([
+      // Validar fitxer
+      $validatedData = $request->validate([
         'upload' => 'required|mimes:gif,jpeg,jpg,png|max:1024'
         ]);
 
@@ -115,7 +115,6 @@ class PostController extends Controller
             return redirect()->route("posts.create")
                 ->with('error', 'ERROR uploading posts');
         }
-
 
     }
 
@@ -246,7 +245,7 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        if ( auth()->user()->id == $post->author_id){
+        if ( auth()->user()->id == $post->author_id) {
             if ( auth()->user()->id == $post->author_id){ 
                 $file=File::find($post->file_id);
                 
@@ -300,8 +299,9 @@ class PostController extends Controller
                 ->with('error',__('You are not the author of the post'));
         }
     }
+    }
 
-    public function likes(Post $post){
+    public function likes(Post $post) {
         $user=User::find($post->author_id);
 
         // Desar likes a la BD

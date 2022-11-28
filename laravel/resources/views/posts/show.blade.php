@@ -11,7 +11,7 @@
                        <tbody>
                            
                            <tr>
-                                <td scope="col">{{__('fields.body')}}</td>
+                                <td scope="col">Body</td>
                                 <td>{{ $post->body }}</td> 
                            </tr>
                           
@@ -31,7 +31,6 @@
                                 <td scope="col">img</td>
                                 <td aling="center"> <img class="img-fluid" src="{{ asset("storage/{$file->filepath}") }}" /></td> 
                            </tr>
-<<<<<<< HEAD
                            <tr >
                                 <td><a class="btn btn-primary noborder" href="{{ route('posts.edit',$post) }}" role="button">Editar</a></td>
                                 <td><a class="btn btn-primary noborder" href="{{ url('/posts') }}" role="button">Index</a></td>
@@ -41,16 +40,6 @@
                                         @method('DELETE')
                                             
                                         <button class="btn btn-primary">Elimina</button>
-=======
-                           <tr>
-                               <td>
-                                   <form method="post" action="" enctype="multipart/form-data">
-                                       @method('DELETE')
-                                       @csrf
-                                       <button type="submit" class="btn btn-primary">Delete</button>
-                                       <a class="btn btn-primary" href="{{ route('posts.edit',$post) }}" role="button">Upadte</a>
-                                       <a class="btn btn-primary" href="{{ url('/posts') }}" role="button">Index</a> 
->>>>>>> b627786e05fe698bceb88954df9a3b03ddb84c5a
                                     </form>
                                 </td>
                                 <td class="noborder">
