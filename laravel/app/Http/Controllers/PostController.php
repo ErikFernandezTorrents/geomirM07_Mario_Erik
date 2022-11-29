@@ -308,12 +308,12 @@ class PostController extends Controller
     }
 
     public function likes(Post $post) {
-        $user=User::find($post->author_id);
+       
 
         // Desar likes a la BD
         $likes = Likes::create([
             'post_id' => $post->id,
-            'user_id'=>$user->id,
+            'user_id'=>auth()->user()->id,
         
         ]);
 
@@ -323,9 +323,9 @@ class PostController extends Controller
     public function unlike (Post $post)
     {
         // Eliminar favourites de la BD
-        $user=User::find($post->author_id);
+        
         $like = Likes::where([
-            ['user_id', '=', $user->id],
+            ['user_id', '=', auth()->user()->id],
             ['post_id', '=', $post->id]
         ]);
         $like->first();

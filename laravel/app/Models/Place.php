@@ -39,6 +39,10 @@ class Place extends Model
     {
        return $this->belongsToMany(User::class, 'favorites');
     }
+    public function favorites()
+    {
+        return $this->hasMany(Favorite::class);
+    }
 
 
 
