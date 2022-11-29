@@ -43,10 +43,5 @@ class Post extends Model
     {
         return $this->hasMany(Likes::class);
     }
-
-    public function likes()
-    {
-        return $this->hasMany(Likes::class);
-    }
     
 }
