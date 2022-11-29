@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\VisibilityController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
