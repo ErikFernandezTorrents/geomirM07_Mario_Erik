@@ -142,9 +142,11 @@ class PlaceController extends Controller
         $user=User::find($place->author_id);
         $file = File::find($place->file_id);
 
+        $place->loadCount('favorites');
+
         $is_favourite = false;
         try {
-            if (Favourites::where('user_id', '=', $user->id)->where('place_id','=', $place->id)->exists()) {
+            if (Favourites::where('user_id', '=', auth()->user()->id)->where('place_id','=', $place->id)->exists()) {
                 $is_favourite = true;
             }
         } catch (Exception $e) {
@@ -155,6 +157,7 @@ class PlaceController extends Controller
             "file" => $file,
             "user" => $user,
             'is_favourite' => $is_favourite,
+            'numFav' => $place->fav_count,
         ]);
     }
 
@@ -290,17 +293,6 @@ class PlaceController extends Controller
         return redirect()->route("places.index")
         ->with('succes', 'places Deleted');
         }
-        // $file = File::find($place->file_id);
-
-        // if (Storage::disk('public')->exists($file->filepath)) {
-        //     File::destroy($file->id);
-        //     place::destroy($place->id);
-        //     return redirect()->route('place.show', $place)
-        //         ->with('error', 'ERROR el Lloc encara existeix al disc');
-        // } else {       
-        //     return redirect()->route("place.index")
-        //         ->with('success', 'LLoc eliminat correctament!');
-        // }
             \Storage::disk('public')->delete($place->id);
             $place->delete();
 
@@ -327,12 +319,11 @@ class PlaceController extends Controller
         }
     }
     public function favourites(Place $place){
-        $user=User::find($place->author_id);
 
         // Desar favourites a la BD
         $favourites = Favourites::create([
             'place_id' => $place->id,
-            'user_id'=>$user->id,
+            'user_id'=>auth()->user()->id,
         
         ]);
 
@@ -343,9 +334,8 @@ class PlaceController extends Controller
     {
 
         // Eliminar favourites de la BD
-        $user=User::find($place->author_id);
         $fav = Favourites::where([
-            ['user_id', '=', $user->id],
+            ['user_id', '=', auth()->user()->id],
             ['place_id', '=', $place->id]
         ]);
         $fav->first();

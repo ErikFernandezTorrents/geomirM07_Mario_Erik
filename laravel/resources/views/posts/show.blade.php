@@ -46,13 +46,13 @@
                                     @if($is_like == false)
                                         <form method="post" action="{{ route('posts.likes',$post) }}" >
                                             @csrf 
-                                            <button class=" btn btn-primary"><img class="cor"src ="../../images/corazon2.png"></button>
+                                            <button class=" btn btn-primary"><img class="cor"src ="../../images/corazon2.png">{{$numLikes}}</button>
                                         </form>
                                     @else
                                         <form method="post" action="{{ route('posts.unlike',$post) }}" >
                                             @csrf 
                                             @method('DELETE')
-                                            <button class="btn-focus btn btn-primary"><img class="cor"src ="../../images/corazon.png"></button>
+                                            <button class="btn-focus btn btn-primary"><img class="cor"src ="../../images/corazon.png">{{$numLikes}}</button>
                                         </form>
                                     @endif
                                 </td>  

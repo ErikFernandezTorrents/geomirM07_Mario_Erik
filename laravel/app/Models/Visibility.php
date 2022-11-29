@@ -12,6 +12,8 @@ class Visibility extends Model
 
     public $guard_name = 'web';
 
+    public $timestamps = false;
+
     protected $fillable = [
         'public',
         'contacts',
