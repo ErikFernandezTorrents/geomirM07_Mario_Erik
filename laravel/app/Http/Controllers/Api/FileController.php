@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\File;
 
 class FileController extends Controller
 {
@@ -14,7 +15,10 @@ class FileController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json([
+            'success' => true,
+            'data'    => File::all()
+        ], 200);
     }
 
     /**
@@ -31,10 +35,22 @@ class FileController extends Controller
        ]);
        // Desar fitxer al disc i inserir dades a BD
        $upload = $request->file('upload');
-       $file = new File();
-       $ok = $file->diskSave($upload);
+       $fileName = $upload->getClientOriginalName();
+       $fileSize = $upload->getSize();
+
+       // Pujar fitxer al disc dur
+       $uploadName = time() . '_' . $fileName;
+       $filePath = $upload->storeAs(
+           'uploads',      // Path
+           $uploadName ,   // Filename
+           'public'        // Disk
+       );
  
-       if ($ok) {
+       if (\Storage::disk('public')->exists($filePath)) {
+            $file = File::create([
+                'filepath' => $filePath,
+                'filesize' => $fileSize,
+            ]);
            return response()->json([
                'success' => true,
                'data'    => $file
@@ -56,7 +72,26 @@ class FileController extends Controller
      */
     public function show($id)
     {
-        //
+        $file = File::find($id);
+        if ($file == null){
+            return response()->json([
+                'success'  => false,
+                'message' => 'Error notFound file'
+            ], 404);
+
+        }
+
+        if ($file) {
+            return response()->json([
+                'success' => true,
+                'data'    => $file
+            ], 200);
+        }else {
+            return response()->json([
+                'success'  => false,
+                'message' => 'Error no encontramos el fichero a leer'
+            ], 500);
+        }
     }
 
     /**
@@ -68,7 +103,52 @@ class FileController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $file = File::find($id);
+
+        if ($file == null){
+            return response()->json([
+                'success'  => false,
+                'message' => 'Error notFound file'
+            ], 404);
+
+        }
+        // Validar fitxer
+        $validatedData = $request->validate([
+        'upload' => 'required|mimes:gif,jpeg,jpg,png|max:1024'
+        ]);
+   
+        // Obtenir dades del fitxer
+        $upload = $request->file('upload');
+        $fileName = $upload->getClientOriginalName();
+        $fileSize = $upload->getSize();
+
+        // Pujar fitxer al disc dur
+        $uploadName = time() . '_' . $fileName;
+        $filePath = $upload->storeAs(
+            'uploads',      // Path
+            $uploadName ,   // Filename
+            'public'        // Disk
+        );
+
+
+        if (\Storage::disk('public')->exists($filePath)) {
+            // Desar dades a BD
+            $file->filepath = $filePath;
+            $file->filesize = $fileSize;
+            $file->save();
+
+            return response()->json([
+                'success' => true,
+                'data'    => $file
+            ], 200);
+        }else {
+            return response()->json([
+                'success'  => false,
+                'message' => 'Error updating file'
+            ], 500);
+        }
+        
+
     }
 
     /**
@@ -79,6 +159,31 @@ class FileController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $file = File::find($id);
+
+        if ($file == null){
+            return response()->json([
+                'success'  => false,
+                'message' => 'Error notFound file'
+            ], 404);
+
+        }
+
+        $file->delete();
+
+        if (\Storage::disk('public')->exists($file->filepath)) {
+            return response()->json([
+                'success' => true,
+                'data'    => $file
+            ], 200);
+        }else {
+            return response()->json([
+                'success'  => false,
+                'message' => 'Error destoyng file'
+            ], 500);
+        }
+
+
+
     }
 }
