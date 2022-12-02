@@ -16,5 +16,10 @@
     </div>
     @section('content')
     <div ><img id="mapa" src="../../images/mapa.png"></div>
+    <footer id="footer">
+        <li class="nav-item">
+            <a class="navLink fontRegister" href="{{ route('about_us') }}">{{ __('About us') }}</a>
+        </li>
+    </footer>
     @endsection
 </x-app-layout>

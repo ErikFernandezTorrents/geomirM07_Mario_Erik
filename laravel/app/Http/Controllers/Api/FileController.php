@@ -168,10 +168,10 @@ class FileController extends Controller
             ], 404);
 
         }
-
         $file->delete();
 
         if (\Storage::disk('public')->exists($file->filepath)) {
+            \Storage::disk('public')->delete($file->filepath);
             return response()->json([
                 'success' => true,
                 'data'    => $file

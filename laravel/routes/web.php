@@ -44,7 +44,6 @@ Route::get('/', function (Request $request) {
     $request->session()->flash('info', $message);
     return view('auth/login');
 });
-
 Route::resource('files', FileController::class)
     ->middleware(['auth']);
     
@@ -64,3 +63,10 @@ Route::resource('visibilities', VisibilityController::class)
 
 Route::post('/places/{place}/favourites', [PlaceController::class, 'favourites'])->name('places.favourites');
 Route::delete('/places/{place}/favourites', [PlaceController::class, 'unfavourite'])->name('places.unfavourite');
+
+Route::get('/dashboard', function (Request $request) {
+    $message = 'Welcome to our About us';
+    Log::info($message);
+    $request->session()->flash('info', $message);
+    return view('views/about_us');
+});
