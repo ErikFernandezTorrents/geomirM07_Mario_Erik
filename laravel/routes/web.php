@@ -7,6 +7,7 @@ use App\Http\Controllers\FileController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\PlaceController;
 use Illuminate\Support\Facades\Log;
+//use Illuminate\Support\Facades\Debugbar;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\VisibilityController;
