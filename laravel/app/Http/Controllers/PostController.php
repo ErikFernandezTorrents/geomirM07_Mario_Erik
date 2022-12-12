@@ -129,6 +129,8 @@ class PostController extends Controller
         $user=User::find($post->author_id);
         $file = File::find($post->file_id);
 
+        $post->loadCount('likes');
+
         $is_like = false;
         try {
             if (Likes::where('user_id', '=', $user->id)->where('post_id','=', $post->id)->exists()) {
@@ -144,7 +146,8 @@ class PostController extends Controller
             'is_like' => $is_like,
             'post' => $post,
             'file' => $file,
-            'user' => $user
+            'user' => $user,
+            'numLikes' => $post->likes_count,
         ]);
     }
 
@@ -302,12 +305,12 @@ class PostController extends Controller
     }
 
     public function likes(Post $post) {
-        $user=User::find($post->author_id);
+       
 
         // Desar likes a la BD
         $likes = Likes::create([
             'post_id' => $post->id,
-            'user_id'=>$user->id,
+            'user_id'=>auth()->user()->id,
         
         ]);
 
@@ -317,9 +320,9 @@ class PostController extends Controller
     public function unlike (Post $post)
     {
         // Eliminar favourites de la BD
-        $user=User::find($post->author_id);
+        
         $like = Likes::where([
-            ['user_id', '=', $user->id],
+            ['user_id', '=', auth()->user()->id],
             ['post_id', '=', $post->id]
         ]);
         $like->first();

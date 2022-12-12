@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\VisibilityController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -44,7 +45,6 @@ Route::get('/', function (Request $request) {
     $request->session()->flash('info', $message);
     return view('auth/login');
 });
-
 Route::resource('files', FileController::class)
     ->middleware(['auth']);
     
@@ -68,3 +68,4 @@ Route::delete('/places/{place}/favourites', [PlaceController::class, 'unfavourit
 Route::get('/about-erik', function () {
     return view('/about-erik');
  });
+
