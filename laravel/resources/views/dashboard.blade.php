@@ -17,8 +17,8 @@
     @section('content')
     <div ><img id="mapa" src="../../images/mapa.png"></div>
     <footer id="footer">
-        <li class="nav-item">
-            <a class="navLink fontRegister" href="{{ route('about_us') }}">{{ __('About us') }}</a>
+        <li id="aboutLink" class="ms-auto botons">
+            <a class="navLink" href="{{ url('/about-erik') }}">About us</img></a>
         </li>
     </footer>
     @endsection

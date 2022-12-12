@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\FileController;
+use App\Http\Controllers\Api\TokenController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -19,3 +20,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::apiResource('files', FileController::class);
+
+Route::post('/register', [TokenController::class,'register']);//->middleware('guest');
+Route::post('/login', [TokenController::class,'login']);
+Route::post('/logout', [TokenController::class,'logout']);
