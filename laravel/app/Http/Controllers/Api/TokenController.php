@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Auth\RequestGuard;
 class TokenController extends Controller
 {
     /**
@@ -105,14 +105,8 @@ class TokenController extends Controller
     public function logout(Request $request)
     {
 
-        Auth::guard()->logout();
-
-
-        // eliminar el token del almacenamiento de sesión
-        session()->forget('auth_token');
-        // eliminar el token del navegador del usuario
-        Cookie::forget('auth_token');
-
+        $request->user()->currentAccessToken()->delete();
+        
          // generar la respuesta JSON
         return response()->json([
             'success' => true,
@@ -122,14 +116,4 @@ class TokenController extends Controller
 
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }
