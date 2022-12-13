@@ -27,13 +27,34 @@ class PlaceTest extends TestCase
     }
     public function test_file_create() : object
     {
+        // Create test user (BD store later)
+        $name = "test_" . time();
+        self::$testUser = new User([
+            "name"      => "{$name}",
+            "email"     => "{$name}@mailinator.com",
+            "password"  => "12345678"
+        ]);
+
        // Create fake place
+       $id = auth()->user()->id;
        $name  = "avatar.png";
+       $namePlace = "lloc";
        $size = 500; /*KB*/
+       $description = 'hola bones';
+       $latitude = 'X3748300';
+       $longitude = 'M0044030';
+       $visibility_id = 'public';
        $upload = UploadedFile::fake()->image($name)->size($size);
+
        // Upload fake file using API web service
        $response = $this->postJson("/api/places", [
            "upload" => $upload,
+           "name" => $namePlace,
+           "description" => $description,
+            "latitude" => $latitude,
+            "longitude" => $longitude,
+            "visibility_id" => $visibility_id,
+            "author_id" => $id,
        ]);
        // Check OK response
        $this->_test_ok($response, 201);
@@ -51,6 +72,31 @@ class PlaceTest extends TestCase
         // Read, update and delete dependency!!!
         $json = $response->getData();
         return $json->data;
+    }
+    public function test_place_create_error()
+    {
+        // Create fake file with invalid max size
+        $id = auth()->user()->id;
+        $name  = "avatar.png";
+        $namePlace = "lloc";
+        $size = 5000; /*KB*/
+        $description = 'hola bones';
+        $latitude = 'X3748300';
+        $longitude = 'M0044030';
+        $visibility_id = 'public';
+        $upload = UploadedFile::fake()->image($name)->size($size);
+        // Upload fake file using API web service
+        $response = $this->postJson("/api/places", [
+            "upload" => $upload,
+            "name" => $namePlace,
+            "description" => $description,
+            "latitude" => $latitude,
+            "longitude" => $longitude,
+            "visibility_id" => $visibility_id,
+            "author_id" => $id,
+        ]);
+        // Check ERROR response
+        $this->_test_error($response);
     }
     protected function _test_ok($response, $status = 200)
     {

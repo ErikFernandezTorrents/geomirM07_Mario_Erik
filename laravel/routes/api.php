@@ -22,8 +22,11 @@ use App\Http\Controllers\Api\PlaceController;
 Route::apiResource('files', FileController::class);
 
 Route::post('/register', [TokenController::class,'register']);//->middleware('guest');
+
 Route::post('/login', [TokenController::class,'login']);
+
 Route::post('/logout', [TokenController::class,'logout'])->middleware('auth:sanctum');
+
 Route::get('/user', [TokenController::class,'user'])->middleware('auth:sanctum');
 
-Route::apiResource('/places', PlaceController::class);
+Route::apiResource('/places', PlaceController::class)->middleware('auth:sanctum');

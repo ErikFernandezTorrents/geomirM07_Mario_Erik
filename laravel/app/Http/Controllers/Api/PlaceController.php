@@ -5,6 +5,11 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Place;
+use Illuminate\Support\Facades\Storage;
+use App\Models\File;
+use App\Models\User;
+use App\Models\Visibility;
+use App\Models\Favourites;
 
 class PlaceController extends Controller
 {
@@ -45,13 +50,13 @@ class PlaceController extends Controller
         $upload = $request->file('upload');
         $fileName = $upload->getClientOriginalName();
         $fileSize = $upload->getSize();
-        Log::debug("Storing file '{$fileName}' ($fileSize)...");
+       
         $description = $request->get('description');
         $latitude = $request->get('latitude');
         $longitude = $request->get('longitude');
-        //$category_id = $request->get('category_id');
+        
         $visibility_id = $request->get('visibility_id');
-        \Log::debug("Storing file '{$fileName}' ($fileSize)...");
+
 
         // Pujar fitxer al disc dur
         $uploadName = time() . '_' . $fileName;
@@ -62,17 +67,16 @@ class PlaceController extends Controller
         );
     
         if (Storage::disk('public')->exists($filePath)) {
-            Log::debug("Local storage OK");
+
             $fullPath = Storage::disk('public')->path($filePath);
-            Log::debug("File saved at {$fullPath}");
+            
             // Desar dades a BD
             $file = File::create([
                 'filepath' => $filePath,
                 'filesize' => $fileSize,
             ]);
             // Obtenir dades de place
-            $name = $request->get('name');
-            Log::debug($name);
+            $name = $request->get('name');  
             $description = $request->get('description');
             $latitude = $request->get('latitude');
             $longitude = $request->get('longitude');
