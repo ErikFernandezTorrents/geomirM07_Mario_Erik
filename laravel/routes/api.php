@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\FileController;
 use App\Http\Controllers\Api\TokenController;
+use App\Http\Controllers\Api\PlaceController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -24,3 +25,5 @@ Route::post('/register', [TokenController::class,'register']);//->middleware('gu
 Route::post('/login', [TokenController::class,'login']);
 Route::post('/logout', [TokenController::class,'logout'])->middleware('auth:sanctum');
 Route::get('/user', [TokenController::class,'user'])->middleware('auth:sanctum');
+
+Route::apiResource('/places', PlaceController::class);

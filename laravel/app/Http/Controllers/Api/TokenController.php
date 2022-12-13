@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Auth\RequestGuard;
+
 class TokenController extends Controller
 {
     /**
@@ -106,7 +106,7 @@ class TokenController extends Controller
     {
 
         $request->user()->currentAccessToken()->delete();
-        
+
          // generar la respuesta JSON
         return response()->json([
             'success' => true,
