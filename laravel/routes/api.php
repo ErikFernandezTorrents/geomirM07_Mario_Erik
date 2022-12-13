@@ -23,4 +23,6 @@ Route::apiResource('files', FileController::class);
 
 Route::post('/register', [TokenController::class,'register']);//->middleware('guest');
 Route::post('/login', [TokenController::class,'login']);
-Route::post('/logout', [TokenController::class,'logout']);
+Route::middleware('auth:sanctum')->post('/logout', function (Request $request) {
+    return $request->user();
+});

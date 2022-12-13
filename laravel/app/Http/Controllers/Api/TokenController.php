@@ -102,9 +102,24 @@ class TokenController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function logout(Request $request)
     {
-        //
+
+        Auth::guard()->logout();
+
+
+        // eliminar el token del almacenamiento de sesión
+        session()->forget('auth_token');
+        // eliminar el token del navegador del usuario
+        Cookie::forget('auth_token');
+
+         // generar la respuesta JSON
+        return response()->json([
+            'success' => true,
+            'message' => 'Sesión cerrada correctamente.'
+        ], 200);
+       
+
     }
 
     /**

@@ -23,7 +23,7 @@
     }
     .card{
         width: 30%;
-        height: 35%;
+        height: 35% !important;
         margin: 20px;
         border-radius: 6px;
         overflow: hidden;
@@ -33,7 +33,7 @@
     }
 
     .card:hover{
-        box-shadow: 5px 5px 20px black;
+        box-shadow: 5px 5px 20px #694abb;
         transform: translateY(-4%);
     }
 
@@ -142,7 +142,8 @@
         color:#694abb;
     }
     #mySoundClip{
-        height: 35%;
+        height: 100px !important;
+        display: block !important;
     }
 </style>
 
@@ -194,22 +195,22 @@
                 </div>
             </div>
         </div>
-        <div class="card">
-            
-            <!-- <audio id="mySoundClip"> autoplay -->
-            <source src="../audio/PUNTO40.wav" type="audio/wav">
+        <div id="div1" draggable="true" class="card"> 
             <div class="contenedor-imagenes">
                 <a type="button"data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
-                    <div class="fotoSeria"></div>
+                    <div class="fotoSeria">
+                        <audio id="mySoundClip">
+                            <source src="../audio/PUNTO40.wav" type="audio/wav">
+                        </audio>
+                    </div>
                 </a>
             </div>
             <div class="contenido">
                 <h2>Erik Fernandez</h2>
                 <button class="cargo"></button>
-                
             </div>
         </div>
-        <div class="card">
+        <div id="div2" draggable="true" class="card">
             <div class="contenedor-imagenes">
                 <div class="fotoSeria"></div>
                 
@@ -218,16 +219,50 @@
                 <h2>Erik Fernandez</h2>
                 <button class="cargo"></button>
                 <a href="#">Vídeo</a>
-
             </div>
         </div>
     </div>
 </div>
-<script> 
-    var audio = $("#mySoundClip")[0];
-    $("div .card").mouseenter(function() {
+<script>
+
+    var myDiv = document.querySelector('.card');
+
+    // Crear un nuevo objeto Audio
+    var audio = document.getElementById('mySoundClip');
+
+    // Agregar un manejador de evento mouseover al div
+    myDiv.addEventListener('mouseover', function() {
+        // Reproducir el sonido
+        audio.play();
+    });
+
+    myDiv.addEventListener('mouseout', function() {
+        // Reproducir el sonido
         audio.pause();
     });
-    
+
+    var div1 = document.getElementById("div1");
+    var div2 = document.getElementById("div2");
+
+    div1.addEventListener("dragstart", dragStart);
+    div2.addEventListener("dragstart", dragStart);
+
+    div1.addEventListener("dragover", dragOver);
+    div2.addEventListener("dragover", dragOver);
+
+    div1.addEventListener("drop", drop);
+    div2.addEventListener("drop", drop);
+
+    function dragStart(event) {
+        event.dataTransfer.setData("divID", event.target.id);
+    }
+    function dragOver(event) {
+        event.preventDefault();
+    }
+
+    function drop(event) {
+        var data = event.dataTransfer.getData("divID");
+        event.target.appendChild(document.getElementById(data));
+    }
 </script>
 @endsection
