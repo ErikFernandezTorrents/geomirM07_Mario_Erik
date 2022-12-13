@@ -135,7 +135,7 @@ class PostController extends Controller
 
         $is_like = false;
         try {
-            if (Likes::where('user_id', '=', auth()->user()->id)->where('post_id','=', $post->id)->exists()) {
+            if (Likes::where('user_id', '=', $user->id)->where('post_id','=', $post->id)->exists()) {
                 $is_like = true;
             }
         } catch (Exception $e) {

@@ -7,9 +7,11 @@ use App\Http\Controllers\FileController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\PlaceController;
 use Illuminate\Support\Facades\Log;
+//use Illuminate\Support\Facades\Debugbar;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\VisibilityController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -43,7 +45,6 @@ Route::get('/', function (Request $request) {
     $request->session()->flash('info', $message);
     return view('auth/login');
 });
-
 Route::resource('files', FileController::class)
     ->middleware(['auth']);
     
@@ -63,3 +64,8 @@ Route::resource('visibilities', VisibilityController::class)
 
 Route::post('/places/{place}/favourites', [PlaceController::class, 'favourites'])->name('places.favourites');
 Route::delete('/places/{place}/favourites', [PlaceController::class, 'unfavourite'])->name('places.unfavourite');
+
+Route::get('/about-erik', function () {
+    return view('/about-erik');
+ });
+
