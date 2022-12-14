@@ -6,9 +6,12 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use Illuminate\Http\UploadedFile;
+use App\Models\User;
+use Laravel\Sanctum\Sanctum;
 
 class PlaceTest extends TestCase
 {
+    public static User $testUser;
     /**
      * A basic feature test example.
      *
@@ -25,7 +28,7 @@ class PlaceTest extends TestCase
            fn ($data) => is_array($data)
        );
     }
-    public function test_file_create() : object
+    public function test_place_create() : object
     {
         // Create test user (BD store later)
         $name = "test_" . time();
@@ -35,6 +38,11 @@ class PlaceTest extends TestCase
             "password"  => "12345678"
         ]);
 
+        Sanctum::actingAs(
+            self::$testUser,
+            ['*'] // grant all abilities to the token
+        );
+
        // Create fake place
        $id = auth()->user()->id;
        $name  = "avatar.png";
@@ -43,7 +51,8 @@ class PlaceTest extends TestCase
        $description = 'hola bones';
        $latitude = 'X3748300';
        $longitude = 'M0044030';
-       $visibility_id = 'public';
+       $visibility_id = '1';
+       $author_id = '2';
        $upload = UploadedFile::fake()->image($name)->size($size);
 
        // Upload fake file using API web service
@@ -54,21 +63,19 @@ class PlaceTest extends TestCase
             "latitude" => $latitude,
             "longitude" => $longitude,
             "visibility_id" => $visibility_id,
-            "author_id" => $id,
+            "author_id" => $author_id
        ]);
        // Check OK response
        $this->_test_ok($response, 201);
        // Check validation errors
        $response->assertValid(["upload"]);
-       // Check JSON exact values
-       $response->assertJsonPath("data.filesize", $size*1024);
-       // Check JSON dynamic values
-       $response->assertJsonPath("data.id",
-           fn ($id) => !empty($id)
-       );
-       $response->assertJsonPath("data.filepath",
-           fn ($filepath) => str_contains($filepath, $name)
-        );
+       $response->assertValid(["name"]);
+       $response->assertValid(["description"]);
+       $response->assertValid(["longitude"]);
+       $response->assertValid(["latitude"]);
+       $response->assertValid(["visibility_id"]);
+       $response->assertValid(["author_id"]);
+       
         // Read, update and delete dependency!!!
         $json = $response->getData();
         return $json->data;
@@ -84,6 +91,7 @@ class PlaceTest extends TestCase
         $latitude = 'X3748300';
         $longitude = 'M0044030';
         $visibility_id = 'public';
+        $author_id = '2';
         $upload = UploadedFile::fake()->image($name)->size($size);
         // Upload fake file using API web service
         $response = $this->postJson("/api/places", [
@@ -93,7 +101,7 @@ class PlaceTest extends TestCase
             "latitude" => $latitude,
             "longitude" => $longitude,
             "visibility_id" => $visibility_id,
-            "author_id" => $id,
+            "author_id" => $author_id
         ]);
         // Check ERROR response
         $this->_test_error($response);

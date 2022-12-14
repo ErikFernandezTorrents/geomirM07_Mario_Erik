@@ -29,4 +29,4 @@ Route::post('/logout', [TokenController::class,'logout'])->middleware('auth:sanc
 
 Route::get('/user', [TokenController::class,'user'])->middleware('auth:sanctum');
 
-Route::apiResource('/places', PlaceController::class)->middleware('auth:sanctum');
+Route::apiResource('/places', PlaceController::class);

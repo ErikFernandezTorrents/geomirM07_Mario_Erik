@@ -44,19 +44,19 @@ class PlaceController extends Controller
             'latitude' => 'required',
             'longitude' => 'required',
             'visibility_id' => 'required',
+            'author_id' => 'required'
         ]);
     
         // Obtenir dades del fitxer
+        $name = $request->get('name');
         $upload = $request->file('upload');
         $fileName = $upload->getClientOriginalName();
-        $fileSize = $upload->getSize();
-       
         $description = $request->get('description');
         $latitude = $request->get('latitude');
         $longitude = $request->get('longitude');
-        
         $visibility_id = $request->get('visibility_id');
-
+        $author_id = $request->get('author_id');
+        $fileSize = $upload->getSize();
 
         // Pujar fitxer al disc dur
         $uploadName = time() . '_' . $fileName;
@@ -91,7 +91,7 @@ class PlaceController extends Controller
                 'file_id' => $file->id,
                 //'category_id' => $category_id,
                 'visibility_id' => $visibility_id,
-                'author_id'=>auth()->user()->id,
+                'author_id' => $author_id
             
         ]);
         return response()->json([
