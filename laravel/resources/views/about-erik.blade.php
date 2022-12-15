@@ -84,13 +84,11 @@
         transition: transform .3s;
     }
     .fotoSeria:hover{
-
         background-image: url(../images/ErikDiber.jpeg);
         background-size: 100% 100%;
         filter:contrast(150%);
         transition:.3s;
         transform: rotate(360deg);
-
     }
 
     .cargo{
@@ -165,14 +163,14 @@
                         </div>
                         <div class="carousel-inner">
                             <div class="carousel-item active">
-                                <video width="500" height="300"  controls autoplay muted>
+                                <video width="500" height="300"  controls muted>
                                     <source src="../audio/video1.mp4" type="video/mp4">
                                     
                                     Your browser does not support the video tag.
                                 </video>
                             </div>
                             <div class="carousel-item">
-                                <video width="500" height="300"  controls muted>
+                                <video width="500" height="300"  controls >
                                     <source src="../audio/video1.mp4" type="video/mp4"> 
                                     Your browser does not support the video tag.
                                 </video>
@@ -264,5 +262,33 @@
         var data = event.dataTransfer.getData("divID");
         event.target.appendChild(document.getElementById(data));
     }
+    const videos = document.getElementsByTagName("video");
+    const prevBtn = document.getElementsByClassName("carousel-control-prev")[0]
+    const nextBtn = document.getElementsByClassName("carousel-control-next")[0]
+    
+    var cur = 0
+    const max = videos.length
+    console.log("🎬 Total videos: " + max)
+    
+    const playVideos = function(){
+    // Pause all videos
+    for (v=0; v<max; v++) {
+        videos[v].pause();
+    }
+    // Play current video
+    console.log("🎬 PLAY VIDEO " + cur)
+    videos[cur].play()
+    }
+    
+    prevBtn.addEventListener("click", function(){
+    cur = (cur-1 >= 0) ? cur-1 : max
+    playVideos()
+    })
+    
+    nextBtn.addEventListener("click", function(){
+    cur = (cur+1 < max) ? cur+1 : 0
+    playVideos()
+    })
+
 </script>
 @endsection

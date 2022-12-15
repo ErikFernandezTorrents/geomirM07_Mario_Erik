@@ -93,13 +93,9 @@
                                     <a class="dropdown-item" href="{{ route('dashboard') }}">
                                         {{ __('fields.profile') }}
                                     </a>
-
-                                    <form id="seguidors-form" action="{{ route('dashboard') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                    <form id="perfil-form" action="{{ route('dashboard') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
+                                    <a class="dropdown-item" href="{{ url('/about-erik') }}">
+                                        {{ __('About us') }}
+                                    </a> 
                                 </div>
                             </li>
                         @endguest
