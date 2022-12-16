@@ -75,12 +75,6 @@ class PlaceController extends Controller
                 'filepath' => $filePath,
                 'filesize' => $fileSize,
             ]);
-            // Obtenir dades de place
-            $name = $request->get('name');  
-            $description = $request->get('description');
-            $latitude = $request->get('latitude');
-            $longitude = $request->get('longitude');
-
             
             // Desar dades a BD
             $place = Place::create([
@@ -114,7 +108,26 @@ class PlaceController extends Controller
      */
     public function show($id)
     {
-        //
+        $place = Place::find($id);
+        if ($place == null){
+            return response()->json([
+                'success'  => false,
+                'message' => 'Error notFound place'
+            ], 404);
+
+        }
+
+        if ($place) {
+            return response()->json([
+                'success' => true,
+                'data'    => $file
+            ], 200);
+        }else {
+            return response()->json([
+                'success'  => false,
+                'message' => 'Error no encontramos el lugar a leer'
+            ], 500);
+        }
     }
 
     /**

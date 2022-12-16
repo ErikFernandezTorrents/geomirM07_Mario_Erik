@@ -14,8 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('files', function (Blueprint $table) {
-            $table->unsignedBigInteger('id')->autoincrementable();
-            $table->primary('id');
+            $table->id();
             $table->string('filepath');
             $table->integer('filesize');
             $table->timestamp('created_at');
