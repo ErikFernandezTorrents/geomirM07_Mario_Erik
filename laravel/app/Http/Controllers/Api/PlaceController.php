@@ -23,7 +23,7 @@ class PlaceController extends Controller
         return response()->json([
             'success' => true,
             'data'    => Place::all()
-        ], 200);
+        ]);
     }
 
     /**
@@ -34,20 +34,18 @@ class PlaceController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'upload' => 'required|mimes:gif,jpeg,jpg,png|max:1024'
-        ]);
         // Validar Place
         $validatedData = $request->validate([
-            'name' => 'required',
-            'description' => 'required',
-            'latitude' => 'required',
-            'longitude' => 'required',
-            'visibility_id' => 'required',
-            'author_id' => 'required'
+            'name' => 'required|String',
+            'description' => 'required|String',
+            'latitude' => 'required|String',
+            'longitude' => 'required|String',
+            'visibility_id' => 'required|Integer',
+            'author_id' => 'required|Integer',
+            'upload' => 'required|mimes:gif,jpeg,jpg,png|max:1024'
         ]);
     
-        // Obtenir dades del fitxer
+        // Obtenir dades del place
         $name = $request->get('name');
         $upload = $request->file('upload');
         $fileName = $upload->getClientOriginalName();
@@ -120,7 +118,7 @@ class PlaceController extends Controller
         if ($place) {
             return response()->json([
                 'success' => true,
-                'data'    => $file
+                'data'    => $place
             ], 200);
         }else {
             return response()->json([
@@ -139,7 +137,71 @@ class PlaceController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $place = Place::find($id);
+
+        if ($place == null){
+            return response()->json([
+                'success'  => false,
+                'message' => 'Error notFound place'
+            ], 404);
+
+        }
+        // Validar fitxer
+        $validatedData = $request->validate([
+            'name' => 'required|String',
+            'description' => 'required|String',
+            'latitude' => 'required|String',
+            'longitude' => 'required|String',
+            'visibility_id' => 'required|Integer',
+            'author_id' => 'required|Integer',
+            'upload' => 'required|mimes:gif,jpeg,jpg,png|max:1024'
+        
+        ]);
+   
+        // Obtenir dades del place
+        $name = $request->get('name');
+        $upload = $request->file('upload');
+        $fileName = $upload->getClientOriginalName();
+        $description = $request->get('description');
+        $latitude = $request->get('latitude');
+        $longitude = $request->get('longitude');
+        $visibility_id = $request->get('visibility_id');
+        $author_id = $request->get('author_id');
+        $fileSize = $upload->getSize();
+
+        // Pujar fitxer al disc dur
+        $uploadName = time() . '_' . $fileName;
+        $filePath = $upload->storeAs(
+            'uploads',      // Path
+            $uploadName ,   // Filename
+            'public'        // Disk
+        );
+        $file = File::find($place->file_id);
+
+        if ($place) {
+            // Desar dades a BD
+            $file->filepath = $filePath;
+            $file->filesize = $fileSize;
+            $file->save();
+
+            $place->name = $name;
+            $place->description = $description;
+            $place->latitude = $latitude;
+            $place->longitude = $longitude;
+            $place->visibility_id = $visibility_id;
+            $place->author_id = $author_id;
+            $place->save();
+
+            return response()->json([
+                'success' => true,
+                'data'    => $place
+            ], 200);
+        }else {
+            return response()->json([
+                'success'  => false,
+                'message' => 'Error updating place'
+            ], 500);
+        }
     }
 
     /**
@@ -150,6 +212,34 @@ class PlaceController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $place = Place::find($id);
+
+        if ($place == null){
+            return response()->json([
+                'success'  => false,
+                'message' => 'Error notFound place'
+            ], 404);
+
+        }else{
+            $file = File::find($place->file_id);
+            $place->delete();
+            return response()->json([
+                'success' => true,
+                'data'    => $place
+            ], 200);
+        }
+
+        if ($file==null) {
+            return response()->json([
+                'success'  => false,
+                'message' => 'Error place exist'
+            ], 404);
+        }else {
+            $file->delete();
+            return response()->json([
+                'success' => true,
+                'data'    => $file
+            ], 200);
+        }
     }
 }
