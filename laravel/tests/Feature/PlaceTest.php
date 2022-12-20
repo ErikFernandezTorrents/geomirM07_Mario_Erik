@@ -228,6 +228,28 @@ class PlaceTest extends TestCase
         // Check OK response
         $this->_test_ok($response);
     }
+    /**
+    * @depends test_place_create
+    */
+    // public function test_place_favourite(object $place)
+    // {
+
+        // Favourite one place using API web service
+        // $response = $this->getJson("/api/place/{$place->id}/favourites");
+        // Check OK response
+        // $this->_test_ok($response);
+    // }
+    /**
+    * @depends test_place_create
+    */
+    // public function test_place_unfavourite(object $place)
+    // {
+
+        // Unfavourite one place using API web service
+        // $response = $this->deleteJson("/api/unfavourites/{$place->id}");
+        // Check OK response
+        // $this->_test_ok($response);
+    //}
   
     public function test_place_delete_notfound()
     {
@@ -278,5 +300,14 @@ class PlaceTest extends TestCase
         $response->assertJsonPath("message",
             fn ($message) => !empty($message) && is_string($message)
         );       
+    }
+    public function test_place_last()
+    {
+        // Eliminem l'usuari al darrer test
+        self::$testUser->delete();
+        // Comprovem que s'ha eliminat
+        $this->assertDatabaseMissing('users', [
+            'email' => self::$testUser->email,
+        ]);
     }
 }

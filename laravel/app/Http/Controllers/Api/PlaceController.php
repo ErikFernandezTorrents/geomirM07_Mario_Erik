@@ -242,4 +242,54 @@ class PlaceController extends Controller
             ], 200);
         }
     }
+
+    // TODO FAVOURITE Y UNFAVOURITE
+
+    // public function favourites($id){
+
+    //     $place = Place::find($id);
+
+    //     // Desar favourites a la BD
+    //     $favourites = Favourites::create([
+    //         'place_id' => $place->id,
+    //         'user_id'=>auth()->user()->id,
+        
+    //     ]);
+
+    //     if ($favourites) {
+    //         return response()->json([
+    //             'success' => true,
+    //             'data'    => $favourites
+    //         ], 200);
+    //     }else {
+    //         return response()->json([
+    //             'success'  => false,
+    //             'message' => 'Error favourite alrready exist'
+    //         ], 404);
+    //     }
+    // }
+    // public function unfavourite (Place $place)
+    // {
+
+    //     // Eliminar favourites de la BD
+    //     $fav = Favourites::where([
+    //         ['user_id', '=', auth()->user()->id],
+    //         ['place_id', '=', $place->id]
+    //     ]);
+    //     $fav->first();
+
+    //     $fav->delete();
+
+    //     if ($fav==null) {
+    //         return response()->json([
+    //             'success' => true,
+    //             'data'    => $fav
+    //         ], 200);
+    //     }else {
+    //         return response()->json([
+    //             'success'  => false,
+    //             'message' => 'Error favourite alrready exist'
+    //         ], 404);
+    //     }
+    // }
 }
