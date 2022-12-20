@@ -95,7 +95,14 @@
                                     </a>
                                     <a class="dropdown-item" href="{{ url('/about-us') }}">
                                         {{ __('About us') }}
-                                    </a> 
+                                    </a>
+
+                                    <form id="seguidors-form" action="{{ route('dashboard') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+                                    <form id="perfil-form" action="{{ route('dashboard') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
                                 </div>
                             </li>
                         @endguest

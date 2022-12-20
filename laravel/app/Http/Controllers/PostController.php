@@ -8,6 +8,8 @@ use App\Models\User;
 use App\Models\Visibility;
 use Illuminate\Http\Request;
 use App\Models\Likes;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 
 class PostController extends Controller
@@ -28,7 +30,7 @@ class PostController extends Controller
     }
 
     public function index()
-    {
+    {   
         return view("posts.index", [
             "posts" => Post::all()
         ]);
@@ -72,7 +74,7 @@ class PostController extends Controller
         $upload = $request->file('upload');
         $fileName = $upload->getClientOriginalName();
         $fileSize = $upload->getSize();
-        \Log::debug("Storing file '{$fileName}' ($fileSize)...");
+        Log::debug("Storing file '{$fileName}' ($fileSize)...");
         // obtenir dades de post
         $body = $request->get('body');
         $latitude = $request->get('latitude');
@@ -87,10 +89,10 @@ class PostController extends Controller
             'public'        // Disk
         );
     
-        if (\Storage::disk('public')->exists($filePath)) {
-            \Log::debug("Local storage OK");
-            $fullPath = \Storage::disk('public')->path($filePath);
-            \Log::debug("File saved at {$fullPath}");
+        if (Storage::disk('public')->exists($filePath)) {
+            Log::debug("Local storage OK");
+            $fullPath = Storage::disk('public')->path($filePath);
+            Log::debug("File saved at {$fullPath}");
             // Desar dades a BD
             $file = File::create([
                 'filepath' => $filePath,
@@ -107,11 +109,11 @@ class PostController extends Controller
             'file_id' => $file->id,   
             'author_id'=>auth()->user()->id,
         ]);
-        \Log::debug("DB storage OK");
+        Log::debug("DB storage OK");
              return redirect()->route('posts.show', $post)
                  ->with('success', 'Post successfully saved');
          } else {
-            \Log::debug("Local storage FAILS");
+            Log::debug("Local storage FAILS");
             return redirect()->route("posts.create")
                 ->with('error', 'ERROR uploading posts');
         }
@@ -139,6 +141,7 @@ class PostController extends Controller
         } catch (Exception $e) {
             $is_like = false;
         }
+
         return view("posts.show", [
             "post" => $post,
             "file" => $file,
@@ -199,7 +202,7 @@ class PostController extends Controller
         if(! is_null($upload)){
             $fileName = $upload->getClientOriginalName();
             $fileSize = $upload->getSize();
-            \Log::debug("Storing file '{$fileName}' ($fileSize)...");
+            Log::debug("Storing file '{$fileName}' ($fileSize)...");
             // Pujar fitxer al disc dur
             $uploadName = time() . '_' . $fileName;
             $filePath = $upload->storeAs(
@@ -212,12 +215,12 @@ class PostController extends Controller
             $fileSize = $file->filesize;
             $control = true;
         }
-        if (\Storage::disk('public')->exists($filePath)) {
+        if (Storage::disk('public')->exists($filePath)) {
             if(!$control){
-            \Storage::disk('public')->delete($file->filepath);
-            \Log::debug("Local storage OK");
-            $fullPath = \Storage::disk('public')->path($filePath);
-            \Log::debug("File saved at {$fullPath}");
+            Storage::disk('public')->delete($file->filepath);
+            Log::debug("Local storage OK");
+            $fullPath = Storage::disk('public')->path($filePath);
+            Log::debug("File saved at {$fullPath}");
             }
             // Desar dades a BD
             $file -> filePath = $filePath;
@@ -227,13 +230,13 @@ class PostController extends Controller
             $post->latitude = $request->input('latitude');
             $post->longitude = $request->input('longitude');
             $post->save();
-            \Log::debug("DB storage OK");
+            Log::debug("DB storage OK");
 
             // Patró PRG amb missatge d'èxit
             return redirect()->route('posts.index', $post)
                 ->with('success', 'Post successfully updated');
         } else {
-            \Log::debug("Local storage FAILS");
+            Log::debug("Local storage FAILS");
             // Patró PRG amb missatge d'error
             return redirect()->route("posts.update")
                 ->with('error', 'ERROR updating Post');
@@ -252,20 +255,20 @@ class PostController extends Controller
             if ( auth()->user()->id == $post->author_id){ 
                 $file=File::find($post->file_id);
                 
-                \Storage::disk('public')->delete($post->id);
+                Storage::disk('public')->delete($post->id);
                 $post->delete();
 
 
-                \Storage::disk('public')->delete($file->filepath);
+                Storage::disk('public')->delete($file->filepath);
                 $file->delete();
 
-                if (\Storage::disk('public')->exists($post->id)) {
-                    \Log::debug("Local storage OK");
+                if (Storage::disk('public')->exists($post->id)) {
+                    Log::debug("Local storage OK");
                     
                     return redirect()->route('posts.show', $post)
                         ->with('error', 'Error post alredy exist');
                 } else {
-                    \Log::debug("Post Delete");
+                    Log::debug("Post Delete");
                     // Patró PRG amb missatge d'error
                     return redirect()->route("posts.index")
                         ->with('succes', 'Post Deleted');
@@ -278,20 +281,20 @@ class PostController extends Controller
         if ( auth()->user()->id == $post->author_id){ 
             $file=File::find($post->file_id);
             
-            \Storage::disk('public')->delete($post->id);
+            Storage::disk('public')->delete($post->id);
             $post->delete();
 
 
-            \Storage::disk('public')->delete($file->filepath);
+            Storage::disk('public')->delete($file->filepath);
             $file->delete();
 
-            if (\Storage::disk('public')->exists($post->id)) {
-                \Log::debug("Local storage OK");
+            if (Storage::disk('public')->exists($post->id)) {
+                Log::debug("Local storage OK");
                 
                 return redirect()->route('posts.show', $post)
                     ->with('error', 'Error post alredy exist');
             } else {
-                \Log::debug("Post Delete");
+                Log::debug("Post Delete");
                 // Patró PRG amb missatge d'error
                 return redirect()->route("posts.index")
                     ->with('succes', 'Post Deleted');

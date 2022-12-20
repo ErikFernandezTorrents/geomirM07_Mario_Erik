@@ -43,7 +43,5 @@ class Post extends Model
     {
         return $this->hasMany(Likes::class);
     }
-
-
     
 }

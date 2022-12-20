@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\FileController;
 use App\Http\Controllers\Api\TokenController;
 use App\Http\Controllers\Api\PlaceController;
+use App\Http\Controllers\Api\PostController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -36,3 +38,6 @@ Route::post('/list', [PlaceController::class,'list'])->middleware('auth:sanctum'
 
 Route::post('/places/{place}/favourites', [PlaceController::class, 'favourites'])->name('places.favourites');
 Route::delete('/places/{place}/favourites', [PlaceController::class, 'unfavourite'])->name('places.unfavourite');
+
+Route::apiResource('posts', PostController::class);
+
