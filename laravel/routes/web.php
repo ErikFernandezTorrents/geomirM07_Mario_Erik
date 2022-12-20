@@ -65,7 +65,7 @@ Route::resource('visibilities', VisibilityController::class)
 Route::post('/places/{place}/favourites', [PlaceController::class, 'favourites'])->name('places.favourites');
 Route::delete('/places/{place}/favourites', [PlaceController::class, 'unfavourite'])->name('places.unfavourite');
 
-Route::get('/about-erik', function () {
-    return view('/about-erik');
+Route::get('/about-us', function () {
+    return view('/about-us');
  });
 

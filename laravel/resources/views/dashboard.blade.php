@@ -16,10 +16,5 @@
     </div>
     @section('content')
     <div ><img id="mapa" src="../../images/mapa.png"></div>
-    <footer id="footer">
-        <li id="aboutLink" class="ms-auto botons">
-            <a class="navLink" href="{{ url('/about-erik') }}">About us</img></a>
-        </li>
-    </footer>
     @endsection
 </x-app-layout>
