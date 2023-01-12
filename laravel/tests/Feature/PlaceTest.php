@@ -100,6 +100,10 @@ class PlaceTest extends TestCase
     }
     public function test_place_create_error()
     {
+        Sanctum::actingAs(
+            self::$testUser,
+            ['*'] // grant all abilities to the token
+        );
         // Create fake place with invalid max size
         $name  = "avatar.png";
         $namePlace = "lloc";
@@ -150,6 +154,11 @@ class PlaceTest extends TestCase
     */
     public function test_place_update(object $place)
     {
+        Sanctum::actingAs(
+            self::$testUser,
+            ['*'] // grant all abilities to the token
+        );
+
         // Create fake place
         $name  = "avatar.png";
         $namePlace = "lloc";
@@ -187,6 +196,10 @@ class PlaceTest extends TestCase
     */
    public function test_place_update_error(object $place)
    {
+        Sanctum::actingAs(
+            self::$testUser,
+            ['*'] // grant all abilities to the token
+        );
        // Create fake file with invalid max size
        // Create fake place
        $name  = "avatar.png";
@@ -213,12 +226,40 @@ class PlaceTest extends TestCase
  
    public function test_place_update_notfound()
    {
+        Sanctum::actingAs(
+            self::$testUser,
+            ['*'] // grant all abilities to the token
+        );
        $id = "not_exists";
        $response = $this->putJson("/api/places/{$id}", []);
        $this->_test_notfound($response);
    }
 
     /**
+    * @depends test_place_create
+    */
+    public function test_place_favourite(object $place)
+    {
+        Sanctum::actingAs(self::$testUser);
+
+        // Favourite one place using API web service
+        $response = $this->postJson("/api/places/{$place->id}/favourites");
+        // Check OK response
+        $this->_test_ok($response);
+    }
+    /**
+    * @depends test_place_create
+    */
+    public function test_place_unfavourite(object $place)
+    {
+        Sanctum::actingAs(self::$testUser);
+
+        // Unfavourite one place using API web service
+        $response = $this->deleteJson("/api/places/{$place->id}/favourites");
+        // Check OK response
+        $this->_test_ok($response);
+    }
+     /**
     * @depends test_place_create
     */
     public function test_place_delete(object $place)
@@ -228,29 +269,6 @@ class PlaceTest extends TestCase
         // Check OK response
         $this->_test_ok($response);
     }
-    /**
-    * @depends test_place_create
-    */
-    // public function test_place_favourite(object $place)
-    // {
-
-        // Favourite one place using API web service
-        // $response = $this->getJson("/api/place/{$place->id}/favourites");
-        // Check OK response
-        // $this->_test_ok($response);
-    // }
-    /**
-    * @depends test_place_create
-    */
-    // public function test_place_unfavourite(object $place)
-    // {
-
-        // Unfavourite one place using API web service
-        // $response = $this->deleteJson("/api/unfavourites/{$place->id}");
-        // Check OK response
-        // $this->_test_ok($response);
-    //}
-  
     public function test_place_delete_notfound()
     {
         $id = "not_exists";

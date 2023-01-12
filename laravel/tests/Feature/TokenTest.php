@@ -95,7 +95,7 @@ public function test_login()
     // Check response
     $response->assertOk();
     // Check validation errors
-    $response->assertValid(["name"]);
+    $response->assertValid(["password"]);
     $response->assertValid(["email"]);
     // Check TOKEN response
     $this->_test_token($response);
