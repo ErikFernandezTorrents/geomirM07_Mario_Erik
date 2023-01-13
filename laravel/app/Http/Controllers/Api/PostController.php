@@ -5,12 +5,17 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\Likes;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use App\Models\File;
 
 class PostController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:sanctum')->only('store', 'Like', 'update');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -228,5 +233,61 @@ class PostController extends Controller
                 ], 200);
             }
         }
+    }
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+
+    public function likes($id) {
+       
+        $post = Post::find($id);
+
+        // Desar likes a la BD
+        $likes = Likes::create([
+            'post_id' => $post->id,
+            'user_id'=>auth()->user()->id,
+        
+        ]);
+
+        if ($likes) {
+            return response()->json([
+                'success' => true,
+                'data'    => $likes
+            ], 200);
+        }else {
+            return response()->json([
+                'success'  => false,
+                'message' => 'Error favourite alrready exist'
+            ], 500);
+        }
+    }
+    
+    public function unlike (Post $post)
+    {
+        try
+        {
+            $like = Likes::where([
+                ['user_id', '=', auth()->user()->id],
+                ['post_id', '=', $post->id]
+            ]);
+            $like->first();
+
+            $like->delete();
+
+        } catch (\Illuminate\Database\QueryException $e) {
+
+            Log::error($e->getMessage());
+            return response()->json([
+                'success' => false,
+                'message' => 'Error like alrready exist'
+            ], 500);
+        }
+        return response()->json([
+            'success' => true,
+            'data' => 'place unliked'
+        ], 200);
     }
 }

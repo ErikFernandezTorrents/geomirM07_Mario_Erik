@@ -36,8 +36,7 @@ Route::apiResource('/places', PlaceController::class);
 Route::post('/store', [PlaceController::class,'store'])->middleware('auth:sanctum');
 Route::post('/list', [PlaceController::class,'list'])->middleware('auth:sanctum');
 
-Route::post('/places/{place}/favourites', [PlaceController::class, 'favourites'])->name('places.favourites');
-Route::delete('/places/{place}/favourites', [PlaceController::class, 'unfavourite'])->name('places.unfavourite');
-
 Route::apiResource('posts', PostController::class);
 
+Route::post('/posts/{post}/likes', [PostController::class, 'likes'])->name('posts.likes');
+Route::delete('/posts/{post}/unlikes', [PostController::class, 'unlike'])->name('posts.unlike');
