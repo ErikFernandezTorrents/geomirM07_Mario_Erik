@@ -35,7 +35,7 @@
     .card:hover{
         box-shadow: 5px 5px 20px #694abb;
         transform: translateY(-4%);
-    }
+    } 
 
     .card .contenido{
         padding: 15px;
