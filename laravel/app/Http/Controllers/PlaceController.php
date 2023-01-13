@@ -26,16 +26,14 @@ class PlaceController extends Controller
         $this->middleware('permission:places.update')->only(['edit','update']);
         $this->middleware('permission:places.delete')->only('destroy');
     }
-    public function index()//Place $place
+    public function index()
     {
         return view("places.index", [
             "place" => Place::all(),
-            //"visibilities" => Visibility::all(),
             
         ]);
  
     }
-
     /**
      * Show the form for creating a new resource.
      *

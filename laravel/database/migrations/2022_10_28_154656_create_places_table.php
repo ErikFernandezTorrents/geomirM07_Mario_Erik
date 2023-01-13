@@ -21,7 +21,6 @@ return new class extends Migration
             $table->foreign('file_id')->references('id')->on('files');
             $table->string('latitude');
             $table->string('longitude');
-            $table->integer('category_id')->nullable;
             $table->integer('visibility_id')->references('id')->on('visibilities');
             $table->unsignedBigInteger('author_id');
             $table->timestamp('created_at');

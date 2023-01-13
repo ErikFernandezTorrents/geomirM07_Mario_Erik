@@ -93,7 +93,6 @@
                                     <a class="dropdown-item" href="{{ route('dashboard') }}">
                                         {{ __('fields.profile') }}
                                     </a>
-                                    
                                     <a class="dropdown-item" href="{{ url('/about-us') }}">
                                         {{ __('About us') }}
                                     </a>

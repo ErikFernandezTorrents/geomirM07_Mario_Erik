@@ -12,12 +12,12 @@ use Illuminate\Testing\Fluent\AssertableJson;
  
 class TokenTest extends TestCase
 {   
-   public static User $testUser;
+    public static User $testUser;
  
    public static function setUpBeforeClass() : void
    {
        parent::setUpBeforeClass();
- 
+       
        // Create test user (BD store later)
        $name = "test_" . time();
        self::$testUser = new User([

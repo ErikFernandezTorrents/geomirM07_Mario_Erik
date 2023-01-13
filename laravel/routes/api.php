@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\FileController;
 use App\Http\Controllers\Api\TokenController;
+use App\Http\Controllers\Api\PlaceController;
 use App\Http\Controllers\Api\PostController;
 
 /*
@@ -23,8 +24,20 @@ use App\Http\Controllers\Api\PostController;
 Route::apiResource('files', FileController::class);
 
 Route::post('/register', [TokenController::class,'register']);//->middleware('guest');
+
 Route::post('/login', [TokenController::class,'login']);
+
 Route::post('/logout', [TokenController::class,'logout'])->middleware('auth:sanctum');
+
 Route::get('/user', [TokenController::class,'user'])->middleware('auth:sanctum');
 
+Route::apiResource('/places', PlaceController::class);
+
+Route::post('/store', [PlaceController::class,'store'])->middleware('auth:sanctum');
+Route::post('/list', [PlaceController::class,'list'])->middleware('auth:sanctum');
+
+Route::post('/places/{place}/favourites', [PlaceController::class, 'favourites'])->name('places.favourites');
+Route::delete('/places/{place}/favourites', [PlaceController::class, 'unfavourite'])->name('places.unfavourite');
+
 Route::apiResource('posts', PostController::class);
+

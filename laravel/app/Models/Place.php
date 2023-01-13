@@ -16,7 +16,6 @@ class Place extends Model
         'latitude',
         'longitude',
         'file_id',
-        'category_id',
         'visibility_id',
         'author_id'
        
@@ -41,7 +40,7 @@ class Place extends Model
     }
     public function favorites()
     {
-        return $this->hasMany(Favorite::class);
+        return $this->hasMany(Favourites::class);
     }
 
 
