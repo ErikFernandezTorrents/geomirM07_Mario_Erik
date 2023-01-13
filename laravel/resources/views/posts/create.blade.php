@@ -9,6 +9,10 @@
                 <div class="card-body">
                 <form method="post" action="{{ route('posts.store') }}" enctype="multipart/form-data">
                         @csrf
+                        @env(['local','development'])
+                            @vite('resources/js/files/create.js')
+                        @endenv
+
                         <div class="form-group">
                             <tr>
                                 <td id="body">

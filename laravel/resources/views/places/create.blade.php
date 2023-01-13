@@ -9,7 +9,9 @@
                 <div class="card-body">
                     <form method="post" action="{{ route('places.store') }}" enctype="multipart/form-data">
                         @csrf
-                        @vite('resources/js/places/create.js')
+                        @env(['local','development'])
+                            @vite('resources/js/files/create.js')
+                        @endenv
                         <div class="form-group">
                             <tr>
                                 <td id="name">
