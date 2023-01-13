@@ -30,7 +30,7 @@ class PostTest extends TestCase
             "password"  => "12345678"
         ]);
     }
-    public function test_place_first()
+    public function test_post_first()
      {
         // Desem l'usuari al primer test
         self::$testUser->save();
@@ -95,6 +95,12 @@ class PostTest extends TestCase
     }
     public function test_post_create_error()
     {
+
+        Sanctum::actingAs(
+            self::$testUser,
+            ['*'] // grant all abilities to the token
+        );
+
         // Create fake file with invalid max size
         $name  = "avatar.png";
         $body = "Post";
@@ -141,6 +147,12 @@ class PostTest extends TestCase
     */
     public function test_post_update(object $post)
     {
+
+        Sanctum::actingAs(
+            self::$testUser,
+            ['*'] // grant all abilities to the token
+        );
+
         // Create fake post
         $name  = "avatar.png";
         $size = 500; /*KB*/
@@ -175,6 +187,12 @@ class PostTest extends TestCase
     */
    public function test_post_update_error(object $post)
    {
+
+        Sanctum::actingAs(
+            self::$testUser,
+            ['*'] // grant all abilities to the token
+        );
+
        // Create fake file with invalid max size
        // Create fake post
        $name  = "avatar.png";
@@ -199,10 +217,41 @@ class PostTest extends TestCase
  
    public function test_post_update_notfound()
    {
-       $id = "not_exists";
-       $response = $this->putJson("/api/posts/{$id}", []);
-       $this->_test_notfound($response);
+
+        Sanctum::actingAs(
+            self::$testUser,
+            ['*'] // grant all abilities to the token
+        );
+
+        $id = "not_exists";
+        $response = $this->putJson("/api/posts/{$id}", []);
+        $this->_test_notfound($response);
    }
+
+    /**
+    * @depends test_post_create
+    */
+    public function test_post_like(object $post)
+    {
+        Sanctum::actingAs(self::$testUser);
+
+        // like one post using API web service
+        $response = $this->postJson("/api/posts/{$post->id}/likes");
+        // Check OK response
+        $this->_test_ok($response);
+    }
+    /**
+    * @depends test_post_create
+    */
+    public function test_post_unlike(object $post)
+    {
+        Sanctum::actingAs(self::$testUser);
+
+        // Unlike one post using API web service
+         $response = $this->deleteJson("/api/posts/{$post->id}/unlikes");
+        // Check OK response
+        $this->_test_ok($response);
+    }  
 
     /**
     * @depends test_post_create
