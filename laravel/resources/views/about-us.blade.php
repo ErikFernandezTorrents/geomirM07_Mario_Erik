@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('content')
 <style>
+    /* estableix el div contenidor per a que sigui rsponsive */
     .divAbout{
     display: flex;
     align-items: center;
@@ -9,7 +10,7 @@
     margin-top: 15vh;
     
     }
-
+    /* estableix els parametres flex al contenidor */
     .container{
         display: flex;
         width: 100%;
@@ -17,10 +18,12 @@
         
 
     }
+    /* estableix els parametres flex al contingut del contenidor */
     .contenido{
         display: flex;
         flex-direction: column;
     }
+    /* maquetació del la tarjeta que conte la informació de cada persona */
     .card{
         width: 40vh;
         height: 35% !important;
@@ -31,23 +34,23 @@
         transition: all 400ms ease;
 
     }
-
+    /* estableix l'estil de la tarjeta anterior quan passem el ratoli per sobre */
     .card:hover{
         box-shadow: 5px 5px 20px #694abb;
         transform: translateY(-4%);
     }
-
+    /* mida de marge interior del contingut del card principal i alineació del text */
     .card .contenido{
         padding: 15px;
         text-align: center;
     }
-
+    /* parametres i estil de text del titol del card */
     .container .contenido h2{
         font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
         font-weight:bold ;
         margin-bottom: 4%;
     }
-
+    /* estil i propietats d'els links del  card*/
     .container .contenido a{
         text-decoration: none;
         display: inline-block;
@@ -58,31 +61,32 @@
         transition: all 400ms ease;
 
     }
-
+    /* estil i propietats d'els links del card quan pases el ratoli per sobre*/
     .container .contenido a:hover{
         background-color: #1f9eff;
         color: white;
 
     }
-
+    /* propietats del contenidor de la imatge*/
     .contenedor-imagenes{
         position: relative;
         height: 35vh;
         cursor: pointer;
     }
-
+    /* propietats del div del contenidor de la imatge*/
     .contenedor-imagenes div{
         position: absolute;
         width: 100%;
         height: 100%;
     }
-
+    /* propietats de la imatge seria*/
     .fotoSeria{
         background-image: url(../images/ErikSerio.jpg);
         background-size: 100% 100%;
         filter: grayscale(100%);
         transition: transform .3s;
     }
+    /* propietats de la imatge seria quan pases el ratoli*/
     .fotoSeria:hover{
 
         background-image: url(../images/ErikDiber.jpeg);
@@ -92,13 +96,14 @@
         transform: rotate(360deg);
 
     }
-
+    /* propietats de la imatge seria de mario*/
     .fotoSeriaMario{
         background-image: url(../images/MarioSerio.jpeg);
         background-size: 100% 100%;
         filter: grayscale(100%);
         transition: transform .3s;
     }
+    /* propietats de la imatge seria de mario quan pasem el ratoli*/
     .fotoSeriaMario:hover{
 
         background-image: url(../images/MarioDiber.jpeg);
@@ -106,9 +111,8 @@
         filter:contrast(100%);
         transition:.3s;
         transform: rotate(360deg);
-
     }
-
+    /* propietats del carrec del desemvolupador */
     .cargo{
 
         padding: 1.5rem 5rem;
@@ -118,7 +122,7 @@
         position: relative;
         overflow: hidden;
     }
-
+    /* propietats del carrec del desemvolupador abans de pasar el ratoli*/
     .cargo::before{
         content: 'Web devoloper';
         position: absolute;
@@ -129,7 +133,7 @@
         transition: .3s ease;
         
     }
-
+    /* propietats del carrec del desemvolupador despres de pasar el ratoli*/
     .cargo::after{
         content: 'Veure pelis';
         position: absolute;
@@ -140,7 +144,7 @@
         transition: .2s ease;
         opacity: 0;
     }
-
+    /* propietats del carrec del desemvolupador(mario) despres de pasar el ratoli*/
     .cargo2::after{
         content: 'Jugar a futbol';
         position: absolute;
@@ -151,16 +155,17 @@
         transition: .2s ease;
         opacity: 0;
     }
-
+    /* efectes del carrec del desemvolupador quan pases el ratoli*/
     .cargo:hover::before{
         transform: translate(-50%, -50%) scale(3);
         opacity: 0;    
     }
-
+    /* efectes del carrec del desemvolupador despres de pasar el ratoli*/
     .cargo:hover::after{
         transform: translate(-50%, -50%) scale(1);
         opacity: 1;    
     }
+    /* propietats del titol de About-us */
     #h1About{
         margin-top:3%;
         text-align:center;
@@ -168,6 +173,7 @@
         font-weight:bold ;
         color:#694abb;
     }
+    /* propietats del contenidor d'audio */
     #mySoundClip{
         height: 100px !important;
         display: block !important;
@@ -302,7 +308,7 @@
     </div>
 </div>
 <script>
-
+    /* recollim que hi ha a cada clase */
     var myDiv = document.querySelector('.card');
     var myDiv2 = document.querySelector('.cardaudio');
 
@@ -331,18 +337,23 @@
         audio2.pause();
     });
 
+    /* recollim els divs de cada card */
     var div1 = document.getElementById("div1");
     var div2 = document.getElementById("div2");
 
+    /* iniciem la propietat drag a cada div */
     div1.addEventListener("dragstart", dragStart);
     div2.addEventListener("dragstart", dragStart);
 
+    /* over de la propietat drag a cada div */
     div1.addEventListener("dragover", dragOver);
     div2.addEventListener("dragover", dragOver);
 
+    /* eliminacio de la posicio de cada div */
     div1.addEventListener("drop", drop);
     div2.addEventListener("drop", drop);
 
+    /* funcions de cada propietat*/
     function dragStart(event) {
         event.dataTransfer.setData("divID", event.target.id);
     }

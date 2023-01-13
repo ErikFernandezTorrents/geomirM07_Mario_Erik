@@ -217,7 +217,6 @@ class PlaceController extends Controller
      */
     public function favourites($id){
 
-
         // Desar favourites a la BD
         
         try 
