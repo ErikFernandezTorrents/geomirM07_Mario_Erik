@@ -14,7 +14,7 @@ class PostController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:sanctum')->only('store', 'Like', 'update');
+        $this->middleware('auth:sanctum')->only('store', 'likes', 'update');
     }
     /**
      * Display a listing of the resource.

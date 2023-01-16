@@ -37,5 +37,8 @@ Route::post('/places/{place}', [PlaceController::class,'store'])->middleware('au
 
 Route::apiResource('posts', PostController::class);
 
+Route::post('/places/{place}/favourites', [PlaceController::class, 'favourites'])->name('places.favourites');
+Route::delete('/places/{place}/unfavourites', [PlaceController::class, 'unfavourites'])->name('places.unfavourites');
+
 Route::post('/posts/{post}/likes', [PostController::class, 'likes'])->name('posts.likes');
 Route::delete('/posts/{post}/unlikes', [PostController::class, 'unlike'])->name('posts.unlike');
