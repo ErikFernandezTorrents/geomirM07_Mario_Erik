@@ -68,4 +68,6 @@ Route::delete('/places/{place}/favourites', [PlaceController::class, 'unfavourit
 Route::get('/about-us', function () {
     return view('/about-us');
  });
-
+Route::get('/contact-page', function () {
+    return view('/contact-page');
+ });

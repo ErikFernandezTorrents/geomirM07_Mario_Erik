@@ -1,3 +1,5 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css");
+
 // Body
 $body-bg: #e6e5db;
 
@@ -298,4 +300,140 @@ $primary: #694abb;
 #mapa{
     width: 100%;
     height: 90%;
+}
+
+//A partir d'aqui página de contacte//
+
+.flex-contact{
+    display: flex;
+    flex-direction: column;
+
+}
+
+.fondo-cont{
+    position: relative;
+    width: 100%;
+    text-align: center;
+    
+}
+
+.video-que-miras{
+    width:100%;
+    height: 80%;
+    opacity: 0.5;
+
+}
+
+.mapa-contact{
+    height: 100%;
+    width: 100%;
+    align-content: center;
+    background-color: white;
+}
+#iframe{
+    height: 100%;
+    align-self: center;
+    width: 100%;
+    background-color: #694abb;
+}
+
+.texto-encima{
+
+    position: absolute;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 3vw;
+    color: white;
+    font-weight: bold;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+}
+
+.texto-encima2{
+
+    position: absolute;
+    font-size: 1.5vw;
+    color: white;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+}
+
+.boton-contacto{
+
+    padding: 0.5%;
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color:#694abb;
+    border-radius: 10px;
+    border: none;
+    width: 10%;
+    font-size: 0.8vw;
+    color: white;
+}
+
+// Footer (Peu de pagina)
+
+.pie-pagina{
+    width: 100%;
+    background-color: #694abb;
+}
+.pie-pagina .grupo-1{
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap:50px;
+    padding: 45px 0px;
+}
+.logo-cont{
+    width: 80%;
+    height: 80%;
+    margin-left: 5%;
+    display: flex;
+}
+.logo-cont img{
+    width: 150px;
+    height: 150px;
+}
+.box{
+    font-size: 0.5vw;
+}
+.box a i{
+    font-size: 1.3vw;
+}
+.pie-pagina .grupo-1 .box h2{
+    color: #fff;
+    margin-bottom: 25px;
+    font-size: 20px;
+}
+.pie-pagina .grupo-1 .box p{
+    color: #efefef;
+    margin-bottom: 10px;
+}
+.pie-pagina .grupo-1 .red-social a{
+    display: inline-block;
+    text-decoration: none;
+    width: 45px;
+    height: 45px;
+    border-radius: 4px;
+    color: #694abb;
+    margin-right: 10px;
+    background-color: #e6e5db;
+    text-align: center;
+    transition: all 300ms ease;
+}
+.pie-pagina .grupo-1 .red-social a:hover{
+    background-color: #bbbbb6;
+}
+.pie-pagina .grupo-1 .red-social a i{
+    width: 5%;
+    height: 45px;
+    padding-top: 10%;
+
 }

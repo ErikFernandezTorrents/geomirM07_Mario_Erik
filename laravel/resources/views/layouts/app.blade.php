@@ -106,7 +106,7 @@
                                     <a class="dropdown-item" href="{{ url('/about-us') }}">
                                         {{ __('About us') }}
                                     </a>
-                                    <a class="dropdown-item" href="{{ url('/about-us') }}">
+                                    <a class="dropdown-item" href="{{ url('/contact-page') }}">
                                         {{ __('Página de contacto') }}
                                     </a>
 
