@@ -1,13 +1,18 @@
 @extends('layouts.app')
 
 @section('content')
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="crossorigin=""/>
 
+<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
+crossorigin=""></script>
 
 <style>
     ::-webkit-scrollbar {
     display: none;
 }
 </style>
+<script src="https://cdn.jsdelivr.net/npm/ol@v7.2.2/dist/ol.js"></script>
 <div class="flex-contact">
     <div class="fondo-cont">
         <video src="./audio/videoContact.mp4" class="video-que-miras" autoplay="true" muted="true" loop="true"></video>
@@ -16,9 +21,14 @@
         <button class="boton-contacto">Formulari de contacte</button>
     </div>
         
-    <div class="mapa-contact">
-        <iframe id="iframe" src="../my-app/index.html"></iframe>
-
+    <div id="map">
+        <script>
+            var map = L.map('map').setView([51.505, -0.09], 13);
+            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 18,
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(map);
+        </script>
     </div>
 
     <footer class="pie-pagina">

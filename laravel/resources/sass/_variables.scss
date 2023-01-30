@@ -323,9 +323,9 @@ $primary: #694abb;
     opacity: 0.5;
 
 }
-
-.mapa-contact{
-    height: 100%;
+#map{
+    position: absolute;
+    height: 50%;
     width: 100%;
     align-content: center;
     background-color: white;
