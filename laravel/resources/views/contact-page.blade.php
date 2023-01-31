@@ -9,8 +9,10 @@ crossorigin=""></script>
 
 <style>
     ::-webkit-scrollbar {
-    display: none;
-}
+        display: none;
+    
+    }
+   
 </style>
 <script src="https://cdn.jsdelivr.net/npm/ol@v7.2.2/dist/ol.js"></script>
 <div class="flex-contact">
@@ -20,17 +22,79 @@ crossorigin=""></script>
         <div class="texto-encima2">Envians un missatge</div>
         <button class="boton-contacto">Formulari de contacte</button>
     </div>
-        
-    <div id="map">
-        <script>
-            var map = L.map('map').setView([51.505, -0.09], 13);
-            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 18,
-            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-        }).addTo(map);
-        </script>
-    </div>
+    <button class="w3-btn w3-blue w3-round" onclick=getLocation()>Try It</button>
+    <div class="mapa-Contacto">
+        <div id="map">
+            <script>
+                var map = L.map('map').setView([41.231391, 1.728118],17);
+                L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+                }).addTo(map);
+                var marker = L.marker([41.231391, 1.728118]).addTo(map);
+                var circle = L.circle([41.231391, 1.728118], {
+                    color: 'red',
+                    fillColor: '#f03',
+                    fillOpacity: 0.5,
+                    radius: 200
+                }).addTo(map);
+             
+                function getLocation()
+                {
+                    if (navigator.geolocation)
+                        {
+                            navigator.geolocation.getCurrentPosition(showPosition,showError);
+                        }
+                    else{x.innerHTML="Geolocation is not supported by this browser.";}
+                }
+                marker.bindPopup("<b>Seu de Geo-Mir</b>").openPopup();
+                circle.bindPopup("Area propera a nosaltres");
+                var popup = L.popup()
+                    .setLatLng([41.231391, 1.728118])
+                    .setContent("Localitazió de la nostra seu")
+                    .openOn(map);
 
+                function showPosition(position)
+                {
+                    var lat=position.coords.latitude;
+                    var lon=position.coords.longitude;
+                    var latlon=(lat, lon)
+                    var mapholder=document.getElementById('map')
+                    mapholder.style.height='250px';
+                    mapholder.style.width='100%';
+
+                    var myOptions={
+                        center:latlon,zoom:14,
+                        mapTypeId:map.MapTypeId.ROADMAP,
+                        mapTypeControl:false,
+                        navigationControlOptions:{style:map.NavigationControlStyle.SMALL}
+                    };
+                    var map=new map.Map(document.getElementById("map"),myOptions);
+                    var marker=new map.Marker({position:latlon,map:map,title:"You are here!"});
+                
+                }
+                
+                function showError(error)
+                {
+                    switch(error.code) 
+                        {
+                        case error.PERMISSION_DENIED:
+                        x.innerHTML="User denied the request for Geolocation."
+                        break;
+                        case error.POSITION_UNAVAILABLE:
+                        x.innerHTML="Location information is unavailable."
+                        break;
+                        case error.TIMEOUT:
+                        x.innerHTML="The request to get user location timed out."
+                        break;
+                        case error.UNKNOWN_ERROR:
+                        x.innerHTML="An unknown error occurred."
+                        break;
+                        }
+                }
+                
+            </script>
+        </div>
+    </div>
     <footer class="pie-pagina">
         <div class="grupo-1">
             <div class="box">

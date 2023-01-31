@@ -323,18 +323,20 @@ $primary: #694abb;
     opacity: 0.5;
 
 }
-#map{
-    position: absolute;
-    height: 50%;
+#map { 
+    height: 500px;
     width: 100%;
-    align-content: center;
-    background-color: white;
+    margin: 0 auto;
+    border:2px solid black ;
+
 }
-#iframe{
-    height: 100%;
-    align-self: center;
-    width: 100%;
-    background-color: #694abb;
+.mapa-contact{
+
+    background-color: white;
+    top: 115.2vh;
+    height: 900px;
+    text-align: center;
+    align-items: center;
 }
 
 .texto-encima{
