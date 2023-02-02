@@ -22,11 +22,11 @@ crossorigin=""></script>
         <div class="texto-encima2">Envians un missatge</div>
         <button class="boton-contacto">Formulari de contacte</button>
     </div>
-    <button class="w3-btn w3-blue w3-round" onclick=getLocation()>Try It</button>
+
     <div class="mapa-Contacto">
         <div id="map">
             <script>
-
+                
                 var map = L.map('map').setView([41.231391, 1.728118],17);
                 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
                     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
@@ -38,15 +38,8 @@ crossorigin=""></script>
                     fillOpacity: 0.5,
                     radius: 200
                 }).addTo(map);
-             
-                function getLocation()
-                {
-                    if (navigator.geolocation)
-                        {
-                            navigator.geolocation.getCurrentPosition(showPosition,showError);
-                        }
-                    else{x.innerHTML="Geolocation is not supported by this browser.";}
-                }
+                
+
                 marker.bindPopup("<b>Seu de Geo-Mir</b>").openPopup();
                 circle.bindPopup("Area propera a nosaltres");
                 var popup = L.popup()
@@ -54,38 +47,17 @@ crossorigin=""></script>
                     .setContent("Localitazió de la nostra seu")
                     .openOn(map);
 
+                navigator.geolocation.getCurrentPosition(showPosition);
                 function showPosition(position)
                 {
-                    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-                    }).addTo(map);
-                    var lat=position.coords.latitude;
-                    var lon=position.coords.longitude;
-                    var latlon=(lat, lon)
-                    var mapholder=document.getElementById("map")
-                    var marker2 = L.marker([lat, lon]).addTo(mapholder);
-                    marker2.bindPopup("<b>You are here!</b>").openPopup();
+                    var marker = L.marker([position.coords.latitude, position.coords.longitude]).addTo(map);
+                    var popup = L.popup()
+                    .setLatLng([position.coords.latitude, position.coords.longitude])
+                    .setContent("Tu ets aquí!!")
+                    .openOn(map);
                 
                 }
                 
-                function showError(error)
-                {
-                    switch(error.code) 
-                        {
-                        case error.PERMISSION_DENIED:
-                        x.innerHTML="User denied the request for Geolocation."
-                        break;
-                        case error.POSITION_UNAVAILABLE:
-                        x.innerHTML="Location information is unavailable."
-                        break;
-                        case error.TIMEOUT:
-                        x.innerHTML="The request to get user location timed out."
-                        break;
-                        case error.UNKNOWN_ERROR:
-                        x.innerHTML="An unknown error occurred."
-                        break;
-                        }
-                }
                 key('ctrl+alt+c', function(){ alert('stopped reload!'); return false });
                 
             </script>
