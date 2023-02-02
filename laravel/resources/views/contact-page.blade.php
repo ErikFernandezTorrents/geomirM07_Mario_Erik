@@ -1,11 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="crossorigin=""/>
-
-<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
-integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
-crossorigin=""></script>
+<script src='https://api.mapbox.com/mapbox-gl-js/v2.12.0/mapbox-gl.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v2.12.0/mapbox-gl.css' rel='stylesheet' />
 
 <style>
     ::-webkit-scrollbar {
@@ -24,72 +21,16 @@ crossorigin=""></script>
     </div>
     <button class="w3-btn w3-blue w3-round" onclick=getLocation()>Try It</button>
     <div class="mapa-Contacto">
-        <div id="map">
-            <script>
-
-                var map = L.map('map').setView([41.231391, 1.728118],17);
-                L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-                }).addTo(map);
-                var marker = L.marker([41.231391, 1.728118]).addTo(map);
-                var circle = L.circle([41.231391, 1.728118], {
-                    color: 'red',
-                    fillColor: '#f03',
-                    fillOpacity: 0.5,
-                    radius: 200
-                }).addTo(map);
-             
-                function getLocation()
-                {
-                    if (navigator.geolocation)
-                        {
-                            navigator.geolocation.getCurrentPosition(showPosition,showError);
-                        }
-                    else{x.innerHTML="Geolocation is not supported by this browser.";}
-                }
-                marker.bindPopup("<b>Seu de Geo-Mir</b>").openPopup();
-                circle.bindPopup("Area propera a nosaltres");
-                var popup = L.popup()
-                    .setLatLng([41.231391, 1.728118])
-                    .setContent("Localitazió de la nostra seu")
-                    .openOn(map);
-
-                function showPosition(position)
-                {
-                    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-                    }).addTo(map);
-                    var lat=position.coords.latitude;
-                    var lon=position.coords.longitude;
-                    var latlon=(lat, lon)
-                    var mapholder=document.getElementById("map")
-                    var marker2 = L.marker([lat, lon]).addTo(mapholder);
-                    marker2.bindPopup("<b>You are here!</b>").openPopup();
-                
-                }
-                
-                function showError(error)
-                {
-                    switch(error.code) 
-                        {
-                        case error.PERMISSION_DENIED:
-                        x.innerHTML="User denied the request for Geolocation."
-                        break;
-                        case error.POSITION_UNAVAILABLE:
-                        x.innerHTML="Location information is unavailable."
-                        break;
-                        case error.TIMEOUT:
-                        x.innerHTML="The request to get user location timed out."
-                        break;
-                        case error.UNKNOWN_ERROR:
-                        x.innerHTML="An unknown error occurred."
-                        break;
-                        }
-                }
-                key('ctrl+alt+c', function(){ alert('stopped reload!'); return false });
-                
-            </script>
-        </div>
+    <div id='map' style='width: 400px; height: 300px;'></div>
+    <script>
+    mapboxgl.accessToken = '<your access token here>';
+    const map = new mapboxgl.Map({
+    container: 'map', 
+    style: 'mapbox://styles/mapbox/streets-v12',
+    center: [-74.5, 40], 
+    zoom: 18, 
+    });
+    </script>
     </div>
     <footer class="pie-pagina">
         <div class="grupo-1">
