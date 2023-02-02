@@ -26,6 +26,7 @@ crossorigin=""></script>
     <div class="mapa-Contacto">
         <div id="map">
             <script>
+
                 var map = L.map('map').setView([41.231391, 1.728118],17);
                 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
                     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
@@ -55,21 +56,15 @@ crossorigin=""></script>
 
                 function showPosition(position)
                 {
+                    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+                    }).addTo(map);
                     var lat=position.coords.latitude;
                     var lon=position.coords.longitude;
                     var latlon=(lat, lon)
-                    var mapholder=document.getElementById('map')
-                    mapholder.style.height='250px';
-                    mapholder.style.width='100%';
-
-                    var myOptions={
-                        center:latlon,zoom:14,
-                        mapTypeId:map.MapTypeId.ROADMAP,
-                        mapTypeControl:false,
-                        navigationControlOptions:{style:map.NavigationControlStyle.SMALL}
-                    };
-                    var map=new map.Map(document.getElementById("map"),myOptions);
-                    var marker=new map.Marker({position:latlon,map:map,title:"You are here!"});
+                    var mapholder=document.getElementById("map")
+                    var marker2 = L.marker([lat, lon]).addTo(mapholder);
+                    marker2.bindPopup("<b>You are here!</b>").openPopup();
                 
                 }
                 
@@ -91,6 +86,7 @@ crossorigin=""></script>
                         break;
                         }
                 }
+                key('ctrl+alt+c', function(){ alert('stopped reload!'); return false });
                 
             </script>
         </div>

@@ -106,10 +106,9 @@
                                     <a class="dropdown-item" href="{{ url('/about-us') }}">
                                         {{ __('About us') }}
                                     </a>
-                                    <a class="dropdown-item" href="{{ url('/contact-page') }}">
+                                    <a class="dropdown-item" href="{{ url('/contact-page') }}"  accesskey="c">
                                         {{ __('Página de contacto') }}
                                     </a>
-
                                     <form id="seguidors-form" action="{{ route('dashboard') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
