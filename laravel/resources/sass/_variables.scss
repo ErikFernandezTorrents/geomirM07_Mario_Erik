@@ -304,33 +304,41 @@ $primary: #694abb;
 
 //A partir d'aqui página de contacte//
 
-.flex-contact{
+
+// Estableix el flex al contenidor
+.contacto-flex{
     display: flex;
     flex-direction: column;
 
 }
 
-.fondo-cont{
+// Estableix les mides del contenidor
+.contenedor-fondo{
     position: relative;
     width: 100%;
     text-align: center;
     
 }
 
-.video-que-miras{
+// Parametres video de fons
+.video{
     width:100%;
     height: 80%;
     opacity: 0.5;
 
 }
-#map { 
+
+// Mides del mapa
+#mapa { 
     height: 500px;
     width: 100%;
     margin: 0 auto;
     border:2px solid black ;
 
 }
-.mapa-contact{
+
+// Parapetres del mapa
+.mapa-contacto{
 
     background-color: white;
     top: 115.2vh;
@@ -339,7 +347,8 @@ $primary: #694abb;
     align-items: center;
 }
 
-.texto-encima{
+// Parametres del text
+.texto-arriba{
 
     position: absolute;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
@@ -352,7 +361,8 @@ $primary: #694abb;
 
 }
 
-.texto-encima2{
+// Parametres del text
+.texto-arriba2{
 
     position: absolute;
     font-size: 1.5vw;
@@ -363,6 +373,7 @@ $primary: #694abb;
 
 }
 
+// Parametres del boto
 .boton-contacto{
 
     padding: 0.5%;
@@ -380,11 +391,14 @@ $primary: #694abb;
 
 // Footer (Peu de pagina)
 
-.pie-pagina{
+// Mides peu de pagina
+.pie-de-pagina{
     width: 100%;
     background-color: #694abb;
 }
-.pie-pagina .grupo-1{
+
+// Parametres del peu de pagina
+.pie-de-pagina .grupo-3{
     width: 100%;
     max-width: 1200px;
     margin: auto;
@@ -393,32 +407,46 @@ $primary: #694abb;
     grid-gap:50px;
     padding: 45px 0px;
 }
-.logo-cont{
+
+// Mides del contenidor del logo
+.contenedor-logo{
     width: 80%;
     height: 80%;
     margin-left: 5%;
     display: flex;
 }
-.logo-cont img{
+
+// Parametres del contenidor del logo
+.ontenedor-logo img{
     width: 150px;
     height: 150px;
 }
-.box{
+
+// Parametres de la capsa
+.caja{
     font-size: 0.5vw;
 }
-.box a i{
+
+// Parametres de la capsa
+.caja a i{
     font-size: 1.3vw;
 }
-.pie-pagina .grupo-1 .box h2{
+
+// Parametres del peu de pagina
+.pie-de-pagina .grupo-3 .caja h2{
     color: #fff;
     margin-bottom: 25px;
     font-size: 20px;
 }
-.pie-pagina .grupo-1 .box p{
+
+// Parametres del peu de pagina
+.pie-de-pagina .grupo-3 .caja p{
     color: #efefef;
     margin-bottom: 10px;
 }
-.pie-pagina .grupo-1 .red-social a{
+
+// Parametres del peu de pagina
+.pie-de-pagina .grupo-3 .red-social a{
     display: inline-block;
     text-decoration: none;
     width: 45px;
@@ -430,10 +458,14 @@ $primary: #694abb;
     text-align: center;
     transition: all 300ms ease;
 }
-.pie-pagina .grupo-1 .red-social a:hover{
+
+// Parametres del peu de pagina
+.pie-de-pagina .grupo-3 .red-social a:hover{
     background-color: #bbbbb6;
 }
-.pie-pagina .grupo-1 .red-social a i{
+
+// Parametres del peu de pagina
+.pie-de-pagina .grupo-3 .red-social a i{
     width: 5%;
     height: 45px;
     padding-top: 10%;

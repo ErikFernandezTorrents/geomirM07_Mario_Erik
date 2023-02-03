@@ -15,16 +15,16 @@ crossorigin=""></script>
    
 </style>
 <script src="https://cdn.jsdelivr.net/npm/ol@v7.2.2/dist/ol.js"></script>
-<div class="flex-contact">
-    <div class="fondo-cont">
-        <video src="./audio/videoContact.mp4" class="video-que-miras" autoplay="true" muted="true" loop="true"></video>
-        <div class="texto-encima">Contacta amb Geo - Mir</div>
-        <div class="texto-encima2">Envians un missatge</div>
+<div class="contacto-flex">
+    <div class="contenedor-fondo">
+        <video src="./audio/videoContact.mp4" class="video" autoplay="true" muted="true" loop="true"></video>
+        <div class="texto-arriba">Contacta amb Geo - Mir</div>
+        <div class="texto-arriba2">Envians un missatge</div>
         <button class="boton-contacto">Formulari de contacte</button>
     </div>
 
     <div class="mapa-Contacto">
-        <div id="map">
+        <div id="mapa">
             <script>
                 
                 var map = L.map('map').setView([41.231391, 1.728118],17);
@@ -63,19 +63,19 @@ crossorigin=""></script>
             </script>
         </div>
     </div>
-    <footer class="pie-pagina">
-        <div class="grupo-1">
+    <footer class="pie-de-pagina">
+        <div class="grupo-3">
             <div class="box">
-                <div class="logo-cont">
+                <div class="contenedor-logo">
                     <img src="./images/logo_geomir.ico" alt="Logo de Geomir">
                 </div>
             </div>
-            <div class="box">
+            <div class="caja">
                 <h2>Informació corporativa</h2>
                 <p>Geolocalitza els teus amics, i llocs d'interès gràcies a les publicacions de la gent del teu volant.</p>
                 <p><i class="bi bi-geo-alt"></i> Av. de Vilafranca del Penedès, 08800 Vilanova i la Geltrú, Barcelona</p>
             </div>
-            <div class="box">
+            <div class="caja">
                 <h2>Xarxes Socials</h2>
                 <div class="red-social">
                     <a href="https://es-la.facebook.com"><i class="bi bi-facebook"></i></a>
