@@ -1,11 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="crossorigin=""/>
-
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+     integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
+     crossorigin=""/>
 <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
-integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
-crossorigin=""></script>
+     integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
+     crossorigin=""></script>
 
 <style>
     ::-webkit-scrollbar {
@@ -23,8 +24,7 @@ crossorigin=""></script>
         <button class="boton-contacto">Formulari de contacte</button>
     </div>
 
-    <div class="mapa-Contacto">
-        <div id="mapa">
+        <div id="map">
             <script>
                 
                 var map = L.map('map').setView([41.231391, 1.728118],17);
@@ -32,6 +32,7 @@ crossorigin=""></script>
                     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
                 }).addTo(map);
                 var marker = L.marker([41.231391, 1.728118]).addTo(map);
+                
                 var circle = L.circle([41.231391, 1.728118], {
                     color: 'red',
                     fillColor: '#f03',
@@ -58,11 +59,9 @@ crossorigin=""></script>
                 
                 }
                 
-                key('ctrl+alt+c', function(){ alert('stopped reload!'); return false });
-                
             </script>
         </div>
-    </div>
+
     <footer class="pie-de-pagina">
         <div class="grupo-3">
             <div class="box">
