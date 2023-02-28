@@ -32,7 +32,7 @@
     <div id="app">
         <nav class="navbar navbar-expand-md  backgroundNav">
             <div class="containerNav">
-                <a class="navbar-brand" href="{{ url('/dashboard') }}"><img class="logo" src="../images/logo_geomir.png"></img></a>
+                <a class="navbar-brand" href="{{ url('/dashboard') }}"><img class="logo" alt="logoGeo-mir" src="../images/logo_geomir.png"></img></a>
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -93,14 +93,14 @@
                             </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="https://icons8.com/icon/52946/menú-xbox" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    <img id="burguer" src ="../../images/menu.png" >
+                                    <img id="burguer" alt="menú desplegable" src ="../../images/menu.png" >
                                 </a>
 
                                 <div class="dropdown-menu css-menu" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('dashboard') }}">
                                         {{ __('fields.followers') }}
                                     </a>
-                                    <a class="dropdown-item" href="{{ route('dashboard') }}">
+                                    <a class="dropdown-item">
                                         {{ __('fields.profile') }}
                                     </a>
                                     <a class="dropdown-item" href="{{ url('/about-us') }}">
