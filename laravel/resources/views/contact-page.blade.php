@@ -85,5 +85,30 @@
             </div>
         </div>
     </footer>
+    <script>
+        const grammar = "#JSGF V1.0; grammar options; public <option> = ";
+        const recognition = new SpeechRecognition();
+        const speechRecognitionList = new SpeechGrammarList();
+        speechRecognitionList.addFromString(grammar, 1);
+        recognition.grammars = speechRecognitionList;
+        recognition.continuous = false;
+        recognition.lang = "es-ES";
+        recognition.interimResults = false;
+        recognition.maxAlternatives = 1;
+
+        const diagnostic = document.querySelector(".output");
+        const bg = document.querySelector("html");
+
+        document.body.onclick = () => {
+        recognition.start();
+        console.log("Ready to receive a color command.");
+        };
+
+        recognition.onresult = (event) => {
+        const option = event.results[0][0].transcript;
+        diagnostic.textContent = `Result received: ${color}`;
+        bg.style.backgroundColor = color;
+        };
+    </script>
 </div>
 @endsection
