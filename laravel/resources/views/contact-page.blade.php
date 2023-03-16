@@ -58,8 +58,6 @@ crossorigin=""></script>
                 
                 }
                 
-                key('ctrl+alt+c', function(){ alert('stopped reload!'); return false });
-                
             </script>
         </div>
     </div>
