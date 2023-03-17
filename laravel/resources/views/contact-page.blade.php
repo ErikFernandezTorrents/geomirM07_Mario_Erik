@@ -98,7 +98,7 @@
         // SpeechGrammarList is not currently available in Safari, and does not have any effect in any other browser.
         // This code is provided as a demonstration of possible capability. You may choose not to use it.
         var speechRecognitionList = new SpeechGrammarList();
-        var grammar = '#JSGF V1.0; grammar palabras; public <color> = ' + palabras.join(' | ') + ' ;'
+        var grammar = '#JSGF V1.0; grammar palabras; public <palabra> = ' + palabras.join(' | ') + ' ;'
         speechRecognitionList.addFromString(grammar, 1);
         recognition.grammars = speechRecognitionList;
         }
@@ -115,8 +115,8 @@
 
         recognition.onresult = function(event) {
 
-        var color = event.results[0][0].transcript;
-        diagnostic.textContent = 'Result received: ' + color + '.';
+        var palabra = event.results[0][0].transcript;
+        diagnostic.textContent = 'Result received: ' + palabra + '.';
         bg.style.backgroundColor = color;
         console.log('Confidence: ' + event.results[0][0].confidence);
         }
