@@ -56,7 +56,6 @@
                     .setLatLng([position.coords.latitude, position.coords.longitude])
                     .setContent("Tu ets aquí!!")
                     .openOn(map);
-                
                 }
                 
             </script>
@@ -74,41 +73,66 @@
                 <p>Geolocalitza els teus amics, i llocs d'interès gràcies a les publicacions de la gent del teu volant.</p>
                 <p><i class="bi bi-geo-alt"></i> Av. de Vilafranca del Penedès, 08800 Vilanova i la Geltrú, Barcelona</p>
             </div>
+            <button class="boton-contacto" id ="botonVoz"><i class="bi bi-mic"></i></button>
             <div class="caja">
                 <h2>Xarxes Socials</h2>
                 <div class="red-social">
                     <a href="https://es-la.facebook.com"><i class="bi bi-facebook"></i></a>
                     <a href="https://www.instagram.com" ><i class="bi bi-instagram"></i></a>
                     <a href="https://twitter.com"><i class="bi bi-twitter"></i></a>
-                    <a href="https://www.witch.com"><i class="bi bi-twitch"></i></a>
+                    <a href="https://www.twitch.com"><i class="bi bi-twitch"></i></a>
                 </div>
             </div>
         </div>
     </footer>
     <script>
-        const grammar = "#JSGF V1.0; grammar options; public <option> = ";
-        const recognition = new SpeechRecognition();
-        const speechRecognitionList = new SpeechGrammarList();
+        var boton = document.getElementById('botonVoz');
+        var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition
+        var SpeechGrammarList = SpeechGrammarList || window.webkitSpeechGrammarList
+        var SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEvent
+
+        var palabras = ["sube","baja","aumenta zum","baja zum"];
+
+        var recognition = new SpeechRecognition();
+        if (SpeechGrammarList) {
+        // SpeechGrammarList is not currently available in Safari, and does not have any effect in any other browser.
+        // This code is provided as a demonstration of possible capability. You may choose not to use it.
+        var speechRecognitionList = new SpeechGrammarList();
+        var grammar = '#JSGF V1.0; grammar palabras; public <color> = ' + palabras.join(' | ') + ' ;'
         speechRecognitionList.addFromString(grammar, 1);
         recognition.grammars = speechRecognitionList;
+        }
         recognition.continuous = false;
-        recognition.lang = "es-ES";
+        recognition.lang = 'es-ES';
         recognition.interimResults = false;
         recognition.maxAlternatives = 1;
 
-        const diagnostic = document.querySelector(".output");
-        const bg = document.querySelector("html");
+        boton.addEventListener("click",function() {
+            recognition.start();
+            console.log("Llest per a rebre ordres.");
 
-        document.body.onclick = () => {
-        recognition.start();
-        console.log("Ready to receive a color command.");
-        };
+        });
 
-        recognition.onresult = (event) => {
-        const option = event.results[0][0].transcript;
-        diagnostic.textContent = `Result received: ${color}`;
+        recognition.onresult = function(event) {
+
+        var color = event.results[0][0].transcript;
+        diagnostic.textContent = 'Result received: ' + color + '.';
         bg.style.backgroundColor = color;
-        };
+        console.log('Confidence: ' + event.results[0][0].confidence);
+        }
+
+        recognition.onspeechend = function() {
+        recognition.stop();
+        }
+
+        recognition.onnomatch = function(event) {
+        diagnostic.textContent = "No puedo reconocer esa palabra.";
+        }
+
+        recognition.onerror = function(event) {
+        diagnostic.textContent = 'Ha ocurrido un error en el reconocimiento: ' + event.error;
+        }
+
     </script>
 </div>
 @endsection
