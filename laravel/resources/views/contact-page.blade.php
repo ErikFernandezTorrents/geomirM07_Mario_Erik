@@ -22,8 +22,9 @@
         <div class="texto-arriba">Contacta amb Geo - Mir</div>
         <div class="texto-arriba2">Envians un missatge</div>
         <button class="boton-contacto">Formulari de contacte</button>
+        <button class="boton-contacto" id ="botonVoz"><i class="bi bi-mic"></i></button>
+        <div id="diagnostic"></div>
     </div>
-
         <div id="map">
             <script>
                 
@@ -73,7 +74,6 @@
                 <p>Geolocalitza els teus amics, i llocs d'interès gràcies a les publicacions de la gent del teu volant.</p>
                 <p><i class="bi bi-geo-alt"></i> Av. de Vilafranca del Penedès, 08800 Vilanova i la Geltrú, Barcelona</p>
             </div>
-            <button class="boton-contacto" id ="botonVoz"><i class="bi bi-mic"></i></button>
             <div class="caja">
                 <h2>Xarxes Socials</h2>
                 <div class="red-social">
@@ -84,6 +84,9 @@
                 </div>
             </div>
         </div>
+        <a href="https://www.w3.org/WAI/WCAG2A-Conformance" title="Explanation of WCAG 2 Level A Conformance">
+                <img height="32" width="88"src="https://www.w3.org/WAI/WCAG21/wcag2.1A-v" alt="Level A conformance,W3C WAI Web Content Accessibility Guidelines 2.1">
+        </a>
     </footer>
     <script>
         var boton = document.getElementById('botonVoz');
@@ -91,16 +94,14 @@
         var SpeechGrammarList = SpeechGrammarList || window.webkitSpeechGrammarList
         var SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEvent
 
-        var palabras = ["sube","baja","aumenta zum","baja zum"];
+        var palabras = ["sube","baja","zoom","baja zoom"];
 
         var recognition = new SpeechRecognition();
         if (SpeechGrammarList) {
-        // SpeechGrammarList is not currently available in Safari, and does not have any effect in any other browser.
-        // This code is provided as a demonstration of possible capability. You may choose not to use it.
-        var speechRecognitionList = new SpeechGrammarList();
-        var grammar = '#JSGF V1.0; grammar palabras; public <palabra> = ' + palabras.join(' | ') + ' ;'
-        speechRecognitionList.addFromString(grammar, 1);
-        recognition.grammars = speechRecognitionList;
+            var speechRecognitionList = new SpeechGrammarList();
+            var grammar = '#JSGF V1.0; grammar palabras; public <palabra> = ' + palabras.join(' | ') + ' ;'
+            speechRecognitionList.addFromString(grammar, 1);
+            recognition.grammars = speechRecognitionList;
         }
         recognition.continuous = false;
         recognition.lang = 'es-ES';
@@ -109,29 +110,49 @@
 
         boton.addEventListener("click",function() {
             recognition.start();
-            console.log("Llest per a rebre ordres.");
-
+            console.log("Listo para recibir órdenes.");
         });
 
         recognition.onresult = function(event) {
-
-        var palabra = event.results[0][0].transcript;
-        diagnostic.textContent = 'Result received: ' + palabra + '.';
-        bg.style.backgroundColor = color;
-        console.log('Confidence: ' + event.results[0][0].confidence);
-        }
-
-        recognition.onspeechend = function() {
-        recognition.stop();
-        }
+            var palabra = event.results[0][0].transcript;
+            var diagnostic = document.getElementById('diagnostic'); // variable diagnostic definida
+            diagnostic.textContent = 'Resultado recibido: ' + palabra + '.';
+            console.log('Confianza: ' + event.results[0][0].confidence);
+            
+            if (palabra.toLowerCase() === "sube") {
+                window.scrollBy(0, -window.innerHeight);
+            } else if (palabra.toLowerCase() === "baja") {
+                window.scrollBy(0, window.innerHeight);
+            } else if (palabra.toLowerCase() === "zoom") {
+                var match = document.body.style.transform.match(/scale\((.*?)\)/);
+                var zoom = match ? parseFloat(match[1]) : 1;
+                document.body.style.transform = `scale(${zoom + 0.1})`;
+            } else if (palabra.toLowerCase() === "baja zoom") {
+                var match = document.body.style.transform.match(/scale\((.*?)\)/);
+                var zoom = match ? parseFloat(match[1]) : 1;
+                document.body.style.transform = `scale(${zoom - 0.1})`;
+            }
+        };
 
         recognition.onnomatch = function(event) {
-        diagnostic.textContent = "No puedo reconocer esa palabra.";
-        }
+            var diagnostic = document.getElementById('diagnostic'); // variable diagnostic definida
+            diagnostic.textContent = "No puedo reconocer esa palabra.";
+        };
 
         recognition.onerror = function(event) {
-        diagnostic.textContent = 'Ha ocurrido un error en el reconocimiento: ' + event.error;
+            var diagnostic = document.getElementById('diagnostic'); // variable diagnostic definida
+            diagnostic.textContent = 'Ha ocurrido un error en el reconocimiento: ' + event.error;
+        };
+
+        document.addEventListener('keydown', function(event) {
+        // Combinación de teclas: Ctrl + Alt + R (82 en ASCII)
+        if (event.ctrlKey && event.altKey && event.keyCode === 82) {
+            // Restaurar scroll
+            window.scrollTo(0, 0);
+            // Restaurar zoom
+            document.body.style.transform = 'scale(1)';
         }
+        });
 
     </script>
 </div>
