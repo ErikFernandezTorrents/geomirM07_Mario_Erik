@@ -181,7 +181,7 @@
     }
 </style>
 
-<h1 id="h1About">Meet Geo-Mir team</h1>
+<h1 id="h1About" onclick="leerText()">Meet Geo-Mir team</h1>
 <div class="divAbout">
     <!-- Erik -->
     <div class="container">
@@ -301,7 +301,7 @@
                     </div>
                 </a>
             </div>
-            <div class="contenido">
+            <div class="contenido contenido-boton">
                 <h2>Mario Estarlich</h2>
                 <button class="cargo2 cargo"></button>
             </div>
@@ -366,5 +366,45 @@
         var data = event.dataTransfer.getData("divID");
         event.target.appendChild(document.getElementById(data));
     }
+
+        // Quan feu clic en un element amb l'id "llegir", aquesta funció fa que el contingut es guardi i es llegeixi en veu alta en espanyol.
+        function leerText() {
+            var texto = document.getElementById("h1About").innerText; 
+            var synth = window.speechSynthesis;
+            var msg = new SpeechSynthesisUtterance();
+            msg.text = texto; 
+            msg.lang = 'es-ES'; 
+            synth.speak(msg);
+        } 
+
+        // L'element pare i l'element fill són dos elements que definim.
+        const boton = document.getElementById('div2');
+        const contenido = document.querySelector('.contenido-boton');
+
+        // L'element secundari es llegirà quan feu clic dues vegades a l'element principal.
+        boton.addEventListener('dblclick', leerContenido);
+        function leerContenido() {
+            const mensaje = new SpeechSynthesisUtterance();
+            mensaje.lang = 'es-ES';  
+            mensaje.text = contenido.textContent;
+            window.speechSynthesis.speak(mensaje);
+        }       
+        // Especificem la funció per llegir la pàgina i emmagatzemar tot el contingut de la pàgina en una constant interna.
+        function speakPage() {
+            const text = document.body.innerText;
+            const synth = window.speechSynthesis;
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang= 'es-ES'; 
+            synth.speak(utterance);
+        }
+        // La funció anterior es farà quan s'executi aquesta draciera.
+        document.addEventListener("keydown", (e) => {
+        if (e.ctrlKey && e.key === "l") {
+            speakPage();
+        }
+        });
+    
+    </script>
+
 </script>
 @endsection
